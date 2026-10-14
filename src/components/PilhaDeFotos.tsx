@@ -24,8 +24,8 @@ const LIMIAR_ARRASTO = 50;
 
 /**
  * Pilha de polaroids.
- * Avança: arrastar para a direita, tocar no lado direito ou seta →.
- * Volta: arrastar para a esquerda, tocar no lado esquerdo ou seta ←.
+ * Avança: tocar no lado direito, arrastar para a esquerda ou seta →.
+ * Volta: tocar no lado esquerdo, arrastar para a direita ou seta ←.
  * Ao avançar, a de cima é erguida e vai para o fim da pilha, e a próxima vem do lado
  * para o centro, crescendo e ganhando foco.
  */
@@ -56,7 +56,8 @@ export function PilhaDeFotos({ fotos }: { fotos: Foto[] }) {
     setArrasto(0);
 
     if (Math.abs(dx) >= LIMIAR_ARRASTO) {
-      if (dx > 0) avancar();
+      // Como virar páginas: puxar para a esquerda traz a próxima, para a direita traz a anterior.
+      if (dx < 0) avancar();
       else voltar();
       return;
     }
