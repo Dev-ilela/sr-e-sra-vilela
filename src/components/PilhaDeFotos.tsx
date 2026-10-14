@@ -2,31 +2,42 @@
 
 import { useState } from "react";
 
-export type Foto = { src: string; alt: string; legenda: string; foco?: string };
+export type Foto = { src: string; alt: string; legenda: string };
 
-/** Ângulos fixos (não aleatórios) para o servidor e o navegador desenharem igual. */
-const GIROS = [-4, 3, -2, 5, -6, 2, -3, 4];
-/** No desktop as fotos de baixo ficam espalhadas pela "mesa", à esquerda e à direita. */
-const LADOS = [0, -1, 1, -0.55, 0.55, 0, 0, 0];
+type Lugar = "centro" | "direita" | "esquerda" | "atras";
 
 /**
- * Pilha de fotos impressas. Tocar na de cima manda ela para o fundo da pilha.
+ * Lugar de cada polaroid na mesa, pela posição na fila:
+ * a primeira fica no centro, a próxima espera à direita,
+ * a última (a que acabou de passar) fica à esquerda e o resto atrás.
+ */
+function lugarDe(pos: number, total: number): Lugar {
+  if (pos === 0) return "centro";
+  if (pos === 1) return "direita";
+  if (pos === total - 1) return "esquerda";
+  return "atras";
+}
+
+const ERGUER_MS = 260;
+
+/**
+ * Pilha de polaroids. Ao tocar, a de cima é erguida e vai para o fim da pilha,
+ * e a próxima vem do lado para o centro, crescendo e ganhando foco.
  */
 export function PilhaDeFotos({ fotos }: { fotos: Foto[] }) {
   const [ordem, setOrdem] = useState(() => fotos.map((_, i) => i));
-  const [saindo, setSaindo] = useState<number | null>(null);
+  const [erguendo, setErguendo] = useState(false);
 
   const passar = () => {
-    if (saindo !== null) return;
-    const topo = ordem[0];
-    setSaindo(topo);
+    if (erguendo) return;
+    setErguendo(true);
     window.setTimeout(() => {
       setOrdem((o) => [...o.slice(1), o[0]]);
-      setSaindo(null);
-    }, 420);
+      setErguendo(false);
+    }, ERGUER_MS);
   };
 
-  const atual = fotos[ordem[0]];
+  const atual = ordem[0];
 
   return (
     <figure className="pilha">
@@ -34,41 +45,27 @@ export function PilhaDeFotos({ fotos }: { fotos: Foto[] }) {
         type="button"
         className="pilha__mesa"
         onClick={passar}
-        aria-label={`Foto ${fotos.indexOf(atual) + 1} de ${fotos.length}: ${atual.alt}. Toque para ver a próxima.`}
+        aria-label={`Foto ${atual + 1} de ${fotos.length}: ${fotos[atual].alt}. Toque para ver a próxima.`}
       >
         {fotos.map((foto, i) => {
           const pos = ordem.indexOf(i);
-          const giro = GIROS[i % GIROS.length];
+          const lugar = lugarDe(pos, fotos.length);
+          const classe = [
+            "polaroid",
+            `polaroid--${lugar}`,
+            erguendo && pos === 0 ? "polaroid--erguida" : "",
+          ].join(" ");
           return (
-            <span
-              key={foto.src}
-              className={`pilha__foto ${saindo === i ? "pilha__foto--saindo" : ""}`}
-              style={
-                {
-                  zIndex: fotos.length - pos,
-                  "--giro": `${pos === 0 ? 0 : giro}deg`,
-                  "--profundidade": pos,
-                  "--lado": LADOS[Math.min(pos, LADOS.length - 1)],
-                } as React.CSSProperties
-              }
-              aria-hidden={pos !== 0}
-            >
+            <span key={foto.src} className={classe} aria-hidden={pos !== 0}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={foto.src}
-                alt=""
-                loading={pos < 2 ? "eager" : "lazy"}
-                style={{ objectPosition: foto.foco ?? "center" }}
-              />
+              <img src={foto.src} alt="" loading={lugar === "atras" ? "lazy" : "eager"} />
+              <span className="polaroid__legenda">{foto.legenda}</span>
             </span>
           );
         })}
       </button>
-      <figcaption className="pilha__legenda" aria-live="polite">
-        <span>{atual.legenda}</span>
-        <span className="pilha__dica">
-          {fotos.indexOf(atual) + 1} de {fotos.length}, toque para passar
-        </span>
+      <figcaption className="pilha__dica" aria-live="polite">
+        {atual + 1} de {fotos.length}. Toque na foto para passar.
       </figcaption>
     </figure>
   );

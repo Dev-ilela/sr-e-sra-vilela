@@ -5,6 +5,7 @@
   --marinho: #14233b;
   --marinho-claro: #22395a;
   --nevoa: #d6dbe1;
+  --cinza: #e7eaee;
   --branco: #fafbfc;
   --ouro: #c2a15f;
   --rose: #e2b3a3;
@@ -222,7 +223,10 @@ body {
 /* ---------- O casal ---------- */
 
 .casal {
-  background: var(--branco);
+  /* Cinza claro do casamento, com um brilho suave no alto. */
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 255, 255, 0.7) 0%, transparent 70%),
+    var(--cinza);
   color: var(--marinho);
   padding: clamp(5rem, 12vw, 9rem) 1rem clamp(5rem, 10vw, 8rem);
   display: grid;
@@ -240,13 +244,14 @@ body {
   font-size: clamp(2.6rem, 7.5vw, 5.5rem);
   line-height: 1;
   letter-spacing: -0.02em;
-  text-wrap: balance;
 }
 
 .casal__sub {
-  margin-top: 1rem;
+  margin-top: 1.1rem;
   font-family: var(--font-display);
   font-style: italic;
+  font-weight: 500;
+  font-variation-settings: "opsz" 14;
   font-size: clamp(1.15rem, 2.2vw, 1.5rem);
   color: var(--rose-escuro);
 }
@@ -270,11 +275,14 @@ body {
   pointer-events: none;
 }
 
+/* Texto corrido com tamanho óptico pequeno: traços mais grossos e leitura mais fácil. */
 .casal__historia p {
   position: relative;
   font-family: var(--font-display);
-  font-size: clamp(1.3rem, 2.5vw, 1.95rem);
-  line-height: 1.55;
+  font-weight: 500;
+  font-variation-settings: "opsz" 11;
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+  line-height: 1.6;
   color: var(--marinho);
 }
 
@@ -293,7 +301,7 @@ body {
   vertical-align: -0.12em;
   border-radius: 999px;
   object-fit: cover;
-  box-shadow: 0 0 0 2px var(--branco), 0 0 0 3px var(--rose);
+  box-shadow: 0 0 0 2px var(--cinza), 0 0 0 3px var(--rose);
   transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), border-radius 0.35s;
   transform-origin: center;
   cursor: zoom-in;
@@ -308,21 +316,98 @@ body {
   outline: none;
 }
 
-/* ---------- Pilha de fotos ---------- */
+/* ---------- Marcos (datas em sequência) ---------- */
+
+.marcos {
+  list-style: none;
+  margin-top: clamp(3.5rem, 8vw, 5rem);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  position: relative;
+  padding-top: 1.4rem;
+}
+
+.marcos::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--rose) 0%, var(--rose-escuro) 100%);
+}
+
+.marcos__item {
+  position: relative;
+  display: grid;
+  gap: 0.25rem;
+  padding-right: 0.75rem;
+}
+
+.marcos__item::before {
+  content: "";
+  position: absolute;
+  top: calc(-1.4rem - 3.5px);
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cinza);
+  box-shadow: 0 0 0 1px var(--rose-escuro);
+}
+
+.marcos__item:last-child::before {
+  background: var(--rose-escuro);
+}
+
+.marcos__data {
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+.marcos__o-que {
+  font-size: 0.9rem;
+  color: #4f5b6d;
+}
+
+/* No celular a linha do tempo fica na vertical. */
+@media (max-width: 560px) {
+  .marcos {
+    grid-template-columns: 1fr;
+    row-gap: 1.4rem;
+    padding-top: 0;
+    padding-left: 1.6rem;
+  }
+  .marcos::before {
+    top: 0.5rem;
+    bottom: 0.9rem;
+    right: auto;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(180deg, var(--rose) 0%, var(--rose-escuro) 100%);
+  }
+  .marcos__item::before {
+    top: 0.45rem;
+    left: calc(-1.6rem - 3.5px);
+  }
+}
+
+/* ---------- Polaroids ---------- */
 
 .pilha {
-  --espalhar: 0;
+  --lado: 70%;
   margin-top: clamp(4rem, 9vw, 6rem);
   justify-self: center;
-  width: min(25rem, 84%);
+  width: min(23rem, 72vw);
   display: grid;
-  gap: 1.75rem;
+  gap: 2rem;
 }
 
 .pilha__mesa {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 10 / 13;
   border: 0;
   padding: 0;
   background: none;
@@ -335,60 +420,87 @@ body {
   outline-offset: 1.5rem;
 }
 
-.pilha__foto {
+.polaroid {
   position: absolute;
   inset: 0;
-  padding: 0.6rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 4.5% 4.5% 0;
   background: #fff;
   box-shadow:
     0 1px 2px rgba(20, 35, 59, 0.12),
-    0 12px 28px -12px rgba(20, 35, 59, 0.35);
-  transform:
-    translateX(calc(var(--lado) * var(--espalhar) * 78%))
-    translateY(calc(var(--profundidade) * 3px + var(--espalhar) * min(var(--profundidade), 1) * 6%))
-    rotate(calc(var(--giro) * (1 + var(--espalhar) * 0.8)))
-    scale(calc(1 - var(--espalhar) * min(var(--profundidade), 1) * 0.12));
-  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s;
+    0 18px 36px -16px rgba(20, 35, 59, 0.45);
+  transition:
+    transform 0.6s cubic-bezier(0.22, 0.8, 0.25, 1),
+    filter 0.6s ease,
+    opacity 0.6s ease;
+  will-change: transform, filter;
 }
 
-.pilha__foto img {
+.polaroid img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 10 / 11;
   object-fit: cover;
   display: block;
 }
 
-.pilha__foto--saindo {
-  transform: translate(-115%, -4%) rotate(-14deg);
-  opacity: 0;
-}
-
-.pilha__legenda {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
+.polaroid__legenda {
+  display: grid;
+  place-items: center;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.15rem;
+  font-weight: 500;
+  font-variation-settings: "opsz" 14;
+  font-size: clamp(0.95rem, 2.4vw, 1.2rem);
+  color: var(--marinho);
+  text-align: center;
+  padding: 0 0.5rem;
+}
+
+.polaroid--centro {
+  z-index: 3;
+  transform: none;
+}
+
+.polaroid--direita,
+.polaroid--esquerda {
+  z-index: 2;
+  filter: blur(2.5px);
+  opacity: 0.72;
+}
+
+.polaroid--direita {
+  transform: translateX(var(--lado)) scale(0.78) rotate(5deg);
+}
+
+.polaroid--esquerda {
+  transform: translateX(calc(var(--lado) * -1)) scale(0.78) rotate(-5deg);
+}
+
+.polaroid--atras {
+  z-index: 1;
+  transform: scale(0.7);
+  opacity: 0;
+  filter: blur(3px);
+}
+
+/* A foto de cima é erguida antes de ir para o fim da pilha. */
+.polaroid--erguida {
+  z-index: 4;
+  transform: translate(-18%, -7%) rotate(-7deg) scale(1.04);
+  transition-duration: 0.26s;
 }
 
 .pilha__dica {
-  font-family: var(--font-texto);
-  font-style: normal;
-  font-size: 0.8rem;
-  color: #5b6779;
-  white-space: nowrap;
-}
-
-@media (min-width: 900px) {
-  .pilha {
-    --espalhar: 1;
-    gap: 3.5rem;
-  }
+  text-align: center;
+  font-size: 0.85rem;
+  color: #4f5b6d;
 }
 
 @media (max-width: 640px) {
+  .pilha {
+    --lado: 34%;
+  }
   .casal__chip:hover,
   .casal__chip:focus-visible {
     transform: scale(2.4);
@@ -396,7 +508,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pilha__foto,
+  .polaroid,
   .casal__chip {
     transition: none;
   }
