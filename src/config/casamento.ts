@@ -5,6 +5,8 @@
 export const casamento = {
   noivo: "Gabriel",
   noiva: "Bianca",
+  // Endereço público do site, usado nos links de compartilhamento (Open Graph).
+  site: "https://www.sr-e-sra-vilela.com.br",
   // Horário da cerimônia (fuso de Brasília). O contador zera aqui e o site entra no modo "grande dia".
   dataHora: "2027-07-09T18:00:00-03:00",
   // Foto de fundo da entrada. Coloque o arquivo em /public e informe o caminho, ex.: "/fotos/entrada.jpg".
