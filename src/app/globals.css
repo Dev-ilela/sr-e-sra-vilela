@@ -38,7 +38,6 @@ body {
   position: relative;
   min-height: 100svh;
   display: grid;
-  grid-template-rows: 1fr auto;
   overflow: hidden;
   isolation: isolate;
 }
@@ -217,5 +216,188 @@ body {
   .contador__resto {
     transition: none;
     transform: none;
+  }
+}
+
+/* ---------- O casal ---------- */
+
+.casal {
+  background: var(--branco);
+  color: var(--marinho);
+  padding: clamp(5rem, 12vw, 9rem) 1rem clamp(5rem, 10vw, 8rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 46rem) minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.casal > * {
+  grid-column: 2;
+}
+
+.casal__titulo {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7.5vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.casal__sub {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  color: var(--rose-escuro);
+}
+
+.casal__historia {
+  position: relative;
+  margin-top: clamp(3rem, 7vw, 5rem);
+  padding-left: clamp(0rem, 4vw, 3.5rem);
+}
+
+/* Aspas de abertura penduradas na margem, em rose gold. */
+.casal__historia::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.42em;
+  left: -0.08em;
+  font-family: var(--font-display);
+  font-size: clamp(7rem, 16vw, 11rem);
+  line-height: 1;
+  color: var(--rose);
+  pointer-events: none;
+}
+
+.casal__historia p {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 1.95rem);
+  line-height: 1.55;
+  color: var(--marinho);
+}
+
+.casal__historia p::after {
+  content: "\201D";
+  color: var(--rose-escuro);
+  padding-left: 0.05em;
+}
+
+/* Fotos dentro do texto: pílulas que crescem ao passar o mouse ou focar. */
+.casal__chip {
+  display: inline-block;
+  width: 2.3em;
+  height: 1.15em;
+  margin: 0 0.08em;
+  vertical-align: -0.12em;
+  border-radius: 999px;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px var(--branco), 0 0 0 3px var(--rose);
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), border-radius 0.35s;
+  transform-origin: center;
+  cursor: zoom-in;
+  position: relative;
+}
+
+.casal__chip:hover,
+.casal__chip:focus-visible {
+  transform: scale(3.2);
+  border-radius: 0.2em;
+  z-index: 5;
+  outline: none;
+}
+
+/* ---------- Pilha de fotos ---------- */
+
+.pilha {
+  --espalhar: 0;
+  margin-top: clamp(4rem, 9vw, 6rem);
+  justify-self: center;
+  width: min(25rem, 84%);
+  display: grid;
+  gap: 1.75rem;
+}
+
+.pilha__mesa {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pilha__mesa:focus-visible {
+  outline: 2px solid var(--rose-escuro);
+  outline-offset: 1.5rem;
+}
+
+.pilha__foto {
+  position: absolute;
+  inset: 0;
+  padding: 0.6rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgba(20, 35, 59, 0.12),
+    0 12px 28px -12px rgba(20, 35, 59, 0.35);
+  transform:
+    translateX(calc(var(--lado) * var(--espalhar) * 78%))
+    translateY(calc(var(--profundidade) * 3px + var(--espalhar) * min(var(--profundidade), 1) * 6%))
+    rotate(calc(var(--giro) * (1 + var(--espalhar) * 0.8)))
+    scale(calc(1 - var(--espalhar) * min(var(--profundidade), 1) * 0.12));
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s;
+}
+
+.pilha__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pilha__foto--saindo {
+  transform: translate(-115%, -4%) rotate(-14deg);
+  opacity: 0;
+}
+
+.pilha__legenda {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+}
+
+.pilha__dica {
+  font-family: var(--font-texto);
+  font-style: normal;
+  font-size: 0.8rem;
+  color: #5b6779;
+  white-space: nowrap;
+}
+
+@media (min-width: 900px) {
+  .pilha {
+    --espalhar: 1;
+    gap: 3.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .casal__chip:hover,
+  .casal__chip:focus-visible {
+    transform: scale(2.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pilha__foto,
+  .casal__chip {
+    transition: none;
   }
 }
