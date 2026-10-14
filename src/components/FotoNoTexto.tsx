@@ -37,7 +37,7 @@ export function FotoNoTexto({ chip, grande, alt }: Props) {
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={grande} alt={alt} loading="lazy" className="foto-aberta__img" />
+        <img src={grande} alt={alt} decoding="async" className="foto-aberta__img" />
         <button type="button" className="foto-aberta__fechar" onClick={fechar} aria-label="Fechar foto">
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
             <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
