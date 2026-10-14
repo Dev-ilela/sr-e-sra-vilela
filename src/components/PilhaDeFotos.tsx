@@ -18,7 +18,6 @@ function lugarDe(pos: number, total: number): Lugar {
   return "atras";
 }
 
-const ERGUER_MS = 260;
 /** Quanto arrastar (px) para contar como troca de foto. */
 const LIMIAR_ARRASTO = 50;
 
@@ -26,28 +25,17 @@ const LIMIAR_ARRASTO = 50;
  * Pilha de polaroids.
  * Avança: tocar no lado direito, arrastar para a esquerda ou seta →.
  * Volta: tocar no lado esquerdo, arrastar para a direita ou seta ←.
- * Ao avançar, a de cima é erguida e vai para o fim da pilha, e a próxima vem do lado
- * para o centro, crescendo e ganhando foco.
+ * Avançar e voltar animam do mesmo jeito, só que espelhados: a foto do centro desliza
+ * para um lado e a do outro lado vem para o centro, crescendo e ganhando foco.
  */
 export function PilhaDeFotos({ fotos }: { fotos: Foto[] }) {
   const [ordem, setOrdem] = useState(() => fotos.map((_, i) => i));
-  const [erguendo, setErguendo] = useState(false);
   const [arrasto, setArrasto] = useState(0);
   const inicioArrasto = useRef<number | null>(null);
 
-  const avancar = () => {
-    if (erguendo) return;
-    setErguendo(true);
-    window.setTimeout(() => {
-      setOrdem((o) => [...o.slice(1), o[0]]);
-      setErguendo(false);
-    }, ERGUER_MS);
-  };
+  const avancar = () => setOrdem((o) => [...o.slice(1), o[0]]);
 
-  const voltar = () => {
-    if (erguendo) return;
-    setOrdem((o) => [o[o.length - 1], ...o.slice(0, -1)]);
-  };
+  const voltar = () => setOrdem((o) => [o[o.length - 1], ...o.slice(0, -1)]);
 
   const soltar = (e: React.PointerEvent<HTMLDivElement>) => {
     if (inicioArrasto.current === null) return;
@@ -97,11 +85,7 @@ export function PilhaDeFotos({ fotos }: { fotos: Foto[] }) {
         {fotos.map((foto, i) => {
           const pos = ordem.indexOf(i);
           const lugar = lugarDe(pos, fotos.length);
-          const classe = [
-            "polaroid",
-            `polaroid--${lugar}`,
-            erguendo && pos === 0 ? "polaroid--erguida" : "",
-          ].join(" ");
+          const classe = `polaroid polaroid--${lugar}`;
           // Enquanto arrasta, a foto do centro acompanha o dedo, inclinando de leve.
           const estilo =
             pos === 0 && arrasto !== 0
