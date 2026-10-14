@@ -1,4 +1,5 @@
 import { PilhaDeFotos, type Foto } from "@/components/PilhaDeFotos";
+import { Regua, type Marco } from "@/components/Regua";
 import { casamento } from "@/config/casamento";
 
 const FOTOS: Foto[] = [
@@ -12,11 +13,11 @@ const FOTOS: Foto[] = [
   { src: "/fotos/casal/8-drone.webp", alt: "O drone trazendo as alianças enquanto nos abraçamos", legenda: "As alianças chegando de drone" },
 ];
 
-const MARCOS = [
-  { data: "26.11.2021", oQue: "O primeiro encontro" },
-  { data: "08.04.2022", oQue: "Começa o namoro" },
-  { data: "10.01.2026", oQue: "O noivado" },
-  { data: "09.07.2027", oQue: "O casamento" },
+const MARCOS: Marco[] = [
+  { data: "26.11.2021", titulo: "O 1º encontro" },
+  { data: "08.04.2022", titulo: "O namoro" },
+  { data: "10.01.2026", titulo: "O noivado" },
+  { data: "09.07.2027", titulo: "O casamento" },
 ];
 
 function Foto({ src, alt }: { src: string; alt: string }) {
@@ -52,14 +53,7 @@ export function Casal() {
         </p>
       </blockquote>
 
-      <ol className="marcos">
-        {MARCOS.map((m) => (
-          <li key={m.data} className="marcos__item">
-            <span className="marcos__data">{m.data}</span>
-            <span className="marcos__o-que">{m.oQue}</span>
-          </li>
-        ))}
-      </ol>
+      <Regua marcos={MARCOS} />
 
       <PilhaDeFotos fotos={FOTOS} />
     </section>

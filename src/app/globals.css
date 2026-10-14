@@ -321,83 +321,251 @@ body {
   outline: none;
 }
 
-/* ---------- Marcos (datas em sequência) ---------- */
+/* ---------- Régua do tempo ---------- */
 
-.marcos {
-  list-style: none;
-  margin-top: clamp(3.5rem, 8vw, 5rem);
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+.regua {
+  --trilho: 50%;
   position: relative;
-  padding-top: 1.4rem;
+  height: 13rem;
+  margin-top: clamp(3.5rem, 8vw, 5rem);
 }
 
-.marcos::before {
-  content: "";
+.regua__trilho {
   position: absolute;
-  top: 0;
   left: 0;
   right: 0;
+  top: var(--trilho);
   height: 1px;
+  background: rgba(20, 35, 59, 0.28);
+}
+
+.regua__traco {
+  position: absolute;
+  left: calc(var(--p) * 100%);
+  top: -3px;
+  width: 1px;
+  height: 7px;
+  background: rgba(20, 35, 59, 0.3);
+}
+
+.regua__traco--ano {
+  top: -9px;
+  height: 19px;
+  background: var(--marinho);
+}
+
+.regua__ano {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #4f5b6d;
+}
+
+/* O caminho já percorrido até hoje, em rose gold. */
+.regua__andado {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: calc(var(--p) * 100%);
+  height: 3px;
+  border-radius: 2px;
   background: linear-gradient(90deg, var(--rose) 0%, var(--rose-escuro) 100%);
 }
 
-.marcos__item {
-  position: relative;
-  display: grid;
-  gap: 0.25rem;
-  padding-right: 0.75rem;
+.regua__hoje {
+  position: absolute;
+  left: calc(var(--p) * 100%);
+  top: -2.1rem;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--rose-escuro);
 }
 
-.marcos__item::before {
+.regua__hoje::after {
   content: "";
   position: absolute;
-  top: calc(-1.4rem - 3.5px);
-  left: 0;
-  width: 8px;
-  height: 8px;
+  left: 50%;
+  top: 1.35rem;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
   border-radius: 50%;
-  background: var(--cinza);
-  box-shadow: 0 0 0 1px var(--rose-escuro);
+  background: var(--rose-escuro);
+  box-shadow: 0 0 0 3px rgba(185, 122, 116, 0.25);
 }
 
-.marcos__item:last-child::before {
+.regua__marco {
+  position: absolute;
+  left: calc(var(--p) * 100%);
+  display: grid;
+  gap: 0.15rem;
+  padding-left: 0.6rem;
+  white-space: nowrap;
+}
+
+/* Haste ligando o texto ao ponto na régua. */
+.regua__marco::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 1px;
   background: var(--rose-escuro);
 }
 
-.marcos__data {
+.regua__marco::after {
+  content: "";
+  position: absolute;
+  left: -4.5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cinza);
+  box-shadow: 0 0 0 1.5px var(--rose-escuro);
+}
+
+.regua__marco--cima {
+  bottom: var(--trilho);
+  padding-bottom: 1.6rem;
+}
+
+.regua__marco--cima::before {
+  bottom: 0;
+  height: 1.6rem;
+}
+
+.regua__marco--cima::after {
+  bottom: -4.5px;
+}
+
+.regua__marco--baixo {
+  top: var(--trilho);
+  padding-top: 3.2rem;
+}
+
+.regua__marco--baixo::before {
+  top: 0;
+  height: 3.2rem;
+}
+
+.regua__marco--baixo::after {
+  top: -4.5px;
+}
+
+/* O último marco cresce para a esquerda, para não sair da página. */
+.regua__marco--fim {
+  transform: translateX(-100%);
+  padding-left: 0;
+  padding-right: 0.6rem;
+  text-align: right;
+}
+
+.regua__marco--fim::before {
+  left: auto;
+  right: 0;
+}
+
+.regua__marco--fim::after {
+  left: auto;
+  right: -4.5px;
+  background: var(--rose-escuro);
+}
+
+.regua__data {
   font-family: var(--font-display);
   font-weight: 600;
   font-variation-settings: "opsz" 11;
   font-variant-numeric: lining-nums;
-  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
 }
 
-.marcos__o-que {
+.regua__titulo {
   font-size: 0.92rem;
   font-weight: 450;
   color: #3f4b5d;
 }
 
-/* No celular a linha do tempo fica na vertical. */
-@media (max-width: 560px) {
-  .marcos {
-    grid-template-columns: 1fr;
-    row-gap: 1.4rem;
-    padding-top: 0;
-    padding-left: 1.6rem;
+/* No celular a régua fica em pé. */
+@media (max-width: 600px) {
+  .regua {
+    --trilho: 4.25rem;
+    height: 32rem;
   }
-  .marcos::before {
-    top: 0.5rem;
-    bottom: 0.9rem;
+  .regua__trilho {
+    left: var(--trilho);
     right: auto;
+    top: 0;
+    bottom: 0;
     width: 1px;
     height: auto;
+  }
+  .regua__traco {
+    left: -3px;
+    top: calc(var(--p) * 100%);
+    width: 7px;
+    height: 1px;
+  }
+  .regua__traco--ano {
+    left: -9px;
+    width: 19px;
+  }
+  .regua__ano {
+    top: 50%;
+    left: auto;
+    right: 26px;
+    transform: translateY(-50%);
+  }
+  .regua__andado {
+    left: -1px;
+    top: 0;
+    width: 3px;
+    height: calc(var(--p) * 100%);
     background: linear-gradient(180deg, var(--rose) 0%, var(--rose-escuro) 100%);
   }
-  .marcos__item::before {
-    top: 0.45rem;
-    left: calc(-1.6rem - 3.5px);
+  .regua__hoje {
+    left: auto;
+    right: 1.4rem;
+    top: calc(var(--p) * 100%);
+    transform: translateY(-50%);
+  }
+  .regua__hoje::after {
+    left: auto;
+    right: -1.4rem;
+    top: 50%;
+    margin: -4.5px -4.5px 0 0;
+  }
+  .regua__marco,
+  .regua__marco--fim {
+    left: var(--trilho);
+    top: calc(var(--p) * 100%);
+    bottom: auto;
+    transform: translateY(-50%);
+    grid-auto-flow: column;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0 0 0 1.5rem;
+    text-align: left;
+  }
+  .regua__marco::before,
+  .regua__marco--fim::before {
+    left: 0;
+    right: auto;
+    top: 50%;
+    bottom: auto;
+    width: 1.1rem;
+    height: 1px;
+  }
+  .regua__marco::after,
+  .regua__marco--fim::after {
+    left: -4.5px;
+    right: auto;
+    top: 50%;
+    bottom: auto;
+    margin-top: -4.5px;
   }
 }
 
