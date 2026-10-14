@@ -6,7 +6,7 @@ export default function Entrada() {
   return (
     <main className="entrada">
       <div
-        className="entrada__fundo"
+        className={`entrada__fundo ${casamento.fotoEntrada ? "entrada__fundo--foto" : ""}`}
         style={casamento.fotoEntrada ? { backgroundImage: `url(${casamento.fotoEntrada})` } : undefined}
         aria-hidden="true"
       />

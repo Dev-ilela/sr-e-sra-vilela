@@ -7,6 +7,8 @@
   --nevoa: #d6dbe1;
   --branco: #fafbfc;
   --ouro: #c2a15f;
+  --rose: #e2b3a3;
+  --rose-escuro: #b97a74;
   --salvia: #8fac90;
 }
 
@@ -16,6 +18,7 @@
   --color-nevoa: var(--nevoa);
   --color-branco: var(--branco);
   --color-ouro: var(--ouro);
+  --color-rose: var(--rose);
   --color-salvia: var(--salvia);
   --font-display: "Bodoni Moda Variable", "Times New Roman", serif;
   --font-texto: "Jost Variable", system-ui, sans-serif;
@@ -50,8 +53,8 @@ body {
     radial-gradient(ellipse 40% 30% at 78% 85%, rgba(143, 172, 144, 0.12) 0%, transparent 70%);
   background-size: cover;
   background-position: center;
-  filter: blur(14px) saturate(0.85);
-  transform: scale(1.06);
+  filter: blur(var(--desfoque, 14px)) saturate(0.85);
+  transform: scale(1.08);
   animation: foco 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
@@ -82,7 +85,7 @@ body {
 
 .entrada__e {
   font-style: normal;
-  color: var(--ouro);
+  color: var(--rose);
   padding: 0 0.15em;
 }
 
@@ -174,9 +177,14 @@ body {
   color: rgba(214, 219, 225, 0.7);
 }
 
+/* Com foto: desfoque forte, só cor e forma ficam. */
+.entrada__fundo--foto {
+  --desfoque: 26px;
+}
+
 @keyframes foco {
   from {
-    filter: blur(28px) saturate(0.6);
+    filter: blur(48px) saturate(0.6);
     transform: scale(1.12);
   }
 }
