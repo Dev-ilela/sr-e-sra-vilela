@@ -8,7 +8,7 @@ export const casamento = {
   // Horário da cerimônia (fuso de Brasília). Ajustar quando o horário for definido.
   dataHora: "2027-07-09T16:00:00-03:00",
   // Foto de fundo da entrada. Coloque o arquivo em /public e informe o caminho, ex.: "/fotos/entrada.jpg".
-  fotoEntrada: null as string | null,
+  fotoEntrada: "/fotos/entrada.webp" as string | null,
 } as const;
 
 export const dataCasamento = new Date(casamento.dataHora);

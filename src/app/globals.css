@@ -53,7 +53,7 @@ body {
     radial-gradient(ellipse 40% 30% at 78% 85%, rgba(143, 172, 144, 0.12) 0%, transparent 70%);
   background-size: cover;
   background-position: center;
-  filter: blur(var(--desfoque, 14px)) saturate(0.85);
+  filter: blur(var(--desfoque, 14px)) saturate(var(--saturacao, 0.85));
   transform: scale(1.08);
   animation: foco 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
@@ -103,6 +103,7 @@ body {
   line-height: 0.82;
   letter-spacing: -0.03em;
   color: var(--branco);
+  text-shadow: 0 0.04em 0.4em rgba(20, 35, 59, 0.35);
   opacity: 0;
   transform: translateY(0.08em);
   transition:
@@ -179,7 +180,14 @@ body {
 
 /* Com foto: desfoque forte, só cor e forma ficam. */
 .entrada__fundo--foto {
-  --desfoque: 26px;
+  --desfoque: 8px;
+  --saturacao: 1.1;
+}
+
+.entrada__fundo--foto + .entrada__veu {
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 48%, rgba(20, 35, 59, 0.45) 0%, transparent 75%),
+    linear-gradient(180deg, rgba(20, 35, 59, 0.35) 0%, rgba(20, 35, 59, 0.2) 40%, rgba(20, 35, 59, 0.85) 100%);
 }
 
 @keyframes foco {
