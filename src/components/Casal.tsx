@@ -13,7 +13,7 @@ const FOTOS: Foto[] = [
 ];
 
 const MARCOS = [
-  { data: "2021", oQue: "A gente se conhece" },
+  { data: "26.11.2021", oQue: "O primeiro encontro" },
   { data: "08.04.2022", oQue: "Começa o namoro" },
   { data: "10.01.2026", oQue: "O noivado" },
   { data: "09.07.2027", oQue: "O casamento" },
@@ -41,9 +41,9 @@ export function Casal() {
       <blockquote className="casal__historia">
         <p>
           Em 2021 a gente se conheceu na ETEC Aristóteles Ferreira e, aos poucos, Deus{" "}
-          <Foto src="/fotos/casal/chip-oracao.webp" alt="Nós dois ajoelhados em oração com a família" /> foi nos
+          <Foto src="/fotos/casal/chip-comeco.webp" alt="Nossa selfie do começo, os dois sorrindo de aparelho" /> foi nos
           unindo conforme o plano dEle. No dia 8 de abril de 2022 nos demos em namoro{" "}
-          <Foto src="/fotos/casal/chip-maos.webp" alt="Nossas mãos dadas" /> e ali uma aliança começou. No dia
+          <Foto src="/fotos/casal/chip-namoro.webp" alt="Nós dois juntinhos no começo do namoro" /> e ali uma aliança começou. No dia
           10 de janeiro de 2026, quase quatro anos depois, no Morro da Asa Delta, as alianças do noivado chegaram
           de drone{" "}
           <Foto src="/fotos/casal/chip-drone.webp" alt="O drone no céu enquanto nos abraçamos" />. Hoje elas estão

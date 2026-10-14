@@ -240,7 +240,8 @@ body {
 
 .casal__titulo {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 600;
+  font-variation-settings: "opsz" 18;
   font-size: clamp(2.6rem, 7.5vw, 5.5rem);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -269,6 +270,8 @@ body {
   top: -0.42em;
   left: -0.08em;
   font-family: var(--font-display);
+  font-weight: 800;
+  font-variation-settings: "opsz" 6;
   font-size: clamp(7rem, 16vw, 11rem);
   line-height: 1;
   color: var(--rose);
@@ -288,6 +291,8 @@ body {
 
 .casal__historia p::after {
   content: "\201D";
+  font-weight: 800;
+  font-variation-settings: "opsz" 6;
   color: var(--rose-escuro);
   padding-left: 0.05em;
 }
@@ -362,13 +367,16 @@ body {
 
 .marcos__data {
   font-family: var(--font-display);
+  font-weight: 600;
+  font-variation-settings: "opsz" 11;
   font-variant-numeric: lining-nums;
   font-size: clamp(1.05rem, 2vw, 1.35rem);
 }
 
 .marcos__o-que {
-  font-size: 0.9rem;
-  color: #4f5b6d;
+  font-size: 0.92rem;
+  font-weight: 450;
+  color: #3f4b5d;
 }
 
 /* No celular a linha do tempo fica na vertical. */
