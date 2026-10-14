@@ -2,11 +2,11 @@ import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/bodoni-moda/opsz.css";
 import "@fontsource-variable/bodoni-moda/opsz-italic.css";
 import "@fontsource-variable/jost/index.css";
-import { casamento, dataPorExtenso } from "@/config/casamento";
+import { casamento, dataCurta, dataPorExtenso } from "@/config/casamento";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: `${casamento.noivo} e ${casamento.noiva}`,
+  title: `${casamento.noivo} & ${casamento.noiva} - ${dataCurta}`,
   description: `Nosso casamento, ${dataPorExtenso}.`,
 };
 
