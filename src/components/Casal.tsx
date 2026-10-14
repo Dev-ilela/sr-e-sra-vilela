@@ -1,4 +1,5 @@
 import { PilhaDeFotos, type Foto } from "@/components/PilhaDeFotos";
+import { FotoNoTexto } from "@/components/FotoNoTexto";
 import { Regua, type Marco } from "@/components/Regua";
 import { casamento } from "@/config/casamento";
 
@@ -20,13 +21,6 @@ const MARCOS: Marco[] = [
   { data: "09.07.2027", titulo: "O casamento" },
 ];
 
-function Foto({ src, alt }: { src: string; alt: string }) {
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img className="casal__chip" src={src} alt={alt} loading="lazy" tabIndex={0} />
-  );
-}
-
 export function Casal() {
   return (
     <section className="casal" aria-labelledby="casal-titulo">
@@ -40,17 +34,18 @@ export function Casal() {
       </header>
 
       <blockquote className="casal__historia">
-        <p>
+        {/* div em vez de p: as fotos abrem num <dialog>, que não pode ficar dentro de <p>. */}
+        <div className="casal__texto">
           Em 2021 a gente se conheceu na ETEC Aristóteles Ferreira e, aos poucos, Deus{" "}
-          <Foto src="/fotos/casal/chip-comeco.webp" alt="Nossa selfie do começo, os dois sorrindo de aparelho" /> foi nos
+          <FotoNoTexto chip="/fotos/casal/chip-comeco.webp" grande="/fotos/casal/grande-comeco.webp" alt="Nossa selfie do começo, os dois sorrindo de aparelho" /> foi nos
           unindo conforme o plano dEle. No dia 8 de abril de 2022 nos demos em namoro{" "}
-          <Foto src="/fotos/casal/chip-namoro.webp" alt="Nós dois juntinhos no começo do namoro" /> e ali uma aliança começou. No dia
+          <FotoNoTexto chip="/fotos/casal/chip-namoro.webp" grande="/fotos/casal/grande-namoro.webp" alt="Nós dois juntinhos no começo do namoro" /> e ali uma aliança começou. No dia
           10 de janeiro de 2026, quase quatro anos depois, no Morro da Asa Delta, as alianças do noivado chegaram
           de drone{" "}
-          <Foto src="/fotos/casal/chip-drone.webp" alt="O drone no céu enquanto nos abraçamos" />. Hoje elas estão
-          na mão direita <Foto src="/fotos/casal/chip-anel.webp" alt="Gabriel colocando a aliança na Bianca" />,
+          <FotoNoTexto chip="/fotos/casal/chip-drone.webp" grande="/fotos/casal/grande-drone.webp" alt="O drone no céu enquanto nos abraçamos" />. Hoje elas estão
+          na mão direita <FotoNoTexto chip="/fotos/casal/chip-anel.webp" grande="/fotos/casal/grande-anel.webp" alt="Gabriel colocando a aliança na Bianca" />,
           esperando o 9 de julho de 2027 para passar para a esquerda.
-        </p>
+        </div>
       </blockquote>
 
       <Regua marcos={MARCOS} />

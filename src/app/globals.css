@@ -279,7 +279,7 @@ body {
 }
 
 /* Texto corrido com tamanho óptico pequeno: traços mais grossos e leitura mais fácil. */
-.casal__historia p {
+.casal__texto {
   position: relative;
   font-family: var(--font-display);
   font-weight: 500;
@@ -289,7 +289,7 @@ body {
   color: var(--marinho);
 }
 
-.casal__historia p::after {
+.casal__texto::after {
   content: "\201D";
   font-weight: 800;
   font-variation-settings: "opsz" 6;
@@ -297,28 +297,113 @@ body {
   padding-left: 0.05em;
 }
 
-/* Fotos dentro do texto: pílulas que crescem ao passar o mouse ou focar. */
+/* Fotos dentro do texto: pílulas que abrem a foto inteira ao clicar. */
 .casal__chip {
   display: inline-block;
   width: 2.3em;
   height: 1.15em;
   margin: 0 0.08em;
+  padding: 0;
+  border: 0;
   vertical-align: -0.12em;
   border-radius: 999px;
-  object-fit: cover;
+  overflow: hidden;
+  background: none;
   box-shadow: 0 0 0 2px var(--cinza), 0 0 0 3px var(--rose);
-  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), border-radius 0.35s;
-  transform-origin: center;
   cursor: zoom-in;
-  position: relative;
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.25s;
 }
 
-.casal__chip:hover,
+.casal__chip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.casal__chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px var(--cinza), 0 0 0 3px var(--rose-escuro), 0 6px 14px -6px rgba(20, 35, 59, 0.45);
+}
+
 .casal__chip:focus-visible {
-  transform: scale(3.2);
-  border-radius: 0.2em;
-  z-index: 5;
-  outline: none;
+  outline: 2px solid var(--rose-escuro);
+  outline-offset: 4px;
+}
+
+/* ---------- Foto aberta ---------- */
+
+.foto-aberta {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 1.25rem;
+  border: 0;
+  background: transparent;
+}
+
+.foto-aberta[open] {
+  display: grid;
+  place-items: center;
+  animation: foto-surge 0.32s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.foto-aberta::backdrop {
+  background: rgba(20, 35, 59, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: fundo-surge 0.32s ease;
+}
+
+.foto-aberta__img {
+  max-width: min(92vw, 1100px);
+  max-height: 84dvh;
+  width: auto;
+  height: auto;
+  border: 0.6rem solid #fff;
+  box-shadow: 0 30px 60px -20px rgba(20, 35, 59, 0.55);
+}
+
+.foto-aberta__fechar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--marinho);
+  cursor: pointer;
+  box-shadow: 0 6px 18px -6px rgba(20, 35, 59, 0.5);
+}
+
+.foto-aberta__fechar:hover {
+  color: var(--rose-escuro);
+}
+
+.foto-aberta__fechar:focus-visible {
+  outline: 2px solid var(--rose-escuro);
+  outline-offset: 3px;
+}
+
+@keyframes foto-surge {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes fundo-surge {
+  from {
+    opacity: 0;
+  }
 }
 
 /* ---------- Régua do tempo ---------- */
@@ -677,10 +762,6 @@ body {
   .pilha {
     --lado: 34%;
   }
-  .casal__chip:hover,
-  .casal__chip:focus-visible {
-    transform: scale(2.4);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -688,4 +769,13 @@ body {
   .casal__chip {
     transition: none;
   }
+  .foto-aberta[open],
+  .foto-aberta::backdrop {
+    animation: none;
+  }
+}
+
+/* Com uma foto aberta, a página de trás não rola. */
+html:has(.foto-aberta[open]) {
+  overflow: hidden;
 }
