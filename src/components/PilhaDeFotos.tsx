@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export type Foto = { src: string; alt: string; legenda: string };
 
@@ -19,16 +19,23 @@ function lugarDe(pos: number, total: number): Lugar {
 }
 
 const ERGUER_MS = 260;
+/** Quanto arrastar (px) para contar como troca de foto. */
+const LIMIAR_ARRASTO = 50;
 
 /**
- * Pilha de polaroids. Ao tocar, a de cima é erguida e vai para o fim da pilha,
- * e a próxima vem do lado para o centro, crescendo e ganhando foco.
+ * Pilha de polaroids.
+ * Avança: arrastar para a direita, tocar no lado direito ou seta →.
+ * Volta: arrastar para a esquerda, tocar no lado esquerdo ou seta ←.
+ * Ao avançar, a de cima é erguida e vai para o fim da pilha, e a próxima vem do lado
+ * para o centro, crescendo e ganhando foco.
  */
 export function PilhaDeFotos({ fotos }: { fotos: Foto[] }) {
   const [ordem, setOrdem] = useState(() => fotos.map((_, i) => i));
   const [erguendo, setErguendo] = useState(false);
+  const [arrasto, setArrasto] = useState(0);
+  const inicioArrasto = useRef<number | null>(null);
 
-  const passar = () => {
+  const avancar = () => {
     if (erguendo) return;
     setErguendo(true);
     window.setTimeout(() => {
@@ -37,15 +44,54 @@ export function PilhaDeFotos({ fotos }: { fotos: Foto[] }) {
     }, ERGUER_MS);
   };
 
+  const voltar = () => {
+    if (erguendo) return;
+    setOrdem((o) => [o[o.length - 1], ...o.slice(0, -1)]);
+  };
+
+  const soltar = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (inicioArrasto.current === null) return;
+    const dx = e.clientX - inicioArrasto.current;
+    inicioArrasto.current = null;
+    setArrasto(0);
+
+    if (Math.abs(dx) >= LIMIAR_ARRASTO) {
+      if (dx > 0) avancar();
+      else voltar();
+      return;
+    }
+    // Foi um toque: o lado da mesa decide a direção.
+    const mesa = e.currentTarget.getBoundingClientRect();
+    if (e.clientX >= mesa.left + mesa.width / 2) avancar();
+    else voltar();
+  };
+
   const atual = ordem[0];
 
   return (
     <figure className="pilha">
-      <button
-        type="button"
-        className="pilha__mesa"
-        onClick={passar}
-        aria-label={`Foto ${atual + 1} de ${fotos.length}: ${fotos[atual].alt}. Toque para ver a próxima.`}
+      <div
+        className={`pilha__mesa ${arrasto !== 0 ? "pilha__mesa--arrastando" : ""}`}
+        role="group"
+        aria-roledescription="galeria"
+        aria-label={`Foto ${atual + 1} de ${fotos.length}: ${fotos[atual].alt}`}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowRight") avancar();
+          if (e.key === "ArrowLeft") voltar();
+        }}
+        onPointerDown={(e) => {
+          inicioArrasto.current = e.clientX;
+          e.currentTarget.setPointerCapture(e.pointerId);
+        }}
+        onPointerMove={(e) => {
+          if (inicioArrasto.current !== null) setArrasto(e.clientX - inicioArrasto.current);
+        }}
+        onPointerUp={soltar}
+        onPointerCancel={() => {
+          inicioArrasto.current = null;
+          setArrasto(0);
+        }}
       >
         {fotos.map((foto, i) => {
           const pos = ordem.indexOf(i);
@@ -55,17 +101,22 @@ export function PilhaDeFotos({ fotos }: { fotos: Foto[] }) {
             `polaroid--${lugar}`,
             erguendo && pos === 0 ? "polaroid--erguida" : "",
           ].join(" ");
+          // Enquanto arrasta, a foto do centro acompanha o dedo, inclinando de leve.
+          const estilo =
+            pos === 0 && arrasto !== 0
+              ? { transform: `translateX(${arrasto}px) rotate(${arrasto / 30}deg)` }
+              : undefined;
           return (
-            <span key={foto.src} className={classe} aria-hidden={pos !== 0}>
+            <span key={foto.src} className={classe} style={estilo} aria-hidden={pos !== 0}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={foto.src} alt="" loading={lugar === "atras" ? "lazy" : "eager"} />
+              <img src={foto.src} alt="" draggable={false} loading={lugar === "atras" ? "lazy" : "eager"} />
               <span className="polaroid__legenda">{foto.legenda}</span>
             </span>
           );
         })}
-      </button>
+      </div>
       <figcaption className="pilha__dica" aria-live="polite">
-        {atual + 1} de {fotos.length}. Toque na foto para passar.
+        {atual + 1} de {fotos.length}. Arraste ou toque nos lados para passar.
       </figcaption>
     </figure>
   );

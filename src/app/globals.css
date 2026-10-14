@@ -341,7 +341,7 @@ body {
   max-width: none;
   max-height: none;
   margin: 0;
-  padding: 1.25rem;
+  padding: 1.5rem;
   border: 0;
   background: transparent;
 }
@@ -349,59 +349,76 @@ body {
 .foto-aberta[open] {
   display: grid;
   place-items: center;
-  animation: foto-surge 0.32s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .foto-aberta::backdrop {
-  background: rgba(20, 35, 59, 0.22);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  animation: fundo-surge 0.32s ease;
+  background: rgba(20, 35, 59, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fundo-surge 0.35s ease;
+}
+
+.foto-aberta--fechando::backdrop {
+  animation: fundo-some 0.3s ease forwards;
+}
+
+/* Moldura com filete em rose gold e cantos arredondados. */
+.foto-aberta__moldura {
+  position: relative;
+  padding: 5px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f3d2c4 0%, var(--rose) 35%, var(--rose-escuro) 70%, #f0c9ba 100%);
+  box-shadow: 0 24px 50px -20px rgba(20, 35, 59, 0.55);
+  transform-origin: center;
 }
 
 .foto-aberta__img {
-  max-width: min(92vw, 1100px);
-  max-height: 84dvh;
+  display: block;
+  max-width: min(80vw, 620px);
+  max-height: 70dvh;
   width: auto;
   height: auto;
-  border: 0.6rem solid #fff;
-  box-shadow: 0 30px 60px -20px rgba(20, 35, 59, 0.55);
+  border-radius: 13px;
+  border: 3px solid #fff;
 }
 
+/* X pequeno, preso no canto da moldura. */
 .foto-aberta__fechar {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  width: 2.75rem;
-  height: 2.75rem;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 28px;
+  height: 28px;
   display: grid;
   place-items: center;
-  border: 0;
+  padding: 0;
+  border: 1px solid var(--rose);
   border-radius: 50%;
   background: #fff;
   color: var(--marinho);
   cursor: pointer;
-  box-shadow: 0 6px 18px -6px rgba(20, 35, 59, 0.5);
+  box-shadow: 0 3px 8px -3px rgba(20, 35, 59, 0.45);
+  transition: color 0.2s, border-color 0.2s;
 }
 
 .foto-aberta__fechar:hover {
   color: var(--rose-escuro);
+  border-color: var(--rose-escuro);
 }
 
 .foto-aberta__fechar:focus-visible {
   outline: 2px solid var(--rose-escuro);
-  outline-offset: 3px;
-}
-
-@keyframes foto-surge {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
+  outline-offset: 2px;
 }
 
 @keyframes fundo-surge {
   from {
+    opacity: 0;
+  }
+}
+
+@keyframes fundo-some {
+  to {
     opacity: 0;
   }
 }
@@ -672,8 +689,20 @@ body {
   border: 0;
   padding: 0;
   background: none;
-  cursor: pointer;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+.pilha__mesa--arrastando {
+  cursor: grabbing;
+}
+
+/* Durante o arrasto a foto segue o dedo sem atraso. */
+.pilha__mesa--arrastando .polaroid--centro {
+  transition: none;
 }
 
 .pilha__mesa:focus-visible {
@@ -769,13 +798,7 @@ body {
   .casal__chip {
     transition: none;
   }
-  .foto-aberta[open],
   .foto-aberta::backdrop {
     animation: none;
   }
-}
-
-/* Com uma foto aberta, a página de trás não rola. */
-html:has(.foto-aberta[open]) {
-  overflow: hidden;
 }
