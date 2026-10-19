@@ -73,14 +73,8 @@ export default async function Presentes() {
           <Ramo className="lista__ramo" />
           <div className="lista__intro">
             <p>
-              É uma honra ter você conosco no começo da família que Deus está formando. Estando ao nosso lado no
-              grande dia ou nos acompanhando de longe, saber que você faz parte dessa história já enche o nosso
-              coração.
-            </p>
-            <p>
-              Se for possível e você desejar nos abençoar neste começo, compartilhamos aqui a nossa lista. Fique à
-              vontade para escolher o que fizer sentido para você. Desde já, obrigado por caminhar com a gente nessa
-              jornada.
+              É uma honra ter você com a gente no começo da família que Deus está formando, seja no grande dia ou
+              acompanhando de longe. Se desejar nos abençoar neste início, preparamos com carinho a nossa lista.
             </p>
           </div>
         </div>
