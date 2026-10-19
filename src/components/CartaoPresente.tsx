@@ -38,7 +38,7 @@ export function CartaoPresente({ presente, pix }: Props) {
           valor={presente.valor}
           presenteId={presente.id}
           pix={pix}
-          rotulo="ou enviar o valor via Pix"
+          rotulo="ou enviar via Pix"
           variante="texto"
         />
       )}

@@ -1001,6 +1001,8 @@ body {
   gap: 0.35rem;
   font-family: var(--font-display);
   font-style: italic;
+  font-weight: 600;
+  font-variation-settings: "opsz" 9;
   font-size: 1.05rem;
   color: var(--nevoa);
   text-decoration: none;
@@ -1042,16 +1044,44 @@ body {
 }
 
 .lista__intro {
-  max-width: 40rem;
-  margin-top: 1.5rem;
+  width: min(100%, 44rem);
+  margin-top: clamp(2rem, 5vw, 3rem);
   display: grid;
-  gap: 1rem;
+  gap: clamp(2rem, 5vw, 3rem);
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 500;
   font-variation-settings: "opsz" 11;
-  font-size: clamp(1.08rem, 2vw, 1.28rem);
-  line-height: 1.65;
+  font-size: clamp(1.1rem, 2.1vw, 1.32rem);
+  line-height: 1.6;
   color: var(--nevoa);
+}
+
+/* Primeira frase à direita, com filete rose gold na lateral. */
+.lista__intro-honra {
+  justify-self: end;
+  max-width: 30rem;
+  padding-right: 1.25rem;
+  text-align: right;
+  border-right: 2px solid transparent;
+  border-image: linear-gradient(180deg, #f3d2c4, var(--rose) 50%, var(--rose-escuro)) 1;
+}
+
+/* Convite à esquerda, mais abaixo, com o filete do outro lado. */
+.lista__intro-convite {
+  justify-self: start;
+  max-width: 30rem;
+  padding-left: 1.25rem;
+  text-align: left;
+  border-left: 2px solid transparent;
+  border-image: linear-gradient(180deg, var(--rose-escuro), var(--rose) 50%, #f3d2c4) 1;
+}
+
+.lista__intro-ps {
+  margin-top: 0.6rem;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 0.92em;
+  color: var(--rose);
 }
 
 .lista__corpo {
@@ -1090,7 +1120,8 @@ body {
 .lista__subtitulo {
   font-family: var(--font-display);
   font-style: italic;
-  font-weight: 500;
+  font-weight: 700;
+  font-variation-settings: "opsz" 11;
   font-size: clamp(1.6rem, 3.5vw, 2.2rem);
   color: var(--marinho);
 }
@@ -1222,7 +1253,8 @@ body {
   border: 0;
   background: none;
   font: inherit;
-  font-size: 0.86rem;
+  font-size: 0.95rem;
+  font-weight: 450;
   color: var(--rose-escuro);
   text-decoration: underline;
   text-decoration-color: rgba(185, 122, 116, 0.45);
@@ -1261,8 +1293,8 @@ body {
   margin-top: 0;
   font-family: var(--font-display);
   font-style: italic;
-  font-weight: 500;
-  font-variation-settings: "opsz" 14;
+  font-weight: 700;
+  font-variation-settings: "opsz" 9;
   font-size: 1.3rem;
   line-height: 1.2;
 }
@@ -1374,7 +1406,8 @@ body {
   margin-top: 0.4rem;
   font-family: var(--font-display);
   font-style: italic;
-  font-weight: 500;
+  font-weight: 700;
+  font-variation-settings: "opsz" 9;
   font-size: 1.45rem;
   line-height: 1.2;
   padding: 0 1.5rem;
@@ -1439,6 +1472,8 @@ body {
 .pix__form-titulo {
   font-family: var(--font-display);
   font-style: italic;
+  font-weight: 600;
+  font-variation-settings: "opsz" 9;
   font-size: 1.1rem;
   text-align: center;
 }
@@ -1502,6 +1537,12 @@ body {
   }
   .presente__nome {
     font-size: 0.86rem;
+  }
+  .presente__nome--pix {
+    font-size: 1.08rem;
+  }
+  .presente__pix {
+    font-size: 0.88rem;
   }
   .presente__valor {
     font-size: 1.15rem;

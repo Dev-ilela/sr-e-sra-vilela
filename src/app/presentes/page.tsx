@@ -72,10 +72,14 @@ export default async function Presentes() {
           <h1 className="lista__titulo">Lista de presentes</h1>
           <Ramo className="lista__ramo" />
           <div className="lista__intro">
-            <p>
+            <p className="lista__intro-honra">
               É uma honra ter você com a gente no começo da família que Deus está formando, seja no grande dia ou
-              acompanhando de longe. Se desejar nos abençoar neste início, preparamos com carinho a nossa lista.
+              acompanhando de longe.
             </p>
+            <div className="lista__intro-convite">
+              <p>Se desejar nos abençoar neste início, preparamos com carinho a nossa lista de presentes.</p>
+              <p className="lista__intro-ps">P.S.: toda ajuda é bem-vinda.</p>
+            </div>
           </div>
         </div>
       </header>
