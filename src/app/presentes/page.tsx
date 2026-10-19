@@ -101,7 +101,16 @@ export default async function Presentes() {
                     Para a casa nova
                   </h2>
                   <p className="lista__nota">
-                    Itens da nossa lista na Magalu. Você pode presentear por lá ou, se preferir, enviar o valor via Pix.
+                    <span className="lista__nota-frase">
+                      Itens da nossa{" "}
+                      <a href={casamento.listaMagalu} target="_blank" rel="noopener noreferrer">
+                        lista na Magalu
+                      </a>
+                      .
+                    </span>
+                    <span className="lista__nota-frase">
+                      Você pode presentear por lá ou, se preferir, enviar o valor via Pix.
+                    </span>
                   </p>
                 </div>
                 <ul className="lista__grade">
