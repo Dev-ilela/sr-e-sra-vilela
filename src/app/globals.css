@@ -1575,12 +1575,14 @@ body {
   height: 100vh;
   z-index: 9999;
   pointer-events: none;
+  /* Escurece o que está embaixo em vez de pintar por cima: a pegada acompanha a cor do fundo. */
+  mix-blend-mode: multiply;
 }
 
 @media (hover: hover) and (pointer: fine) {
   :root {
     --cursor-seta: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f6dccf'/%3E%3Cstop offset='.5' stop-color='%23e2b3a3'/%3E%3Cstop offset='1' stop-color='%23b97a74'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 3v17.5l4.6-4.3 3 6.5 2.6-1.2-3-6.4h6.6z' fill='url(%23g)' stroke='%237e5651' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E") 4 3, auto;
-    --cursor-mao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f6dccf'/%3E%3Cstop offset='.5' stop-color='%23e2b3a3'/%3E%3Cstop offset='1' stop-color='%23b97a74'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='14' cy='14' r='9' fill='none' stroke='%237e5651' stroke-opacity='.35' stroke-width='3'/%3E%3Ccircle cx='14' cy='14' r='9' fill='none' stroke='url(%23g)' stroke-width='1.6'/%3E%3Ccircle cx='14' cy='14' r='2' fill='%23b97a74'/%3E%3C/svg%3E") 14 14, pointer;
+    --cursor-mao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='p' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fffdfc'/%3E%3Cstop offset='1' stop-color='%23f6e3db'/%3E%3C/linearGradient%3E%3ClinearGradient id='o' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f7e7bd'/%3E%3Cstop offset='.5' stop-color='%23d8b86e'/%3E%3Cstop offset='1' stop-color='%23a8843e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M11 19V5.6a2 2 0 0 1 4 0V12a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v1.6a1.75 1.75 0 0 1 3.5 0V20c0 4.9-3 8.5-7.5 8.5h-3.2c-2.4 0-4-1-5.4-3L5.6 19.7c-.9-1.2-.6-2.6.6-3.2 1-.5 2.1-.2 2.8.6L11 19.4z' fill='url(%23p)' stroke='%237e5651' stroke-width='1.2' stroke-linejoin='round'/%3E%3Cpath d='M15 12v4.5M19 13v4M23 14.6v3.4' stroke='%237e5651' stroke-width='.9' stroke-linecap='round' opacity='.55'/%3E%3Crect x='18.6' y='16.6' width='4.8' height='2' rx='.8' fill='url(%23o)' stroke='%238a6a2e' stroke-width='.5'/%3E%3Cpath d='M21 14.3l.45.9.9.45-.9.45-.45.9-.45-.9-.9-.45.9-.45z' fill='%23fff' stroke='%23c2a15f' stroke-width='.35'/%3E%3C/svg%3E") 12 3, pointer;
   }
 
   html,
