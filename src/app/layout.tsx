@@ -3,6 +3,7 @@ import "@fontsource-variable/bodoni-moda/opsz.css";
 import "@fontsource-variable/bodoni-moda/opsz-italic.css";
 import "@fontsource-variable/jost/index.css";
 import { casamento, dataCurta } from "@/config/casamento";
+import { RastroCursor } from "@/components/RastroCursor";
 import "./globals.css";
 
 const nomes = `${casamento.noivo} & ${casamento.noiva}`;
@@ -34,7 +35,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        {children}
+        <RastroCursor />
+      </body>
     </html>
   );
 }
