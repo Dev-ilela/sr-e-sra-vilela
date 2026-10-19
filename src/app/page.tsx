@@ -1,4 +1,5 @@
 import { Casal } from "@/components/Casal";
+import { ChamadaPresentes } from "@/components/ChamadaPresentes";
 import { Contador } from "@/components/Contador";
 import { Ramo } from "@/components/Ramo";
 import { casamento, dataPorExtenso } from "@/config/casamento";
@@ -29,6 +30,8 @@ export default function Inicio() {
       </section>
 
       <Casal />
+
+      <ChamadaPresentes />
     </main>
   );
 }

@@ -11,6 +11,8 @@ export const casamento = {
   dataHora: "2027-07-09T18:00:00-03:00",
   // Foto de fundo da entrada. Coloque o arquivo em /public e informe o caminho, ex.: "/fotos/entrada.jpg".
   fotoEntrada: "/fotos/entrada.webp" as string | null,
+  // Lista de presentes na Magalu (pagamento e controle ficam lá).
+  listaMagalu: "https://m.querodecasamento.com.br/lista-de-casamento/sr-e-sra-vilela",
 } as const;
 
 export const dataCasamento = new Date(casamento.dataHora);
