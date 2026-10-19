@@ -128,8 +128,6 @@ export function BotaoPix({ titulo, valor, presenteId, pix, rotulo, variante }: P
             <button type="button" className="pix__chave-copiar" onClick={() => copiar(pix.chave, "chave")}>
               {copiado === "chave" ? "copiada" : "copiar"}
             </button>
-            <br />
-            em nome de {pix.titular}
           </p>
 
           {envio === "enviado" ? (

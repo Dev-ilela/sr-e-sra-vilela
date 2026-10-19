@@ -1056,32 +1056,36 @@ body {
   color: var(--nevoa);
 }
 
-/* Primeira frase à direita, com filete rose gold na lateral. */
+/* Primeira frase à esquerda, com filete rose gold na lateral. */
 .lista__intro-honra {
-  justify-self: end;
-  max-width: 30rem;
-  padding-right: 1.25rem;
-  text-align: right;
-  border-right: 2px solid transparent;
-  border-image: linear-gradient(180deg, #f3d2c4, var(--rose) 50%, var(--rose-escuro)) 1;
-}
-
-/* Convite à esquerda, mais abaixo, com o filete do outro lado. */
-.lista__intro-convite {
   justify-self: start;
   max-width: 30rem;
   padding-left: 1.25rem;
   text-align: left;
   border-left: 2px solid transparent;
+  border-image: linear-gradient(180deg, #f3d2c4, var(--rose) 50%, var(--rose-escuro)) 1;
+}
+
+/* Convite à direita, mais abaixo, com o filete do outro lado. */
+.lista__intro-convite {
+  justify-self: end;
+  max-width: 30rem;
+  padding-right: 1.25rem;
+  text-align: right;
+  border-right: 2px solid transparent;
   border-image: linear-gradient(180deg, var(--rose-escuro), var(--rose) 50%, #f3d2c4) 1;
 }
 
+/* Observação solta, centralizada e mais suave. */
 .lista__intro-ps {
-  margin-top: 0.6rem;
+  margin-top: clamp(2rem, 5vw, 2.75rem);
+  font-family: var(--font-display);
   font-style: italic;
   font-weight: 600;
-  font-size: 0.92em;
+  font-variation-settings: "opsz" 9;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
   color: var(--rose);
+  opacity: 0.75;
 }
 
 .lista__corpo {
@@ -1328,6 +1332,9 @@ body {
   border: 0;
   background: transparent;
   max-width: calc(100vw - 2rem);
+  /* Quem rola é só a caixa de dentro; sem isso o <dialog> cria uma segunda barra. */
+  max-height: none;
+  overflow: visible;
 }
 
 .pix::backdrop {
@@ -1341,7 +1348,10 @@ body {
   width: min(25rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
-  padding: 2rem 1.5rem 1.5rem;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rose) transparent;
+  padding: 1.4rem 1.25rem 1.25rem;
   border-radius: 18px;
   border-top: 4px solid var(--rose);
   background-image: radial-gradient(ellipse 80% 30% at 50% 0%, rgba(226, 179, 163, 0.18) 0%, transparent 70%);
@@ -1380,7 +1390,7 @@ body {
 }
 
 .pix__chave {
-  margin-top: 1rem;
+  margin-top: 0.6rem;
   font-size: 0.85rem;
   line-height: 1.6;
   color: #4f5b6d;
@@ -1403,29 +1413,29 @@ body {
 }
 
 .pix__titulo {
-  margin-top: 0.4rem;
+  margin-top: 0.3rem;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 700;
   font-variation-settings: "opsz" 9;
-  font-size: 1.45rem;
+  font-size: 1.25rem;
   line-height: 1.2;
-  padding: 0 1.5rem;
+  padding: 0 1.75rem;
 }
 
 .pix__valor {
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
   font-family: var(--font-display);
   font-weight: 600;
   font-variant-numeric: lining-nums;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   color: var(--rose-escuro);
 }
 
 .pix__qr {
-  width: min(13rem, 70vw);
-  margin: 1.25rem auto 0;
-  padding: 0.75rem;
+  width: min(10.5rem, 50vw);
+  margin: 0.9rem auto 0;
+  padding: 0.6rem;
   border: 1px solid var(--nevoa);
   border-radius: 12px;
 }
@@ -1437,32 +1447,34 @@ body {
 }
 
 .pix__dica {
-  margin-top: 1rem;
-  font-size: 0.88rem;
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
   color: #4f5b6d;
 }
 
 .pix__codigo {
   width: 100%;
   margin-top: 0.5rem;
-  padding: 0.6rem 0.75rem;
+  padding: 0.45rem 0.6rem;
   border: 1px solid var(--nevoa);
   border-radius: 10px;
   background: var(--branco);
   color: var(--marinho);
-  font: 0.75rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+  font: 0.66rem/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
   word-break: break-all;
   resize: none;
 }
 
 .pix__copiar {
-  margin-top: 0.75rem;
+  margin-top: 0.6rem;
   width: 100%;
+  min-height: 2.6rem;
+  padding-block: 0.5rem;
 }
 
 .pix__form {
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--nevoa);
   display: grid;
   gap: 0.8rem;

@@ -76,11 +76,11 @@ export default async function Presentes() {
               É uma honra ter você com a gente no começo da família que Deus está formando, seja no grande dia ou
               acompanhando de longe.
             </p>
-            <div className="lista__intro-convite">
-              <p>Se desejar nos abençoar neste início, preparamos com carinho a nossa lista de presentes.</p>
-              <p className="lista__intro-ps">P.S.: toda ajuda é bem-vinda.</p>
-            </div>
+            <p className="lista__intro-convite">
+              Se desejar nos abençoar neste início, preparamos com carinho a nossa lista de presentes.
+            </p>
           </div>
+          <p className="lista__intro-ps">PS: toda ajuda é bem-vinda.</p>
         </div>
       </header>
 
