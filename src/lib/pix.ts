@@ -1,5 +1,5 @@
 /**
- * Pix "copia e cola" (BR Code estático) com valor fixo, no padrão EMV do Banco Central.
+ * Pix "copia e cola" (BR Code estático), com valor fixo ou livre, no padrão EMV do Banco Central.
  * O mesmo texto vira o QR Code. Não passa por intermediário: o dinheiro cai direto na conta.
  *
  * A chave e o nome do recebedor vêm de variáveis de ambiente (só no servidor), para não
@@ -51,7 +51,8 @@ function crc16(texto: string) {
   return crc.toString(16).toUpperCase().padStart(4, "0");
 }
 
-export function gerarPixCopiaECola(recebedor: DadosRecebedor, valor: number) {
+/** `valor` nulo gera o Pix sem valor: o convidado digita quanto quer no app do banco. */
+export function gerarPixCopiaECola(recebedor: DadosRecebedor, valor: number | null) {
   const conta = campo("00", "br.gov.bcb.pix") + campo("01", recebedor.chave);
 
   const semCrc =
@@ -59,7 +60,7 @@ export function gerarPixCopiaECola(recebedor: DadosRecebedor, valor: number) {
     campo("26", conta) +
     campo("52", "0000") +
     campo("53", "986") +
-    campo("54", valor.toFixed(2)) +
+    (valor ? campo("54", valor.toFixed(2)) : "") +
     campo("58", "BR") +
     campo("59", limpar(recebedor.nome, 25)) +
     campo("60", limpar(recebedor.cidade, 15)) +

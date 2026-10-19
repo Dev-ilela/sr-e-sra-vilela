@@ -1,7 +1,15 @@
-import { emReais, type Presente } from "@/lib/presentes";
+import { BotaoPix, type DadosPix } from "@/components/BotaoPix";
+import { emReais } from "@/lib/formato";
+import type { Presente } from "@/lib/presentes";
+
+type Props = {
+  presente: Presente;
+  /** Pix com o valor do item, para quem prefere mandar o dinheiro em vez de comprar. */
+  pix: DadosPix | null;
+};
 
 /** Presente da lista da Magalu: o botão abre a lista deles, onde o pagamento acontece. */
-export function CartaoPresente({ presente }: { presente: Presente }) {
+export function CartaoPresente({ presente, pix }: Props) {
   return (
     <li className="presente">
       <div className="presente__foto">
@@ -23,6 +31,16 @@ export function CartaoPresente({ presente }: { presente: Presente }) {
         >
           Presentear
         </a>
+      )}
+      {pix && (
+        <BotaoPix
+          titulo={presente.nome}
+          valor={presente.valor}
+          presenteId={presente.id}
+          pix={pix}
+          rotulo="ou enviar o valor via Pix"
+          variante="texto"
+        />
       )}
     </li>
   );
