@@ -158,8 +158,10 @@ export function Destaque({ item, origem, inclinacao, aoFechar }: Props) {
           {item.pendente && <p className="destaque__aviso">Esse é o seu. Assim que a gente ler, ele vai pro quadro de verdade.</p>}
           {item.compartilhavel && (
             <>
-              <Link href={`/mural/${item.id}`} className="botao botao--rose">
-                Abrir a página deste <PalavraPostIt />
+              <Link href={`/mural/${item.id}`} className="botao botao--rose destaque__abrir">
+                <span>
+                  Abrir a página deste <PalavraPostIt />
+                </span>
               </Link>
               <Compartilhar id={item.id} nome={item.nome} />
             </>

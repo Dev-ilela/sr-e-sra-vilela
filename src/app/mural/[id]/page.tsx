@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { Contador } from "@/components/Contador";
 import { Compartilhar } from "@/components/mural/Compartilhar";
 import { PostIt } from "@/components/mural/PostIt";
-import { casamento } from "@/config/casamento";
+import { PalavraPostIt } from "@/components/mural/PalavraPostIt";
+import { casamento, dataCurta } from "@/config/casamento";
 import { buscarRecado } from "@/lib/recados";
 
 export const revalidate = 60;
@@ -34,42 +35,44 @@ export default async function RegistroDoPostIt({ params }: Props) {
 
   return (
     <main className="registro">
-      <header className="registro__topo">
-        <Link href="/" className="registro__nomes">
-          {casamento.noivo} <span>&</span> {casamento.noiva}
-        </Link>
-        <div className="registro__contador">
-          <Contador alvo={casamento.dataHora} />
+      <div className="registro__palco">
+        <div className="registro__postit postit-caixa">
+          <PostIt {...recado} inclinacao={-3} alfinete="rose" tamanho="grande" />
         </div>
-      </header>
 
-      <h1 className="registro__titulo">
-        Registro de <span>{recado.nome}</span>
-      </h1>
+        <div className="registro__lado">
+          <p className="registro__chapeu">
+            Mural de <PalavraPostIt plural />
+          </p>
+          <h1 className="registro__nomes">
+            <Link href="/">
+              {casamento.noivo} <span>&</span> {casamento.noiva}
+            </Link>
+          </h1>
+          <p className="registro__de">Registro de {recado.nome}</p>
+          <span className="registro__filete" aria-hidden="true" />
+          <p className="registro__data">
+            {dataCurta.replaceAll("/", ".")} · <Link href="/">sr-e-sra-vilela.com.br</Link>
+          </p>
+          <div className="registro__contador">
+            <Contador alvo={casamento.dataHora} />
+          </div>
 
-      <div className="registro__postit postit-caixa">
-        <PostIt {...recado} inclinacao={-2} alfinete="rose" tamanho="grande" />
+          {recado.resposta && (
+            <div className="registro__resposta">
+              <p className="registro__resposta-quem">Os noivos responderam</p>
+              <p className="registro__resposta-texto">{recado.resposta}</p>
+            </div>
+          )}
+
+          <div className="registro__acoes">
+            <Compartilhar id={recado.id} nome={recado.nome} mini />
+            <Link href="/mural?escrever=1" className="registro__deixar">
+              Deixe o seu também →
+            </Link>
+          </div>
+        </div>
       </div>
-
-      {recado.resposta && (
-        <p className="registro__resposta">
-          <span>
-            {casamento.noivo} & {casamento.noiva}:
-          </span>{" "}
-          {recado.resposta}
-        </p>
-      )}
-
-      <Compartilhar id={recado.id} nome={recado.nome} className="compartilhar--claro registro__compartilhar" />
-
-      <nav className="registro__links" aria-label="Continuar no site">
-        <Link href="/mural?escrever=1" className="botao botao--rose">
-          Deixar o meu post-it
-        </Link>
-        <Link href="/" className="registro__site">
-          Conheça a nossa história
-        </Link>
-      </nav>
     </main>
   );
 }

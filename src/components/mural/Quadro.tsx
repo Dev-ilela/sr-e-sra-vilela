@@ -103,25 +103,15 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
     });
   }, []);
 
-  const total = aprovados.length;
-
   return (
     <>
       <div className="quadro__barra">
-        <p className="quadro__conta">
-          {total === 0 ? (
-            <>
-              O quadro está esperando o primeiro <PalavraPostIt />
-            </>
-          ) : (
-            <>
-              {total} <PalavraPostIt plural={total > 1} /> {total > 1 ? "colados" : "colado"}
-            </>
-          )}
-        </p>
-        <button type="button" className="botao botao--rose" onClick={() => setEscrevendo(true)}>
-          Colar um post-it
-        </button>
+        <h2 className="quadro__titulo">Nosso mural:</h2>
+        <ol className="quadro__passos" aria-label="Como colar o seu">
+          <li>Destaque um <PalavraPostIt /></li>
+          <li>Escreva uma mensagem aos noivos</li>
+          <li>Cole no quadro!</li>
+        </ol>
       </div>
 
       <div className="quadro">

@@ -4,7 +4,18 @@ import { useEffect, useState } from "react";
 import { casamento } from "@/config/casamento";
 
 /** Botões para espalhar um post-it: copiar link, WhatsApp e o compartilhar do celular. */
-export function Compartilhar({ id, nome, className = "" }: { id: string; nome: string; className?: string }) {
+export function Compartilhar({
+  id,
+  nome,
+  className = "",
+  mini = false,
+}: {
+  id: string;
+  nome: string;
+  className?: string;
+  /** Só os ícones, pequenininhos (na página do post-it, para não atrapalhar o print). */
+  mini?: boolean;
+}) {
   const [copiado, setCopiado] = useState(false);
   const [nativo, setNativo] = useState(false);
 
@@ -32,8 +43,8 @@ export function Compartilhar({ id, nome, className = "" }: { id: string; nome: s
   };
 
   return (
-    <div className={`compartilhar ${className}`}>
-      <button type="button" className="compartilhar__botao" onClick={copiar}>
+    <div className={`compartilhar ${mini ? "compartilhar--mini" : ""} ${className}`}>
+      <button type="button" className="compartilhar__botao" onClick={copiar} title={copiado ? "Link copiado!" : "Copiar link"}>
         <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
           <path
             d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"
@@ -43,10 +54,11 @@ export function Compartilhar({ id, nome, className = "" }: { id: string; nome: s
             strokeLinecap="round"
           />
         </svg>
-        {copiado ? "Link copiado!" : "Copiar link"}
+        <span className={mini ? "sr-only" : undefined}>{copiado ? "Link copiado!" : "Copiar link"}</span>
       </button>
       <a
         className="compartilhar__botao"
+        title="Mandar no WhatsApp"
         href={`https://wa.me/?text=${encodeURIComponent(`${texto} ${link}`)}`}
         target="_blank"
         rel="noopener noreferrer"
@@ -60,14 +72,14 @@ export function Compartilhar({ id, nome, className = "" }: { id: string; nome: s
             strokeLinejoin="round"
           />
         </svg>
-        WhatsApp
+        <span className={mini ? "sr-only" : undefined}>WhatsApp</span>
       </a>
       {nativo && (
-        <button type="button" className="compartilhar__botao" onClick={compartilhar}>
+        <button type="button" className="compartilhar__botao" onClick={compartilhar} title="Compartilhar">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
             <path d="M12 15V4M8 8l4-4 4 4M5 12v7h14v-7" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Compartilhar
+          <span className={mini ? "sr-only" : undefined}>Compartilhar</span>
         </button>
       )}
     </div>
