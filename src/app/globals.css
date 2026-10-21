@@ -23,6 +23,7 @@
   --color-salvia: var(--salvia);
   --font-display: "Bodoni Moda Variable", "Times New Roman", serif;
   --font-texto: "Jost Variable", system-ui, sans-serif;
+  --font-mao: "Caveat Variable", "Bradley Hand", cursive;
 }
 
 html,

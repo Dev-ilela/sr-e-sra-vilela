@@ -1,6 +1,7 @@
 import { Casal } from "@/components/Casal";
 import { ChamadaPresentes } from "@/components/ChamadaPresentes";
 import { Contador } from "@/components/Contador";
+import { ChamadaMural } from "@/components/mural/ChamadaMural";
 import { Ramo } from "@/components/Ramo";
 import { casamento, dataPorExtenso } from "@/config/casamento";
 
@@ -32,6 +33,8 @@ export default function Inicio() {
       <Casal />
 
       <ChamadaPresentes />
+
+      <ChamadaMural />
     </main>
   );
 }

@@ -2,8 +2,10 @@ import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/bodoni-moda/opsz.css";
 import "@fontsource-variable/bodoni-moda/opsz-italic.css";
 import "@fontsource-variable/jost/index.css";
+import "@fontsource-variable/caveat/index.css";
 import { casamento, dataCurta } from "@/config/casamento";
 import "./globals.css";
+import "./mural.css";
 
 const nomes = `${casamento.noivo} & ${casamento.noiva}`;
 const descricao = `Acompanhe conosco nossa trajetória até o tão esperado ${dataCurta.replaceAll("/", ".")}`;
