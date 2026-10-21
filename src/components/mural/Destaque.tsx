@@ -20,6 +20,10 @@ type Props = {
   origem: HTMLElement | null;
   inclinacao: number;
   aoFechar: () => void;
+  /** Só o papel grande, sem resposta nem botões (o "zoom" do duplo clique). */
+  soPapel?: boolean;
+  /** Texto do botão de fechar. */
+  rotuloFechar?: string;
 };
 
 /**
@@ -31,7 +35,7 @@ function papelDe(origem: HTMLElement) {
   return origem.querySelector<HTMLElement>(".postit") ?? origem;
 }
 
-export function Destaque({ item, origem, inclinacao, aoFechar }: Props) {
+export function Destaque({ item, origem, inclinacao, aoFechar, soPapel = false, rotuloFechar = "Colar de volta no quadro" }: Props) {
   const dialogo = useRef<HTMLDialogElement>(null);
   const papel = useRef<HTMLDivElement>(null);
   const extras = useRef<HTMLDivElement>(null);
@@ -135,7 +139,7 @@ export function Destaque({ item, origem, inclinacao, aoFechar }: Props) {
   return (
     <dialog
       ref={dialogo}
-      className="destaque"
+      className={`destaque ${soPapel ? "destaque--zoom" : ""}`}
       aria-label={`Post-it de ${item.nome}`}
       onClick={(e) => {
         if (e.target === e.currentTarget) fechar();
@@ -146,7 +150,7 @@ export function Destaque({ item, origem, inclinacao, aoFechar }: Props) {
           <PostIt {...item} semente={item.id} tamanho="grande" alfinete={null} pendente={item.pendente} />
         </div>
 
-        <div ref={extras} className="destaque__extras" style={{ opacity: 0 }}>
+        <div ref={extras} className="destaque__extras" style={{ opacity: 0 }} hidden={soPapel}>
           {item.resposta && (
             <p className="destaque__resposta">
               <span className="destaque__resposta-quem">
@@ -167,7 +171,7 @@ export function Destaque({ item, origem, inclinacao, aoFechar }: Props) {
             </>
           )}
           <button type="button" className="destaque__fechar" onClick={fechar}>
-            Colar de volta no quadro
+            {rotuloFechar}
           </button>
         </div>
       </div>

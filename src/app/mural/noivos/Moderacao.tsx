@@ -2,6 +2,7 @@
 
 import { useActionState, useRef, useState, useTransition } from "react";
 import { useFormStatus } from "react-dom";
+import { Destaque } from "@/components/mural/Destaque";
 import { PostIt } from "@/components/mural/PostIt";
 import { STICKERS, Sticker } from "@/components/mural/Stickers";
 import type { Recado } from "@/lib/recados";
@@ -93,6 +94,9 @@ export function CartaoModeracao({ recado, aba }: { recado: Recado; aba: Status }
   const [clicado, setClicado] = useState<string | null>(null);
   const [erro, setErro] = useState<string | null>(null);
   const [saiu, setSaiu] = useState(false);
+  // Duplo clique no post-it = zoom; botão "Prévia" = como a pessoa vê no mural.
+  const [aberto, setAberto] = useState<null | "zoom" | "previa">(null);
+  const previa = useRef<HTMLDivElement>(null);
   // Véu com o anel só enquanto espera o servidor; durante a animação o post-it fica livre.
   const [esperando, setEsperando] = useState(false);
   const router = useRouter();
@@ -130,9 +134,39 @@ export function CartaoModeracao({ recado, aba }: { recado: Recado; aba: Status }
 
   return (
     <li ref={cartao} className={`noivos__cartao ${esperando ? "noivos__cartao--salvando" : ""}`} aria-busy={salvando}>
-      <div className="noivos__previa postit-caixa">
-        <PostIt {...recado} semente={recado.id} sticker={sticker || null} tamanho="grande" alfinete={null} inclinacao={-1.5} />
+      <div className="noivos__coluna-previa">
+        <div
+          ref={previa}
+          className="noivos__previa postit-caixa"
+          onDoubleClick={() => setAberto("zoom")}
+          title="Dois cliques para ver maior"
+        >
+          <PostIt {...recado} semente={recado.id} sticker={sticker || null} tamanho="grande" alfinete={null} inclinacao={-1.5} />
+        </div>
+        <button type="button" className="noivos__previa-botao" onClick={() => setAberto("previa")}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" strokeWidth="1.7" />
+            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="1.7" />
+          </svg>
+          Prévia no mural
+        </button>
       </div>
+
+      {aberto && (
+        <Destaque
+          item={{
+            ...recado,
+            sticker: sticker || null,
+            resposta: resposta.trim() || null,
+            compartilhavel: aba === "aprovado",
+          }}
+          origem={previa.current}
+          inclinacao={-1.5}
+          soPapel={aberto === "zoom"}
+          rotuloFechar="Fechar prévia"
+          aoFechar={() => setAberto(null)}
+        />
+      )}
 
       <div className="noivos__form">
         <p className="noivos__quem">

@@ -148,6 +148,11 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
         </ul>
       </div>
 
+      <p className="quadro__rodape">
+        Vai ser um prazer ler cada <PalavraPostIt /> e responder com um sticker feito pra você! Clique em um{" "}
+        <PalavraPostIt /> para ver a nossa resposta.
+      </p>
+
       {/* Bloquinho flutuante no canto: a folha de cima é de onde sai o post-it novo. */}
       <button
         type="button"
@@ -157,6 +162,8 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
         onClick={() => setEscrevendo(true)}
         aria-label="Escrever um post-it pros noivos"
       >
+        <span className="bloquinho__extra bloquinho__extra--azul" aria-hidden="true" />
+        <span className="bloquinho__extra bloquinho__extra--rosa" aria-hidden="true" />
         <span className="bloquinho__pilha" aria-hidden="true" />
         <span className="bloquinho__pilha" aria-hidden="true" />
         <span ref={folha} className="bloquinho__folha">

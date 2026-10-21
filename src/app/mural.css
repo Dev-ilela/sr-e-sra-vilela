@@ -1007,23 +1007,9 @@
   transform: rotate(12deg);
 }
 
-.devolutiva__resposta {
-  max-width: 24rem;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-variation-settings: "opsz" 11;
-  font-size: 1.08rem;
-  line-height: 1.55;
-}
 
-.devolutiva__assinatura {
-  display: block;
-  margin-top: 0.35rem;
-  font-family: var(--font-mao);
-  font-weight: 700;
-  font-size: 1.4rem;
-  color: var(--rose-escuro);
-}
+
+
 
 .devolutiva__acoes {
   display: grid;
@@ -1946,4 +1932,202 @@
 /* Mais espaço entre o post-it aberto (e o sticker) e a resposta. */
 .destaque__extras {
   margin-top: 3rem;
+}
+
+/* ---------- Post-it aberto sem barra de rolagem ---------- */
+
+.destaque,
+.escritor,
+.devolutiva {
+  scrollbar-width: none;
+}
+
+.destaque::-webkit-scrollbar,
+.escritor::-webkit-scrollbar,
+.devolutiva::-webkit-scrollbar {
+  display: none;
+}
+
+/* O papel aberto cabe na altura da tela junto com a resposta e os botões. */
+.destaque__papel {
+  width: min(84vw, 400px, calc(100dvh - 25rem));
+  min-width: min(84vw, 260px);
+}
+
+.destaque__palco {
+  padding: 1rem 0;
+}
+
+/* Zoom do duplo clique: só o papel, maior. */
+.destaque--zoom .destaque__papel {
+  width: min(88vw, 520px, calc(100dvh - 6rem));
+}
+
+/* ---------- Resposta dos noivos na devolutiva ---------- */
+
+.devolutiva__resposta {
+  position: relative;
+  width: min(100%, 22rem);
+  margin-top: 0.4rem;
+  padding: 0.85rem 1.1rem 0.95rem;
+  border: 1px solid rgba(185, 122, 116, 0.35);
+  border-left: 3px solid var(--rose-escuro);
+  border-radius: 6px 16px 16px 16px;
+  background: var(--branco);
+  text-align: left;
+  box-shadow: 0 14px 28px -18px rgba(20, 35, 59, 0.45);
+}
+
+/* Biquinho de balão apontando para o post-it. */
+.devolutiva__resposta::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 1.4rem;
+  width: 14px;
+  height: 14px;
+  border-top: 1px solid rgba(185, 122, 116, 0.35);
+  border-left: 1px solid rgba(185, 122, 116, 0.35);
+  background: var(--branco);
+  transform: rotate(45deg);
+}
+
+.devolutiva__resposta-quem {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-variation-settings: "opsz" 11;
+  font-size: 0.98rem;
+  color: var(--rose-escuro);
+}
+
+.devolutiva__resposta-texto {
+  margin-top: 0.15rem;
+  font-family: var(--font-mao);
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 1.15;
+  color: var(--marinho);
+}
+
+/* ---------- Frase embaixo do quadro ---------- */
+
+.quadro__rodape {
+  max-width: 40rem;
+  margin: 1.75rem auto 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-variation-settings: "opsz" 11;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  line-height: 1.55;
+  text-align: center;
+  color: var(--marinho);
+}
+
+/* ---------- Bloquinho: duas folhas coloridas espiando por trás ---------- */
+
+.bloquinho__extra {
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 6px 10px -6px rgba(20, 35, 59, 0.4);
+}
+
+.bloquinho__extra--azul {
+  background: linear-gradient(172deg, var(--azul-1), var(--azul-2));
+  transform: translate(-12px, 8px) rotate(-11deg);
+}
+
+.bloquinho__extra--rosa {
+  background: linear-gradient(172deg, var(--rosa-1), var(--rosa-2));
+  transform: translate(12px, -8px) rotate(9deg);
+}
+
+.bloquinho:hover .bloquinho__extra--azul {
+  transform: translate(-16px, 10px) rotate(-14deg);
+}
+
+.bloquinho:hover .bloquinho__extra--rosa {
+  transform: translate(16px, -10px) rotate(12deg);
+}
+
+.bloquinho__extra {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ---------- Prévia na área dos noivos ---------- */
+
+.noivos__coluna-previa {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 0.25rem;
+}
+
+.noivos__coluna-previa .noivos__previa {
+  width: calc(100% - 1.75rem);
+  cursor: zoom-in;
+}
+
+.noivos__coluna-previa .noivos__previa * {
+  cursor: zoom-in;
+}
+
+@media (max-width: 640px) {
+  .noivos__coluna-previa {
+    width: min(70vw, 240px);
+    justify-self: center;
+  }
+}
+
+.noivos__previa-botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid rgba(185, 122, 116, 0.55);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--marinho);
+  font-family: var(--font-texto);
+  font-size: 0.88rem;
+  cursor: var(--cursor-mao, pointer);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.noivos__previa-botao:hover {
+  background: var(--marinho);
+  color: var(--branco);
+}
+
+/* ---------- Bodoni mais encorpado onde ficava fininho demais ---------- */
+/* opsz mais baixo engrossa os traços finos; peso maior ajuda nos tamanhos médios. */
+
+.devolutiva__titulo,
+.registro__de,
+.casal__sub,
+.polaroid__legenda,
+.noivos__vazio,
+.noivos--carregando,
+.pix__obrigado {
+  font-weight: 600;
+  font-variation-settings: "opsz" 11;
+}
+
+.entrada__nomes,
+.chamada__titulo {
+  font-weight: 500;
+  font-variation-settings: "opsz" 14;
+}
+
+.entrada__data p {
+  font-weight: 500;
+  font-variation-settings: "opsz" 11;
+}
+
+.mural__intro,
+.vitrine__convite,
+.lista__intro,
+.casal__texto {
+  font-weight: 560;
 }

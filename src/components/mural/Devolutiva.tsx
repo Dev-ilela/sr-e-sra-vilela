@@ -80,12 +80,12 @@ export function Devolutiva({ recado, aoFechar }: { recado: Recado; aoFechar: () 
           )}
         </div>
 
-        <p className="devolutiva__resposta" style={{ opacity: 0 }}>
-          {recado.resposta ?? "Que carinho! Obrigado por fazer parte da nossa história."}
-          <span className="devolutiva__assinatura">
-            {casamento.noivo} & {casamento.noiva}
-          </span>
-        </p>
+        <div className="devolutiva__resposta" style={{ opacity: 0 }}>
+          <p className="devolutiva__resposta-quem">
+            {casamento.noivo} & {casamento.noiva} responderam:
+          </p>
+          <p className="devolutiva__resposta-texto">{recado.resposta ?? "Que carinho! Obrigado por fazer parte da nossa história."}</p>
+        </div>
 
         <div className="devolutiva__acoes" style={{ opacity: 0 }}>
           <button type="button" className="botao botao--rose" onClick={() => dialogo.current?.close()}>
