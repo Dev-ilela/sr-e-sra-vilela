@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { Destaque, type ItemDestaque } from "@/components/mural/Destaque";
 import { Devolutiva } from "@/components/mural/Devolutiva";
 import { Escritor } from "@/components/mural/Escritor";
@@ -15,7 +15,7 @@ import {
   meusRecados,
   type MeuRecado,
 } from "@/lib/meusRecados";
-import { corDoAlfinete, inclinacao, POST_IT_DOS_NOIVOS, type Recado } from "@/lib/recados";
+import { corDoAlfinete, escalaDoPostIt, inclinacao, POST_IT_DOS_NOIVOS, type Recado } from "@/lib/recados";
 
 type Aberto = { item: ItemDestaque; origem: HTMLElement | null; incl: number };
 
@@ -192,14 +192,14 @@ function ItemDoQuadro({
   aoAbrir: (item: ItemDestaque, origem: HTMLElement, incl: number) => void;
 }) {
   return (
-    <li className="quadro__item" data-recado={id}>
+    <li className="quadro__item" data-recado={id} style={{ "--escala": escalaDoPostIt(dados.mensagem) } as CSSProperties}>
       <button
         type="button"
         className="quadro__botao"
         onClick={(e) => aoAbrir({ ...dados, id }, e.currentTarget.closest("li")!, incl)}
         aria-label={`Abrir o post-it de ${dados.nome}`}
       >
-        <PostIt {...dados} inclinacao={incl} alfinete={alfinete} pendente={dados.pendente} />
+        <PostIt {...dados} semente={id} inclinacao={incl} alfinete={alfinete} pendente={dados.pendente} />
       </button>
     </li>
   );

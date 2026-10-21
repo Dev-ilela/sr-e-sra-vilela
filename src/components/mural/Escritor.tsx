@@ -309,7 +309,7 @@ export function Escritor({ origem, aoEnviar, aoFechar }: Props) {
           <textarea
             id="postit-mensagem"
             name="mensagem"
-            className="escritor__texto"
+            className={`escritor__texto ${mensagem.length > 200 ? "escritor__texto--longo" : mensagem.length > 110 ? "escritor__texto--medio" : ""}`}
             value={mensagem}
             onChange={(e) => setMensagem(e.target.value.slice(0, LIMITE_MENSAGEM))}
             maxLength={LIMITE_MENSAGEM}
@@ -371,7 +371,13 @@ export function Escritor({ origem, aoEnviar, aoFechar }: Props) {
               onClick={() => papel.current?.requestSubmit()}
               disabled={fase !== "escrevendo"}
             >
-              {fase === "enviando" ? "Colando..." : "Colar no mural"}
+              {fase === "enviando" ? (
+                <>
+                  <span className="carregando" aria-hidden="true" /> Colando...
+                </>
+              ) : (
+                "Colar no mural"
+              )}
             </button>
           </div>
         </div>

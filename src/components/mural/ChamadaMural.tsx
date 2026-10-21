@@ -10,7 +10,7 @@ export async function ChamadaMural() {
   return (
     <section className="vitrine" aria-labelledby="vitrine-titulo">
       <div className="vitrine__nosso postit-caixa">
-        <PostIt {...POST_IT_DOS_NOIVOS} inclinacao={-4} alfinete="ouro" tamanho="grande" />
+        <PostIt {...POST_IT_DOS_NOIVOS} semente={POST_IT_DOS_NOIVOS.id} inclinacao={-4} alfinete="ouro" tamanho="grande" />
       </div>
 
       <div className="vitrine__texto">

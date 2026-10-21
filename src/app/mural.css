@@ -91,8 +91,7 @@
   font-size: 7.6cqi;
 }
 
-/* No quadro, textos muito longos ficam cortados; abrindo, aparece tudo. */
-.postit--normal .postit__texto,
+/* Só na prévia da home os textos longos são cortados; no quadro o papel cresce. */
 .postit--mini .postit__texto {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -109,18 +108,35 @@
   line-height: 1.1;
 }
 
-.postit--com-sticker .postit__nome {
+.postit--sticker-direita .postit__nome {
   padding-right: 22%;
 }
 
+.postit--sticker-esquerda .postit__nome {
+  padding-left: 22%;
+}
+
+/* Cada post-it sorteia o canto, o quanto o sticker sai para fora e o giro. */
 .postit__sticker {
   position: absolute;
-  right: -13%;
-  bottom: -17%;
+  bottom: var(--st-y, -17%);
   width: 38%;
-  height: auto;
-  transform: rotate(12deg);
+  transform: rotate(var(--st-giro, 12deg));
   pointer-events: none;
+}
+
+.postit--sticker-direita .postit__sticker {
+  right: var(--st-x, -13%);
+}
+
+.postit--sticker-esquerda .postit__sticker {
+  left: var(--st-x, -13%);
+}
+
+.postit__sticker svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .postit--grande {
@@ -318,20 +334,22 @@
   container-type: inline-size;
 }
 
+.quadro__item {
+  align-items: start;
+  justify-items: center;
+}
+
+/* Largura conforme o tamanho do recado (--escala vem do componente). */
 .quadro__botao {
   display: block;
-  width: 100%;
+  width: calc(var(--escala, 1) * 100%);
   padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
 }
 
-/* A mãozinha em todo o papel (sem o cursor de texto por cima das letras). */
-.quadro__botao *,
-.bloquinho * {
-  cursor: pointer;
-}
+
 
 .quadro__botao:hover .postit,
 .quadro__botao:focus-visible .postit {
@@ -1751,4 +1769,160 @@
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* ---------- Carregando e avisos ---------- */
+
+.carregando {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  vertical-align: -0.15em;
+  animation: girar 0.75s linear infinite;
+}
+
+.carregando--grande {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-width: 3px;
+  border-color: var(--rose);
+  border-right-color: transparent;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.noivos--carregando {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+}
+
+/* Enquanto salva: o post-it fica coberto por um véu com o anel girando. */
+.noivos__previa {
+  position: relative;
+}
+
+.noivos__cartao--salvando .noivos__previa::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(250, 251, 252, 0.5);
+  pointer-events: none;
+}
+
+.noivos__cartao--salvando .noivos__previa::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  margin: -1.1rem 0 0 -1.1rem;
+  border: 3px solid var(--rose-escuro);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: girar 0.75s linear infinite;
+}
+
+.noivos__cartao--salvando .noivos__form {
+  opacity: 0.75;
+}
+
+/* O aviãozinho e a bolinha voam por cima de tudo. */
+.noivos__voador {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 10px rgba(20, 35, 59, 0.3));
+}
+
+.avisos {
+  position: fixed;
+  z-index: 120;
+  left: 50%;
+  bottom: 1.5rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.aviso {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.1rem 0.7rem 0.8rem;
+  border: 1px solid rgba(226, 179, 163, 0.55);
+  border-radius: 999px;
+  background: var(--marinho);
+  color: var(--branco);
+  font-size: 0.95rem;
+  box-shadow: 0 16px 30px -14px rgba(20, 35, 59, 0.6);
+  animation: aviso-entra 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.aviso__icone {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f0cdbf, var(--rose) 45%, var(--rose-escuro));
+  color: var(--marinho);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.aviso--erro {
+  border-color: var(--rose-escuro);
+  background: #3a2430;
+}
+
+.aviso--erro .aviso__icone {
+  background: var(--rose-escuro);
+  color: var(--branco);
+}
+
+@keyframes aviso-entra {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+}
+
+/* Texto do post-it sendo escrito diminui conforme cresce, sem barra de rolagem. */
+.escritor__texto {
+  scrollbar-width: none;
+}
+
+.escritor__texto::-webkit-scrollbar {
+  display: none;
+}
+
+.escritor__texto--medio {
+  font-size: clamp(1.2rem, 4.8vw, 1.5rem);
+}
+
+.escritor__texto--longo {
+  font-size: clamp(1.05rem, 4.2vw, 1.3rem);
+}
+
+/* Mais espaço entre o post-it aberto (e o sticker) e a resposta. */
+.destaque__extras {
+  margin-top: 3rem;
 }

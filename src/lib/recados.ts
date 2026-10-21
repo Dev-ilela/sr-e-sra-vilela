@@ -34,13 +34,15 @@ export type Recado = {
 /** Campos que o visitante pode ler (o status não é exposto). */
 export const CAMPOS_PUBLICOS = "id,nome,mensagem,cor,resposta,sticker,created_at,moderado_em";
 
-/** O post-it dos noivos, fixo no mural e na home. */
+/** O post-it dos noivos, fixo no mural e na home (com a gravata, do lado esquerdo). */
 export const POST_IT_DOS_NOIVOS = {
   id: "dos-noivos",
   mensagem:
-    "Animados? Sim. Ansiosos? Muito. Registramos aqui essas emoções e o sentimento que é poder amar e ser amado... uma honra partilhar dessa vida com você.",
-  nome: "Gabriel",
+    "Animados? Sim. Ansiosos? Também... Registramos aqui essas emoções e o sentimento que é poder amar e ser amado... uma honra partilhar dessa vida com você.",
+  nome: "Gabriel Vilela",
   cor: "amarelo" as CorPostIt,
+  sticker: "gravata",
+  ladoDoSticker: "esquerda" as const,
 };
 
 const URL_SUPABASE = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -97,7 +99,7 @@ export function semente(id: string) {
   return (h >>> 0) / 4294967295;
 }
 
-export function inclinacao(id: string, amplitude = 4) {
+export function inclinacao(id: string, amplitude = 7) {
   return Number(((semente(id) * 2 - 1) * amplitude).toFixed(2));
 }
 
@@ -108,4 +110,32 @@ export function corDoAlfinete(id: string) {
 
 export function dataCurtaDe(iso: string) {
   return new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "short", timeZone: "America/Sao_Paulo" });
+}
+
+/**
+ * Tamanho do post-it no quadro conforme o recado: os curtinhos ("Amamos vocês!") ficam
+ * menores e os longos ocupam a coluna inteira e crescem para baixo. Fração da coluna.
+ */
+export function escalaDoPostIt(mensagem: string) {
+  const n = mensagem.length;
+  if (n <= 25) return 0.64;
+  if (n <= 60) return 0.74;
+  if (n <= 120) return 0.86;
+  if (n <= 200) return 0.94;
+  return 1;
+}
+
+export type LadoDoSticker = "esquerda" | "direita";
+
+/** Onde o sticker cola: sempre num canto de baixo, mas cada post-it de um jeito. */
+export function posicaoDoSticker(id: string, lado?: LadoDoSticker) {
+  const a = semente(id + "sticker");
+  const b = semente(id + "sticker-y");
+  const c = semente(id + "sticker-giro");
+  return {
+    lado: lado ?? (a < 0.5 ? "esquerda" : "direita"),
+    x: -16 + a * 12, // % para fora da borda lateral
+    y: -20 + b * 10, // % para fora da borda de baixo
+    giro: Math.round(-26 + c * 52),
+  } as const;
 }

@@ -1627,6 +1627,27 @@ body {
     cursor: var(--cursor-mao);
   }
 
+  /* Tudo que é clicável ganha a mãozinha com o anel, inclusive o que está dentro (texto, ícones). */
+  a *,
+  button *,
+  label *,
+  summary *,
+  [role="button"] *,
+  .botao *,
+  input[type="radio"],
+  input[type="checkbox"],
+  input[type="submit"],
+  input[type="button"],
+  .quadro__botao,
+  .quadro__botao *,
+  .bloquinho,
+  .bloquinho *,
+  .vitrine__ultimos *,
+  .noivos__sticker,
+  .noivos__sticker * {
+    cursor: var(--cursor-mao);
+  }
+
   input,
   textarea {
     cursor: text;
@@ -1636,7 +1657,53 @@ body {
     cursor: var(--cursor-seta);
   }
 
-  .botao:disabled {
+  .botao:disabled,
+  button:disabled,
+  button:disabled * {
     cursor: progress;
   }
+}
+
+/* ---------- Seleção de texto ---------- */
+/* Rose gold no site todo; onde o texto já é rose, a seleção vira marinho para dar contraste. */
+
+::selection {
+  background: var(--rose);
+  color: var(--marinho);
+}
+
+.casal__sub::selection,
+.destaque__resposta-quem::selection,
+.devolutiva__assinatura::selection,
+.devolutiva__chapeu::selection,
+.entrada__e::selection,
+.escritor__carimbo::selection,
+.escritor__contador--cheio::selection,
+.escritor__recebido-titulo::selection,
+.lista__chapeu::selection,
+.lista__intro-ps::selection,
+.lista__nota a::selection,
+.mural__intro em::selection,
+.mural__vem::selection,
+.noivos--fora .noivos__chapeu::selection,
+.noivos__chapeu::selection,
+.noivos__erro::selection,
+.noivos__erro-cartao::selection,
+.noivos__reprovar::selection,
+.pix__chapeu::selection,
+.pix__chave-copiar::selection,
+.pix__valor::selection,
+.presente__pix::selection,
+.registro__chapeu::selection,
+.registro__contador .contador__chegou::selection,
+.registro__contador .contador__dias::selection,
+.registro__nomes span::selection,
+.registro__resposta-quem::selection,
+.regua__hoje::selection,
+.vitrine__chapeu::selection,
+.vitrine__escrever::selection,
+.casal__historia::selection,
+.registro__de span::selection {
+  background: var(--marinho);
+  color: var(--branco);
 }

@@ -37,7 +37,7 @@ export default async function RegistroDoPostIt({ params }: Props) {
     <main className="registro">
       <div className="registro__palco">
         <div className="registro__postit postit-caixa">
-          <PostIt {...recado} inclinacao={-3} alfinete="rose" tamanho="grande" />
+          <PostIt {...recado} semente={recado.id} inclinacao={-3} alfinete="rose" tamanho="grande" />
         </div>
 
         <div className="registro__lado">

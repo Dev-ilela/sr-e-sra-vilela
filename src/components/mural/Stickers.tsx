@@ -363,6 +363,22 @@ const desenhos: Record<string, ReactNode> = {
       <Faixa cx={60} cy={100} largura={46} texto="TMJ" fonte={16} />
     </g>
   ),
+  gravata: (
+    <g>
+      {/* gola da camisa */}
+      <path d="M60 24 L34 12 L38 36 Z" fill={BRANCO} {...traco} />
+      <path d="M60 24 L86 12 L82 36 Z" fill={BRANCO} {...traco} />
+      {/* corpo da gravata */}
+      <path d="M55 38 H65 L74 92 L60 110 L46 92 Z" fill="#2f4a72" {...traco} />
+      <path d="M54.5 54 L65.5 46 M52.5 66 L67.5 58 M50.5 78 L69.5 70 M48.5 90 L71.5 82" stroke={ROSE} strokeWidth={3.4} strokeLinecap="round" />
+      <path d="M55 38 H65 L74 92 L60 110 L46 92 Z" fill="none" {...traco} />
+      {/* nó */}
+      <path d="M51 22 H69 L65 39 H55 Z" fill="#3c5c8a" {...traco} />
+      <path d="M56 26 L58 35" stroke={BRANCO} strokeWidth={2} strokeLinecap="round" opacity={0.6} />
+      <Brilho x={92} y={44} r={6} />
+      <Brilho x={26} y={52} r={4.5} />
+    </g>
+  ),
   carta: (
     <g>
       <path d={coracao(34, 22, 9)} fill={ROSE} {...traco} strokeWidth={2.4} transform="rotate(-14 34 22)" />
@@ -388,6 +404,7 @@ export const STICKERS = [
   { id: "oracao", nome: "Oração" },
   { id: "joia", nome: "Joia" },
   { id: "tmj", nome: "TMJ" },
+  { id: "gravata", nome: "Gravata" },
   { id: "brinde", nome: "Brinde" },
   { id: "carta", nome: "Cartinha" },
 ] as const;

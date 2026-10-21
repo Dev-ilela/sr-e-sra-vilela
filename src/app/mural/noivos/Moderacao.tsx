@@ -1,12 +1,14 @@
 "use client";
 
-import { useActionState, useState, useTransition } from "react";
+import { useActionState, useRef, useState, useTransition } from "react";
 import { useFormStatus } from "react-dom";
 import { PostIt } from "@/components/mural/PostIt";
 import { STICKERS, Sticker } from "@/components/mural/Stickers";
 import type { Recado } from "@/lib/recados";
 import { useRouter } from "next/navigation";
+import { avisar } from "@/components/Avisos";
 import { entrar, moderar, type Status } from "./acoes";
+import { amassarEJogar, recolher, virarAviao } from "./animacoes";
 
 export function FormularioEntrar() {
   const [erro, acao] = useActionState(entrar, null);
@@ -23,20 +25,33 @@ export function FormularioEntrar() {
           {erro}
         </p>
       )}
-      <Enviar className="botao">Entrar</Enviar>
+      <Enviar className="botao" carregando="Entrando...">
+        Entrar
+      </Enviar>
     </form>
   );
 }
 
-function Enviar({ children, className, name, value }: { children: React.ReactNode; className: string; name?: string; value?: string }) {
-  const { pending, data } = useFormStatus();
-  const esteBotao = !name || data?.get(name) === value;
+function Enviar({ children, className, carregando }: { children: React.ReactNode; className: string; carregando: string }) {
+  const { pending } = useFormStatus();
   return (
-    <button type="submit" className={className} name={name} value={value} disabled={pending}>
-      {pending && esteBotao ? "Salvando..." : children}
+    <button type="submit" className={className} disabled={pending}>
+      {pending ? (
+        <>
+          <span className="carregando" aria-hidden="true" /> {carregando}
+        </>
+      ) : (
+        children
+      )}
     </button>
   );
 }
+
+const MENSAGEM: Record<Status, string> = {
+  aprovado: "Aprovado e colado no mural!",
+  recusado: "Foi pros reprovados.",
+  pendente: "Voltou para os pendentes.",
+};
 
 const RESPOSTAS_RAPIDAS = [
   "Que lindo! Amamos vocês.",
@@ -77,26 +92,46 @@ export function CartaoModeracao({ recado, aba }: { recado: Recado; aba: Status }
   const [salvando, iniciar] = useTransition();
   const [clicado, setClicado] = useState<string | null>(null);
   const [erro, setErro] = useState<string | null>(null);
+  const [saiu, setSaiu] = useState(false);
+  // Véu com o anel só enquanto espera o servidor; durante a animação o post-it fica livre.
+  const [esperando, setEsperando] = useState(false);
   const router = useRouter();
+  const cartao = useRef<HTMLLIElement>(null);
 
   const salvar = (status: Status, rotulo: string) => {
     setErro(null);
     setClicado(rotulo);
+    setEsperando(true);
     iniciar(async () => {
       const r = await moderar({ id: recado.id, status, resposta, sticker });
+      setEsperando(false);
       if (!r.ok) {
         setErro(r.erro);
+        avisar(r.erro, "erro");
         if (r.erro.includes("sessão")) router.refresh();
         return;
       }
+
+      // Só "Salvar resposta" (aprovado que continua aprovado) fica no lugar.
+      const mudouDeAba = status !== aba;
+      const postit = cartao.current?.querySelector<HTMLElement>(".noivos__previa .postit");
+      if (mudouDeAba && postit) {
+        if (status === "aprovado") await virarAviao(postit);
+        else if (status === "recusado") await amassarEJogar(postit);
+        if (cartao.current) await recolher(cartao.current);
+        setSaiu(true);
+      }
+      avisar(mudouDeAba ? MENSAGEM[status] : "Resposta salva!", "sucesso");
       router.refresh();
     });
   };
 
+  if (saiu) return null;
+
   return (
-    <li className={`noivos__cartao ${salvando ? "noivos__cartao--salvando" : ""}`}>
+    <li ref={cartao} className={`noivos__cartao ${esperando ? "noivos__cartao--salvando" : ""}`} aria-busy={salvando}>
       <div className="noivos__previa postit-caixa">
-        <PostIt {...recado} sticker={sticker || null} tamanho="grande" alfinete={null} inclinacao={-1.5} />
+        <PostIt {...recado} semente={recado.id} sticker={sticker || null} tamanho="grande" alfinete={null} inclinacao={-1.5} />
       </div>
 
       <div className="noivos__form">
@@ -146,7 +181,13 @@ export function CartaoModeracao({ recado, aba }: { recado: Recado; aba: Status }
               disabled={salvando}
               onClick={() => salvar(b.status, b.rotulo)}
             >
-              {salvando && clicado === b.rotulo ? "Salvando..." : b.rotulo}
+              {salvando && clicado === b.rotulo ? (
+                <>
+                  <span className="carregando" aria-hidden="true" /> Salvando...
+                </>
+              ) : (
+                b.rotulo
+              )}
             </button>
           ))}
         </div>

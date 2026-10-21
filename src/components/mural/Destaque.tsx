@@ -143,7 +143,7 @@ export function Destaque({ item, origem, inclinacao, aoFechar }: Props) {
     >
       <div className="destaque__palco" onClick={(e) => e.target === e.currentTarget && fechar()}>
         <div ref={papel} className="destaque__papel">
-          <PostIt {...item} tamanho="grande" alfinete={null} pendente={item.pendente} />
+          <PostIt {...item} semente={item.id} tamanho="grande" alfinete={null} pendente={item.pendente} />
         </div>
 
         <div ref={extras} className="destaque__extras" style={{ opacity: 0 }}>

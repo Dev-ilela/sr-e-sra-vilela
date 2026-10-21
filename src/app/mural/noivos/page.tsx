@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { listarRecados, sair, type Status } from "./acoes";
+import { Avisos } from "@/components/Avisos";
 import { CartaoModeracao, FormularioEntrar } from "./Moderacao";
 
 export const dynamic = "force-dynamic";
@@ -77,6 +78,8 @@ export default async function AreaDosNoivos({ searchParams }: { searchParams: Pr
           ))}
         </ul>
       )}
+
+      <Avisos />
     </main>
   );
 }
