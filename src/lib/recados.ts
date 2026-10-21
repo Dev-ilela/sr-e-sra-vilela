@@ -38,7 +38,7 @@ export const CAMPOS_PUBLICOS = "id,nome,mensagem,cor,resposta,sticker,created_at
 export const POST_IT_DOS_NOIVOS = {
   id: "dos-noivos",
   mensagem:
-    "Animados? Sim. Ansiosos? Também... Registramos aqui essas emoções e o sentimento que é poder amar e ser amado... uma honra partilhar dessa vida com você.",
+    "Animados? Sim... Ansiosos? Também! Registramos aqui essas emoções e o sentimento que é poder amar e ser amado... uma honra partilhar dessa vida com você.",
   nome: "Gabriel Vilela",
   cor: "amarelo" as CorPostIt,
   sticker: "gravata",

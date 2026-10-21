@@ -309,7 +309,7 @@ export function Escritor({ origem, aoEnviar, aoFechar }: Props) {
           <textarea
             id="postit-mensagem"
             name="mensagem"
-            className={`escritor__texto ${mensagem.length > 200 ? "escritor__texto--longo" : mensagem.length > 110 ? "escritor__texto--medio" : ""}`}
+            className="escritor__texto"
             value={mensagem}
             onChange={(e) => setMensagem(e.target.value.slice(0, LIMITE_MENSAGEM))}
             maxLength={LIMITE_MENSAGEM}

@@ -399,7 +399,7 @@ body {
   border-radius: 50%;
   background: #fff;
   color: var(--marinho);
-  cursor: pointer;
+  cursor: var(--cursor-mao, pointer);
   box-shadow: 0 3px 8px -3px rgba(20, 35, 59, 0.45);
   transition: color 0.2s, border-color 0.2s;
 }
@@ -817,7 +817,7 @@ body {
   font-weight: 450;
   letter-spacing: 0.02em;
   text-decoration: none;
-  cursor: pointer;
+  cursor: var(--cursor-mao, pointer);
   transition: background-color 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
 
@@ -1292,7 +1292,7 @@ body {
   text-decoration: underline;
   text-decoration-color: rgba(185, 122, 116, 0.45);
   text-underline-offset: 0.25em;
-  cursor: pointer;
+  cursor: var(--cursor-mao, pointer);
 }
 
 .presente__pix:hover {
@@ -1402,7 +1402,7 @@ body {
   border-radius: 50%;
   background: #fff;
   color: var(--marinho);
-  cursor: pointer;
+  cursor: var(--cursor-mao, pointer);
 }
 
 .pix__fechar:hover {
@@ -1438,7 +1438,7 @@ body {
   font: inherit;
   color: var(--rose-escuro);
   text-decoration: underline;
-  cursor: pointer;
+  cursor: var(--cursor-mao, pointer);
 }
 
 .pix__titulo {
@@ -1665,45 +1665,9 @@ body {
 }
 
 /* ---------- Seleção de texto ---------- */
-/* Rose gold no site todo; onde o texto já é rose, a seleção vira marinho para dar contraste. */
+/* Rose gold no site todo, com o texto em marinho (inclusive onde a letra já é rose). */
 
 ::selection {
   background: var(--rose);
   color: var(--marinho);
-}
-
-.casal__sub::selection,
-.destaque__resposta-quem::selection,
-.devolutiva__assinatura::selection,
-.devolutiva__chapeu::selection,
-.entrada__e::selection,
-.escritor__carimbo::selection,
-.escritor__contador--cheio::selection,
-.escritor__recebido-titulo::selection,
-.lista__chapeu::selection,
-.lista__intro-ps::selection,
-.lista__nota a::selection,
-.mural__intro em::selection,
-.mural__vem::selection,
-.noivos--fora .noivos__chapeu::selection,
-.noivos__chapeu::selection,
-.noivos__erro::selection,
-.noivos__erro-cartao::selection,
-.noivos__reprovar::selection,
-.pix__chapeu::selection,
-.pix__chave-copiar::selection,
-.pix__valor::selection,
-.presente__pix::selection,
-.registro__chapeu::selection,
-.registro__contador .contador__chegou::selection,
-.registro__contador .contador__dias::selection,
-.registro__nomes span::selection,
-.registro__resposta-quem::selection,
-.regua__hoje::selection,
-.vitrine__chapeu::selection,
-.vitrine__escrever::selection,
-.casal__historia::selection,
-.registro__de span::selection {
-  background: var(--marinho);
-  color: var(--branco);
 }
