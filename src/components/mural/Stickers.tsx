@@ -380,17 +380,51 @@ const desenhos: Record<string, ReactNode> = {
     </g>
   ),
   controle: (
-    <g transform="rotate(-8 60 64)">
-      <path d="M26 44 Q34 34 46 38 H74 Q86 34 94 44 Q108 62 102 86 Q98 98 86 92 L76 80 H44 L34 92 Q22 98 18 86 Q12 62 26 44 Z" fill="#e9edf2" {...traco} />
-      <path d="M34 54 h8 v-8 h8 v8 h8 v8 h-8 v8 h-8 v-8 h-8 Z" fill={T} transform="translate(-4 4) scale(.85) translate(6 2)" />
-      <circle cx={84} cy={50} r={4.6} fill={ROSE} {...traco} strokeWidth={2} />
-      <circle cx={93} cy={59} r={4.6} fill={OURO} {...traco} strokeWidth={2} />
-      <circle cx={84} cy={68} r={4.6} fill={SALVIA} {...traco} strokeWidth={2} />
-      <circle cx={75} cy={59} r={4.6} fill="#bfe3f5" {...traco} strokeWidth={2} />
-      <circle cx={50} cy={76} r={6} fill="#2f4a72" {...traco} strokeWidth={2.4} />
-      <circle cx={70} cy={76} r={6} fill="#2f4a72" {...traco} strokeWidth={2.4} />
-      <path d="M54 48 H66" stroke={T} strokeWidth={2.4} strokeLinecap="round" />
-      <Brilho x={100} y={26} r={6} />
+    <g>
+      {/* gatilhos */}
+      <rect x={24} y={22} width={18} height={9} rx={4} fill="#2a2f38" {...traco} strokeWidth={2.4} />
+      <rect x={78} y={22} width={18} height={9} rx={4} fill="#2a2f38" {...traco} strokeWidth={2.4} />
+      {/* corpo branco, no estilo do controle do PS5 */}
+      <path
+        d="M30 30 H90 Q104 30 108 46 L114 82 Q117 100 104 101 Q96 101 90 90 L82 76 H38 L30 90 Q24 101 16 101 Q3 100 6 82 L12 46 Q16 30 30 30 Z"
+        fill="#f7f8fa"
+        {...traco}
+      />
+      {/* parte preta do meio, descendo pelas pegadas */}
+      <path
+        d="M36 58 Q60 64 84 58 Q94 58 98 72 L104 92 Q102 98 96 94 L86 78 Q80 70 70 70 H50 Q40 70 34 78 L24 94 Q18 98 16 92 L22 72 Q26 58 36 58 Z"
+        fill="#2a2f38"
+      />
+      {/* touchpad com a luz azul nas bordas */}
+      <path d="M42 30 H78 L76 54 Q60 58 44 54 Z" fill={BRANCO} {...traco} strokeWidth={2.4} />
+      <path d="M43 33 L45 52 M77 33 L75 52" stroke="#4a6cf7" strokeWidth={2.4} strokeLinecap="round" />
+      {/* direcional */}
+      <g fill="#eef0f3" stroke="#9aa3ad" strokeWidth={1.4}>
+        <rect x={26.5} y={38} width={7} height={7} rx={1.6} />
+        <rect x={26.5} y={52} width={7} height={7} rx={1.6} />
+        <rect x={19.5} y={45} width={7} height={7} rx={1.6} />
+        <rect x={33.5} y={45} width={7} height={7} rx={1.6} />
+      </g>
+      {/* botões de ação */}
+      <g fill="#eef0f3" stroke="#9aa3ad" strokeWidth={1.4}>
+        <circle cx={90} cy={40} r={4.6} />
+        <circle cx={99} cy={48.5} r={4.6} />
+        <circle cx={90} cy={57} r={4.6} />
+        <circle cx={81} cy={48.5} r={4.6} />
+      </g>
+      <g fill="none" stroke="#7d8793" strokeWidth={1.1} strokeLinejoin="round">
+        <path d="M90 37.6 L92.2 41.6 H87.8 Z" />
+        <circle cx={99} cy={48.5} r={2.1} />
+        <path d="M88.3 55.3 L91.7 58.7 M91.7 55.3 L88.3 58.7" />
+        <rect x={79} y={46.5} width={4} height={4} />
+      </g>
+      {/* analógicos */}
+      <circle cx={47} cy={70} r={7.5} fill="#3a404b" {...traco} strokeWidth={2.4} />
+      <circle cx={73} cy={70} r={7.5} fill="#3a404b" {...traco} strokeWidth={2.4} />
+      <circle cx={47} cy={70} r={3.6} fill="#2a2f38" />
+      <circle cx={73} cy={70} r={3.6} fill="#2a2f38" />
+      <path d="M30 30 H90 Q104 30 108 46 L114 82 Q117 100 104 101 Q96 101 90 90 L82 76 H38 L30 90 Q24 101 16 101 Q3 100 6 82 L12 46 Q16 30 30 30 Z" fill="none" {...traco} />
+      <Brilho x={104} y={16} r={5.5} />
     </g>
   ),
   oculos: (
@@ -455,29 +489,40 @@ const desenhos: Record<string, ReactNode> = {
   ),
   zoe: (
     <g>
-      {/* orelhas peludas */}
-      <path d="M30 34 Q12 40 14 66 Q14 86 26 92 Q34 80 34 64 Z" fill="#6b5a4d" {...traco} />
-      <path d="M90 34 Q108 40 106 66 Q106 86 94 92 Q86 80 86 64 Z" fill="#6b5a4d" {...traco} />
-      {/* cabeça */}
-      <path d="M60 18 Q86 18 92 44 Q96 70 84 86 Q72 98 60 98 Q48 98 36 86 Q24 70 28 44 Q34 18 60 18 Z" fill="#9a8878" {...traco} />
-      {/* faixa branca da testa e focinho */}
-      <path d="M54 20 Q60 17 66 20 L64 50 Q74 54 76 66 Q74 84 60 86 Q46 84 44 66 Q46 54 56 50 Z" fill="#f4ede4" />
-      <path d="M38 70 Q46 92 60 94 Q74 92 82 70" fill="none" stroke="#f4ede4" strokeWidth={6} strokeLinecap="round" opacity={0.9} />
-      <path d="M60 18 Q86 18 92 44 Q96 70 84 86 Q72 98 60 98 Q48 98 36 86 Q24 70 28 44 Q34 18 60 18 Z" fill="none" {...traco} />
+      {/* orelhas compridas, cinza-escuro e peludas */}
+      <path d="M36 28 Q14 30 12 54 Q8 76 16 98 Q21 92 24 100 Q29 90 33 97 Q37 82 38 70 Q42 48 42 34 Z" fill="#5d6470" {...traco} />
+      <path d="M84 28 Q106 30 108 54 Q112 76 104 98 Q99 92 96 100 Q91 90 87 97 Q83 82 82 70 Q78 48 78 34 Z" fill="#5d6470" {...traco} />
+      {/* cabeça branca, bem fofa nas bordas */}
+      <path
+        d="M60 16 Q70 11 76 18 Q88 18 93 30 Q99 44 95 60 Q98 74 89 84 Q91 92 82 92 Q80 101 72 96 Q66 104 60 98 Q54 104 48 96 Q40 101 38 92 Q29 92 31 84 Q22 74 25 60 Q21 44 27 30 Q32 18 44 18 Q50 11 60 16 Z"
+        fill="#f8f5f1"
+        {...traco}
+      />
+      {/* manchas cinza em volta dos olhos, deixando a faixa branca no meio */}
+      <path d="M28 34 Q38 22 54 26 Q53 40 51 54 Q42 62 31 58 Q25 46 28 34 Z" fill="#6b7280" />
+      <path d="M92 34 Q82 22 66 26 Q67 40 69 54 Q78 62 89 58 Q95 46 92 34 Z" fill="#6b7280" />
+      <path d="M36 32 L40 40 M44 28 L46 36 M84 32 L80 40 M76 28 L74 36" stroke="#4b515b" strokeWidth={1.4} strokeLinecap="round" />
+      {/* topete arrepiado */}
+      <path d="M52 18 Q54 10 58 16 Q60 8 63 15 Q67 9 68 18" fill="none" stroke={T} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
       {/* olhos */}
-      <circle cx={44} cy={52} r={7.5} fill="#1a1412" {...traco} strokeWidth={2} />
-      <circle cx={76} cy={52} r={7.5} fill="#1a1412" {...traco} strokeWidth={2} />
-      <circle cx={46.5} cy={49.5} r={2.4} fill={BRANCO} />
-      <circle cx={78.5} cy={49.5} r={2.4} fill={BRANCO} />
-      {/* nariz e boquinha */}
-      <ellipse cx={60} cy={68} rx={7.5} ry={5.5} fill="#1a1412" {...traco} strokeWidth={2} />
-      <circle cx={57.5} cy={66.5} r={1.5} fill={BRANCO} opacity={0.7} />
-      <path d="M60 73.5 V78 M53 79 Q60 84 67 79" fill="none" stroke={T} strokeWidth={2} strokeLinecap="round" />
-      <path d="M57 81 Q60 88 63 81 Z" fill="#f29aa0" stroke={T} strokeWidth={1.4} />
-      {/* lacinho */}
-      <path d="M60 18 L48 10 Q44 18 48 24 Z M60 18 L72 10 Q76 18 72 24 Z" fill={ROSE} {...traco} strokeWidth={2.4} />
-      <circle cx={60} cy={18} r={4} fill={ROSE_ESCURO} {...traco} strokeWidth={2.2} />
-      <Faixa cx={60} cy={106} largura={40} texto="Zoe" />
+      <circle cx={44} cy={47} r={5.4} fill="#15110f" />
+      <circle cx={76} cy={47} r={5.4} fill="#15110f" />
+      <circle cx={45.8} cy={45.3} r={1.8} fill={BRANCO} />
+      <circle cx={77.8} cy={45.3} r={1.8} fill={BRANCO} />
+      {/* focinho com barbinha bege */}
+      <ellipse cx={60} cy={72} rx={17} ry={11} fill="#ecd9c2" />
+      <path d="M45 80 L47 86 M52 84 L53 90 M60 85 V92 M68 84 L67 90 M75 80 L73 86" stroke="#d9c2a6" strokeWidth={1.6} strokeLinecap="round" />
+      {/* nariz */}
+      <path d="M52 61 Q60 55 68 61 Q69 68 60 70 Q51 68 52 61 Z" fill="#111" {...traco} strokeWidth={1.8} />
+      <ellipse cx={57} cy={60.5} rx={2.4} ry={1.4} fill={BRANCO} opacity={0.6} />
+      {/* boquinha com os dentinhos de baixo aparecendo */}
+      <path d="M51 75 Q60 71 69 75 Q65 83 60 83 Q55 83 51 75 Z" fill="#4a2a30" stroke={T} strokeWidth={1.6} strokeLinejoin="round" />
+      <path d="M56 80 Q60 77 64 80 Q60 83 56 80 Z" fill="#f29aa0" />
+      <path d="M54.5 76.5 L56 73.6 L57.5 76.5 Z M62.5 76.5 L64 73.6 L65.5 76.5 Z" fill={BRANCO} stroke={T} strokeWidth={0.8} strokeLinejoin="round" />
+      {/* lacinho rosa */}
+      <path d="M70 16 L58 9 Q55 17 59 22 Z M70 16 L82 9 Q85 17 81 22 Z" fill="#e8628f" {...traco} strokeWidth={2.2} />
+      <circle cx={70} cy={16} r={3.6} fill="#c94a74" {...traco} strokeWidth={2} />
+      <Faixa cx={60} cy={108} largura={40} texto="Zoe" />
     </g>
   ),
   notebook: (
@@ -561,18 +606,23 @@ const desenhos: Record<string, ReactNode> = {
   ),
   salto: (
     <g>
-      {/* scarpin branco de lado: bico à esquerda, salto fino à direita */}
-      <path
-        d="M12 92 Q14 80 32 80 Q48 78 62 70 Q80 58 90 34 L98 30 Q104 32 102 40 Q100 56 98 64 L97 108 H91 L89 70 Q70 84 50 94 Q32 100 18 99 Q10 98 12 92 Z"
-        fill={BRANCO}
-        {...traco}
-      />
-      {/* forro rose aparecendo na abertura */}
-      <path d="M32 82 Q50 78 64 72 Q80 62 90 40 L97 34 Q94 52 82 66 Q62 82 32 85 Z" fill={ROSE} stroke={T} strokeWidth={1.8} strokeLinejoin="round" />
-      <path d="M89 72 L98 72" stroke={T} strokeWidth={1.8} />
-      <path d="M20 92 Q34 90 46 86" fill="none" stroke={T} strokeWidth={1.4} opacity={0.35} strokeLinecap="round" />
-      <Brilho x={30} y={52} r={7} />
-      <Brilho x={60} y={34} r={4.5} />
+      {/* sandália branca de salto bloco, com tira no tornozelo e tiras cruzadas no peito do pé */}
+      {/* salto bloco */}
+      <path d="M22 64 L42 64 L39 106 L27 106 Z" fill={BRANCO} {...traco} />
+      <path d="M25 104 H41" stroke={T} strokeWidth={2.4} />
+      {/* traseira (contraforte) */}
+      <path d="M22 66 Q16 52 24 38 L36 40 Q32 52 36 64 Z" fill={BRANCO} {...traco} />
+      {/* palmilha e solado */}
+      <path d="M20 64 Q40 62 56 78 Q72 94 108 94 Q112 98 106 102 Q70 104 50 88 Q36 74 22 72 Z" fill={BRANCO} {...traco} />
+      <path d="M26 66 Q42 66 56 80 Q70 92 102 94" fill="none" stroke={ROSE} strokeWidth={2.6} strokeLinecap="round" />
+      {/* tira do tornozelo com fivela dourada */}
+      <path d="M22 38 Q30 30 44 30 Q50 32 48 36 Q34 36 24 44 Z" fill={BRANCO} {...traco} strokeWidth={2.8} />
+      <rect x={38} y={30} width={7} height={6} rx={1.2} fill={OURO} stroke={T} strokeWidth={1.6} />
+      {/* tiras cruzadas na frente */}
+      <path d="M72 92 Q82 76 98 80 L102 86 Q86 84 80 94 Z" fill={BRANCO} {...traco} strokeWidth={2.8} />
+      <path d="M76 82 Q88 80 100 92 L94 94 Q86 86 74 88 Z" fill={BRANCO} {...traco} strokeWidth={2.8} />
+      <Brilho x={92} y={46} r={7} />
+      <Brilho x={68} y={30} r={4.5} />
     </g>
   ),
   carta: (
