@@ -13,7 +13,7 @@ create table public.recados (
   status public.status_recado not null default 'pendente',
   -- Devolutiva dos noivos: recado curto e um sticker da coleção.
   resposta text check (char_length(resposta) <= 200),
-  sticker text check (sticker in ('aliancas','coracao','pomba','bolo','buque','biblia','brinde','carta')),
+  sticker text check (sticker in ('aliancas','coracao','pomba','bolo','buque','biblia','brinde','carta','palavra','oracao','joia','tmj')),
   created_at timestamptz not null default now(),
   moderado_em timestamptz
 );

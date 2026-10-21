@@ -15,11 +15,27 @@ const SALVIA = "#8fac90";
 const SALVIA_ESCURA = "#6e8f71";
 const CREME = "#fff7e8";
 const BRANCO = "#ffffff";
+const PELE = "#f6d3bb";
+const PELE_SOMBRA = "#e6b394";
 
 const traco = { stroke: T, strokeWidth: 3.2, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
 
 /** Faixinha de tatuagem com texto. */
-function Faixa({ cx, cy, largura, texto, cor = CREME }: { cx: number; cy: number; largura: number; texto: string; cor?: string }) {
+function Faixa({
+  cx,
+  cy,
+  largura,
+  texto,
+  cor = CREME,
+  fonte = 15,
+}: {
+  cx: number;
+  cy: number;
+  largura: number;
+  texto: string;
+  cor?: string;
+  fonte?: number;
+}) {
   const e = cx - largura / 2;
   const d = cx + largura / 2;
   return (
@@ -31,13 +47,15 @@ function Faixa({ cx, cy, largura, texto, cor = CREME }: { cx: number; cy: number
         fill={cor}
         {...traco}
       />
+      {/* Centro vertical da faixa (ela é curva, então fica um pouco acima do meio). */}
       <text
         x={cx}
-        y={cy + 4}
+        y={cy - 1.5}
         textAnchor="middle"
+        dominantBaseline="central"
         fontFamily="'Caveat Variable', 'Caveat', cursive"
         fontWeight={700}
-        fontSize={15}
+        fontSize={fonte}
         fill={T}
       >
         {texto}
@@ -119,6 +137,21 @@ function Taca({ x, y, ang }: { x: number; y: number; ang: number }) {
       <circle cx={3} cy={-42} r={1.4} fill={BRANCO} />
       <circle cx={0} cy={-57} r={1.2} fill={BRANCO} />
       <path d="M-5 -74 V-68" stroke={BRANCO} strokeWidth={2.4} strokeLinecap="round" />
+    </g>
+  );
+}
+
+/** Um punho de lado (o da esquerda; o da direita é o espelho). */
+function Soquinho() {
+  return (
+    <g>
+      <rect x={-2} y={46} width={16} height={28} rx={4} fill={SALVIA} {...traco} />
+      <rect x={10} y={42} width={32} height={36} rx={9} fill={PELE} {...traco} />
+      {[42, 51, 60, 69].map((y) => (
+        <rect key={y} x={34} y={y} width={22} height={9.5} rx={4.75} fill={PELE} {...traco} strokeWidth={2.6} />
+      ))}
+      {/* polegar por cima dos dedos */}
+      <path d="M22 60 Q38 56 48 62 Q38 68 22 68 Z" fill={PELE_SOMBRA} {...traco} strokeWidth={2.4} />
     </g>
   );
 }
@@ -257,6 +290,77 @@ const desenhos: Record<string, ReactNode> = {
       <circle cx={94} cy={26} r={2} fill={OURO} stroke={T} strokeWidth={1.6} />
     </g>
   ),
+  palavra: (
+    <g>
+      {/* luz atrás */}
+      {[-70, -45, -20, 20, 45, 70].map((a) => (
+        <path key={a} d="M0 -46 V-56" transform={`translate(60 58) rotate(${a})`} stroke={OURO_ESCURO} strokeWidth={3} strokeLinecap="round" />
+      ))}
+      {/* páginas na lateral e embaixo */}
+      <path d="M38 14 H88 Q92 14 92 18 V88 Q92 92 88 92 H38 Z" fill={CREME} {...traco} />
+      <path d="M86 20 V86 M82 20 V86" stroke={T} strokeWidth={1.2} opacity={0.35} />
+      {/* capa */}
+      <rect x={28} y={10} width={58} height={78} rx={5} fill="#22395a" {...traco} />
+      <path d="M36 10 V88" stroke={T} strokeWidth={2.4} />
+      <rect x={30.5} y={12.5} width={53} height={73} rx={3.5} fill="none" stroke={OURO} strokeWidth={1.4} opacity={0.7} />
+      <path d="M57 26 H63 V36 H71 V42 H63 V62 H57 V42 H49 V36 H57 Z" fill={OURO} {...traco} strokeWidth={2.4} />
+      {/* marcador */}
+      <path d="M74 86 V100 L78 96 L82 100 V86" fill={ROSE_ESCURO} {...traco} strokeWidth={2.2} />
+      <Faixa cx={60} cy={100} largura={86} texto="Palavra de Deus" fonte={13.5} />
+    </g>
+  ),
+  oracao: (
+    <g>
+      {/* brilho do alto */}
+      {[-50, -25, 0, 25, 50].map((a) => (
+        <path key={a} d="M0 -48 V-56" transform={`translate(60 62) rotate(${a})`} stroke={OURO_ESCURO} strokeWidth={3} strokeLinecap="round" />
+      ))}
+      {/* mangas */}
+      <path d="M38 82 H60 V98 H34 Z" fill={SALVIA} {...traco} />
+      <path d="M82 82 H60 V98 H86 Z" fill={SALVIA} {...traco} />
+      {/* mão de trás (esquerda) e da frente (direita), palmas juntas */}
+      <path d="M60 12 C52 20 44 38 41 56 C39 68 40 78 42 84 H60 Z" fill={PELE_SOMBRA} {...traco} />
+      <path d="M60 12 C68 20 76 38 79 56 C81 68 80 78 78 84 H60 Z" fill={PELE} {...traco} />
+      {/* dedos */}
+      <path d="M64 24 C68 32 71 42 72 52 M61 34 C64 42 66 50 66 58" fill="none" stroke={T} strokeWidth={1.8} strokeLinecap="round" />
+      <path d="M56 24 C52 32 49 42 48 52" fill="none" stroke={T} strokeWidth={1.8} strokeLinecap="round" opacity={0.6} />
+      {/* polegar da frente */}
+      <path d="M60 62 C63 56 70 56 70 64 C70 70 66 76 60 77" fill={PELE} {...traco} strokeWidth={2.6} />
+      <Brilho x={92} y={22} r={6} />
+      <Brilho x={26} y={30} r={4.5} />
+      <Faixa cx={60} cy={104} largura={60} texto="Oração" />
+    </g>
+  ),
+  joia: (
+    <g>
+      {/* punho */}
+      <rect x={14} y={54} width={18} height={36} rx={4} fill={SALVIA} {...traco} />
+      <rect x={28} y={50} width={36} height={44} rx={10} fill={PELE} {...traco} />
+      {/* polegar para cima */}
+      <path d="M36 52 C33 38 36 24 46 16 C53 11 61 16 58 26 C56 34 54 42 56 52 Z" fill={PELE} {...traco} />
+      <path d="M44 22 Q50 20 54 24" fill="none" stroke={T} strokeWidth={1.6} strokeLinecap="round" opacity={0.6} />
+      {/* dedos dobrados */}
+      {[50, 61, 72, 83].map((y, i) => (
+        <rect key={y} x={52} y={y} width={i === 3 ? 30 : 36} height={11} rx={5.5} fill={PELE} {...traco} strokeWidth={2.8} />
+      ))}
+      <Brilho x={96} y={28} r={7} />
+      <Brilho x={80} y={14} r={4.5} />
+      <Faixa cx={60} cy={106} largura={52} texto="joia!" />
+    </g>
+  ),
+  tmj: (
+    <g>
+      {/* estalo no meio */}
+      {[-60, -30, 0, 30, 60].map((a) => (
+        <path key={a} d="M0 -26 V-36" transform={`translate(60 58) rotate(${a})`} stroke={OURO_ESCURO} strokeWidth={3} strokeLinecap="round" />
+      ))}
+      <Soquinho />
+      <g transform="translate(120 0) scale(-1 1)">
+        <Soquinho />
+      </g>
+      <Faixa cx={60} cy={96} largura={46} texto="TMJ" fonte={16} />
+    </g>
+  ),
   carta: (
     <g>
       <path d={coracao(34, 22, 9)} fill={ROSE} {...traco} strokeWidth={2.4} transform="rotate(-14 34 22)" />
@@ -277,7 +381,11 @@ export const STICKERS = [
   { id: "pomba", nome: "Pomba da paz" },
   { id: "bolo", nome: "Bolo" },
   { id: "buque", nome: "Buquê" },
-  { id: "biblia", nome: "Palavra" },
+  { id: "biblia", nome: "Bíblia aberta" },
+  { id: "palavra", nome: "Palavra de Deus" },
+  { id: "oracao", nome: "Oração" },
+  { id: "joia", nome: "Joia" },
+  { id: "tmj", nome: "TMJ" },
   { id: "brinde", nome: "Brinde" },
   { id: "carta", nome: "Cartinha" },
 ] as const;
