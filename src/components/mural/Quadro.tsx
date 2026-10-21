@@ -106,7 +106,15 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
   return (
     <>
       <div className="quadro__barra">
-        <h2 className="quadro__titulo">Nosso mural:</h2>
+        <div className="quadro__cabeca">
+          <h2 className="quadro__titulo">Nosso mural:</h2>
+          <p className="quadro__convite">
+            Vai ser um prazer ler cada <PalavraPostIt /> e responder com um sticker feito pra você!
+          </p>
+          <p className="quadro__dica">
+            Clique em um <PalavraPostIt /> para ver a nossa resposta.
+          </p>
+        </div>
         <ol className="quadro__passos" aria-label="Como colar o seu">
           <li>Destaque um <PalavraPostIt /></li>
           <li>Escreva uma mensagem aos noivos</li>
@@ -147,11 +155,6 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
           ))}
         </ul>
       </div>
-
-      <p className="quadro__rodape">
-        Vai ser um prazer ler cada <PalavraPostIt /> e responder com um sticker feito pra você! Clique em um{" "}
-        <PalavraPostIt /> para ver a nossa resposta.
-      </p>
 
       {/* Bloquinho flutuante no canto: a folha de cima é de onde sai o post-it novo. */}
       <button

@@ -410,6 +410,10 @@
   background: linear-gradient(172deg, var(--amarelo-1) 0%, var(--amarelo-2) 100%);
 }
 
+.bloquinho__extra ~ .bloquinho__pilha {
+  display: none;
+}
+
 .bloquinho__pilha:nth-child(1) {
   transform: translate(6px, 7px) rotate(2deg);
   background: var(--amarelo-2);
@@ -1160,9 +1164,10 @@
   place-items: center;
   padding: clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 5vw, 4rem);
   background:
-    radial-gradient(ellipse 55% 65% at 25% 50%, #22395a 0%, transparent 75%),
-    radial-gradient(ellipse 35% 40% at 100% 100%, rgba(226, 179, 163, 0.14) 0%, transparent 70%),
-    var(--marinho);
+    radial-gradient(ellipse 60% 70% at 25% 50%, #2b4670 0%, transparent 75%),
+    radial-gradient(ellipse 45% 50% at 100% 100%, rgba(226, 179, 163, 0.24) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 90% 0%, rgba(143, 172, 144, 0.12) 0%, transparent 70%),
+    linear-gradient(160deg, #1a2d4a 0%, var(--marinho) 55%, #101c30 100%);
   color: var(--branco);
   overflow-x: clip;
 }
@@ -1230,8 +1235,8 @@
 
 .registro__data {
   margin-top: 1rem;
-  font-size: 1.05rem;
-  color: var(--nevoa);
+  font-size: 1.12rem;
+  color: #e3e7ec;
 }
 
 .registro__data a {
@@ -1254,7 +1259,7 @@
 
 .registro__contador .contador__dias {
   display: inline;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   line-height: 1.4;
   letter-spacing: 0;
   text-shadow: none;
@@ -1268,9 +1273,9 @@
 .registro__contador .contador__resto {
   display: inline;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.98rem;
   color: var(--nevoa);
-  opacity: 0.8;
+  opacity: 0.92;
 }
 
 .registro__contador .segundos {
@@ -1298,7 +1303,7 @@
 }
 
 .registro__resposta-quem {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -1309,7 +1314,7 @@
   margin-top: 0.3rem;
   font-family: var(--font-mao);
   font-weight: 600;
-  font-size: 1.55rem;
+  font-size: 1.7rem;
   line-height: 1.2;
   color: var(--branco);
 }
@@ -1323,8 +1328,8 @@
 }
 
 .registro__deixar {
-  font-size: 0.88rem;
-  color: var(--nevoa);
+  font-size: 0.96rem;
+  color: #e3e7ec;
   text-decoration: none;
   border-bottom: 1px solid rgba(226, 179, 163, 0.5);
 }
@@ -2010,19 +2015,28 @@
   color: var(--marinho);
 }
 
-/* ---------- Frase embaixo do quadro ---------- */
+/* ---------- Texto sob o título do quadro (hierarquia: título, convite, dica) ---------- */
 
-.quadro__rodape {
-  max-width: 40rem;
-  margin: 1.75rem auto 0;
+.quadro__cabeca {
+  display: grid;
+  gap: 0.35rem;
+  max-width: 44rem;
+}
+
+.quadro__convite {
+  margin-top: 0.5rem;
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 600;
   font-variation-settings: "opsz" 11;
-  font-size: clamp(1.05rem, 2vw, 1.2rem);
-  line-height: 1.55;
-  text-align: center;
+  font-size: clamp(1rem, 1.8vw, 1.12rem);
+  line-height: 1.45;
   color: var(--marinho);
+}
+
+.quadro__dica {
+  font-size: 0.86rem;
+  letter-spacing: 0.01em;
+  color: rgba(20, 35, 59, 0.6);
 }
 
 /* ---------- Bloquinho: duas folhas coloridas espiando por trás ---------- */
@@ -2033,22 +2047,23 @@
   box-shadow: 0 6px 10px -6px rgba(20, 35, 59, 0.4);
 }
 
+/* Organizadas: as duas ficam quase alinhadas atrás, só a pontinha de cada uma aparece. */
 .bloquinho__extra--azul {
   background: linear-gradient(172deg, var(--azul-1), var(--azul-2));
-  transform: translate(-12px, 8px) rotate(-11deg);
+  transform: translate(-5px, 4px) rotate(-5deg);
 }
 
 .bloquinho__extra--rosa {
   background: linear-gradient(172deg, var(--rosa-1), var(--rosa-2));
-  transform: translate(12px, -8px) rotate(9deg);
+  transform: translate(5px, -3px) rotate(4deg);
 }
 
 .bloquinho:hover .bloquinho__extra--azul {
-  transform: translate(-16px, 10px) rotate(-14deg);
+  transform: translate(-7px, 5px) rotate(-7deg);
 }
 
 .bloquinho:hover .bloquinho__extra--rosa {
-  transform: translate(16px, -10px) rotate(12deg);
+  transform: translate(7px, -4px) rotate(6deg);
 }
 
 .bloquinho__extra {
