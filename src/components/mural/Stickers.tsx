@@ -153,8 +153,6 @@ function Soquinho() {
         {...traco}
       />
       <path d="M44 48.5 H51 M44 59 H51 M44 69 H51" stroke={T} strokeWidth={2} strokeLinecap="round" />
-      {/* polegar dobrado por cima dos dedos */}
-      <path d="M19 58 Q33 54 43 60 Q47 64 43 68 Q33 71 19 68" fill={PELE_SOMBRA} {...traco} strokeWidth={2.6} />
     </g>
   );
 }
