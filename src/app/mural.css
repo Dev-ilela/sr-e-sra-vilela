@@ -281,7 +281,7 @@
 
 .quadro__grade {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 185px), 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(2rem, 4vw, 3rem) clamp(1.4rem, 3vw, 2.4rem);
   list-style: none;
   margin: 0;
@@ -294,6 +294,9 @@
   }
   .postit__alfinete {
     width: 14%;
+  }
+  .bloquinho {
+    width: 124px;
   }
 }
 
@@ -321,6 +324,12 @@
   padding: 0;
   border: 0;
   background: none;
+  cursor: pointer;
+}
+
+/* A mãozinha em todo o papel (sem o cursor de texto por cima das letras). */
+.quadro__botao *,
+.bloquinho * {
   cursor: pointer;
 }
 
@@ -357,15 +366,15 @@
   --orelha: 0px;
   position: fixed;
   z-index: 40;
-  left: clamp(1rem, 3vw, 2rem);
-  bottom: clamp(1rem, 3vw, 2rem);
-  width: clamp(104px, 11vw, 132px);
+  right: clamp(1rem, 3vw, 2.25rem);
+  bottom: clamp(1rem, 3vw, 2.25rem);
+  width: clamp(150px, 16vw, 200px);
   aspect-ratio: 1;
   padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
-  transform: rotate(-7deg);
+  transform: rotate(5deg);
   container-type: inline-size;
   transition:
     transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -453,8 +462,8 @@
 /* No hover, a ponta de baixo vira como a orelha de uma página. */
 .bloquinho:hover,
 .bloquinho:focus-visible {
-  --orelha: 40px;
-  transform: rotate(-4deg) translateY(-4px);
+  --orelha: 52px;
+  transform: rotate(2deg) translateY(-5px);
 }
 
 .bloquinho:hover .bloquinho__mais {
@@ -1568,4 +1577,16 @@
   .noivos__botoes {
     justify-content: center;
   }
+}
+
+.noivos__cartao--salvando {
+  opacity: 0.7;
+}
+
+.noivos__erro-cartao {
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
+  background: rgba(185, 122, 116, 0.15);
+  color: var(--rose-escuro);
+  font-size: 0.9rem;
 }

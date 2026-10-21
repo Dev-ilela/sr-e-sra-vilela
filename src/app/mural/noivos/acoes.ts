@@ -84,27 +84,34 @@ export async function sair() {
   redirect("/mural/noivos");
 }
 
-export async function moderar(dados: FormData) {
-  const t = await token();
-  if (!t) redirect("/mural/noivos");
+export type ResultadoModeracao = { ok: true } | { ok: false; erro: string };
 
-  const id = String(dados.get("id") ?? "");
-  const status = String(dados.get("status") ?? "") as Status;
-  const resposta = String(dados.get("resposta") ?? "").trim().slice(0, 200);
-  const sticker = String(dados.get("sticker") ?? "");
-  if (!["pendente", "aprovado", "recusado"].includes(status)) return;
+/**
+ * Aprova, reprova ou volta para pendente. Recebe o status direto (não depende de
+ * qual botão enviou o formulário) e devolve o resultado para a tela avisar.
+ */
+export async function moderar(dados: { id: string; status: Status; resposta: string; sticker: string }): Promise<ResultadoModeracao> {
+  const t = await token();
+  if (!t) return { ok: false, erro: "Sua sessão acabou. Entre de novo." };
+
+  const { id, status } = dados;
+  if (!["pendente", "aprovado", "recusado"].includes(status) || !/^[0-9a-f-]{36}$/i.test(id)) {
+    return { ok: false, erro: "Pedido inválido." };
+  }
 
   try {
     await rpc("mural_moderar", {
       token: t,
       recado_id: id,
       novo_status: status,
-      nova_resposta: resposta || null,
-      novo_sticker: ehSticker(sticker) ? sticker : null,
+      nova_resposta: dados.resposta.trim().slice(0, 200) || null,
+      novo_sticker: ehSticker(dados.sticker) ? dados.sticker : null,
     });
   } catch (erro) {
-    if (erro instanceof SessaoInvalida) redirect("/mural/noivos");
-    throw erro;
+    if (erro instanceof SessaoInvalida) return { ok: false, erro: "Sua sessão acabou. Entre de novo." };
+    console.error("[mural] Falha ao moderar", erro);
+    const detalhe = erro instanceof Error ? ` (${erro.message.slice(0, 120)})` : "";
+    return { ok: false, erro: `Não deu para salvar agora. Tente de novo.${detalhe}` };
   }
 
   // O mural, a home e a página do post-it mostram a mudança na hora.
@@ -113,4 +120,5 @@ export async function moderar(dados: FormData) {
   revalidatePath("/mural");
   revalidatePath(`/mural/${id}`);
   revalidatePath("/mural/noivos");
+  return { ok: true };
 }

@@ -15,7 +15,8 @@ export const NOME_DA_COR: Record<CorPostIt, string> = {
 };
 
 export const LIMITE_MENSAGEM = 280;
-export const LIMITE_NOME = 60;
+/** Cabe "Gabriel Vilela e Bianca Panchorra" com folga. */
+export const LIMITE_NOME = 40;
 /** A partir de quantos caracteres o contador aparece. */
 export const MOSTRAR_CONTADOR_EM = 150;
 

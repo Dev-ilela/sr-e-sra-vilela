@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import Link from "next/link";
 import { Compartilhar } from "@/components/mural/Compartilhar";
+import { PalavraPostIt } from "@/components/mural/PalavraPostIt";
 import { PostIt, type DadosPostIt } from "@/components/mural/PostIt";
 import { animar, caixa, deVolta, limparAnimacoes } from "@/lib/animar";
 import { casamento } from "@/config/casamento";
@@ -45,8 +47,10 @@ export function Destaque({ item, origem, inclinacao, aoFechar }: Props) {
     const abrir = async () => {
       if (origem) {
         const alfinete = origem.querySelector(".postit__alfinete");
-        // O alfinete do quadro pula fora antes do papel sair.
-        await animar(
+        const de = deVolta(caixa(papelDe(origem)), caixa(p), inclinacao);
+        // O papel já começa no lugar dele no quadro (sem piscar no centro);
+        // o alfinete pula fora e, logo em seguida, o papel descola e vem.
+        animar(
           alfinete,
           [
             { transform: "translate(-50%, 0) rotate(0)", opacity: 1 },
@@ -54,7 +58,6 @@ export function Destaque({ item, origem, inclinacao, aoFechar }: Props) {
           ],
           { duration: 220, easing: "cubic-bezier(.3,.7,.4,1)" },
         );
-        const de = deVolta(caixa(papelDe(origem)), caixa(p), inclinacao);
         await animar(
           p,
           [
@@ -62,7 +65,7 @@ export function Destaque({ item, origem, inclinacao, aoFechar }: Props) {
             { transform: `${de} translateY(-10px) rotate(${-inclinacao * 0.6}deg)`, offset: 0.18 },
             { transform: "none", boxShadow: "0 40px 70px -24px rgba(20,35,59,.6)" },
           ],
-          { duration: 620, easing: "cubic-bezier(.2,.8,.2,1)" },
+          { duration: 620, delay: 200, easing: "cubic-bezier(.2,.8,.2,1)" },
         );
       } else {
         await animar(p, [{ transform: "scale(.6) rotate(-6deg)", opacity: 0 }, { transform: "none", opacity: 1 }], {
@@ -153,7 +156,14 @@ export function Destaque({ item, origem, inclinacao, aoFechar }: Props) {
             </p>
           )}
           {item.pendente && <p className="destaque__aviso">Esse é o seu. Assim que a gente ler, ele vai pro quadro de verdade.</p>}
-          {item.compartilhavel && <Compartilhar id={item.id} nome={item.nome} />}
+          {item.compartilhavel && (
+            <>
+              <Link href={`/mural/${item.id}`} className="botao botao--rose">
+                Abrir a página deste <PalavraPostIt />
+              </Link>
+              <Compartilhar id={item.id} nome={item.nome} />
+            </>
+          )}
           <button type="button" className="destaque__fechar" onClick={fechar}>
             Colar de volta no quadro
           </button>
