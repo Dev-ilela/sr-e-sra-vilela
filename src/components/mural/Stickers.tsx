@@ -50,9 +50,8 @@ function Faixa({
       {/* Centro vertical da faixa (ela é curva, então fica um pouco acima do meio). */}
       <text
         x={cx}
-        y={cy - 1.5}
+        y={cy + 1.2}
         textAnchor="middle"
-        dominantBaseline="central"
         fontFamily="'Caveat Variable', 'Caveat', cursive"
         fontWeight={700}
         fontSize={fonte}
@@ -141,17 +140,21 @@ function Taca({ x, y, ang }: { x: number; y: number; ang: number }) {
   );
 }
 
-/** Um punho de lado (o da esquerda; o da direita é o espelho). */
+/** Um punho de lado, com os nós dos dedos virados para a direita (o outro é o espelho). */
 function Soquinho() {
   return (
     <g>
-      <rect x={-2} y={46} width={16} height={28} rx={4} fill={SALVIA} {...traco} />
-      <rect x={10} y={42} width={32} height={36} rx={9} fill={PELE} {...traco} />
-      {[42, 51, 60, 69].map((y) => (
-        <rect key={y} x={34} y={y} width={22} height={9.5} rx={4.75} fill={PELE} {...traco} strokeWidth={2.6} />
-      ))}
-      {/* polegar por cima dos dedos */}
-      <path d="M22 60 Q38 56 48 62 Q38 68 22 68 Z" fill={PELE_SOMBRA} {...traco} strokeWidth={2.4} />
+      {/* manga */}
+      <rect x={2} y={48} width={18} height={30} rx={4} fill={SALVIA} {...traco} />
+      {/* mão fechada: dedos dobrados formando os nós arredondados à direita */}
+      <path
+        d="M28 38 H50 Q58 38 58 43.5 Q58 48 51 48.5 Q58 49 58 54 Q58 58.5 51 59 Q58 59.5 58 64 Q58 68.5 51 69 Q58 69.5 58 74 Q58 80 50 80 H28 Q16 80 16 69 V49 Q16 38 28 38 Z"
+        fill={PELE}
+        {...traco}
+      />
+      <path d="M44 48.5 H51 M44 59 H51 M44 69 H51" stroke={T} strokeWidth={2} strokeLinecap="round" />
+      {/* polegar dobrado por cima dos dedos */}
+      <path d="M19 58 Q33 54 43 60 Q47 64 43 68 Q33 71 19 68" fill={PELE_SOMBRA} {...traco} strokeWidth={2.6} />
     </g>
   );
 }
@@ -338,7 +341,6 @@ const desenhos: Record<string, ReactNode> = {
       <rect x={28} y={50} width={36} height={44} rx={10} fill={PELE} {...traco} />
       {/* polegar para cima */}
       <path d="M36 52 C33 38 36 24 46 16 C53 11 61 16 58 26 C56 34 54 42 56 52 Z" fill={PELE} {...traco} />
-      <path d="M44 22 Q50 20 54 24" fill="none" stroke={T} strokeWidth={1.6} strokeLinecap="round" opacity={0.6} />
       {/* dedos dobrados */}
       {[50, 61, 72, 83].map((y, i) => (
         <rect key={y} x={52} y={y} width={i === 3 ? 30 : 36} height={11} rx={5.5} fill={PELE} {...traco} strokeWidth={2.8} />
@@ -350,15 +352,17 @@ const desenhos: Record<string, ReactNode> = {
   ),
   tmj: (
     <g>
-      {/* estalo no meio */}
-      {[-60, -30, 0, 30, 60].map((a) => (
-        <path key={a} d="M0 -26 V-36" transform={`translate(60 58) rotate(${a})`} stroke={OURO_ESCURO} strokeWidth={3} strokeLinecap="round" />
-      ))}
-      <Soquinho />
-      <g transform="translate(120 0) scale(-1 1)">
+      {/* estalo do encontro */}
+      <path d="M60 30 V20 M50 33 L44 25 M70 33 L76 25" stroke={OURO_ESCURO} strokeWidth={3.2} strokeLinecap="round" />
+      <Brilho x={30} y={24} r={5} />
+      <Brilho x={92} y={22} r={6} />
+      <g transform="translate(0 -2)">
         <Soquinho />
       </g>
-      <Faixa cx={60} cy={96} largura={46} texto="TMJ" fonte={16} />
+      <g transform="translate(120 -2) scale(-1 1)">
+        <Soquinho />
+      </g>
+      <Faixa cx={60} cy={100} largura={46} texto="TMJ" fonte={16} />
     </g>
   ),
   carta: (
