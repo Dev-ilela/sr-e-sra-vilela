@@ -4,6 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { animar, caixa, deVolta, esperar, limparAnimacoes, semMovimento } from "@/lib/animar";
 import { enviadosNaUltimaHora, enviarRecado, guardarMeuRecado, type MeuRecado } from "@/lib/meusRecados";
 import { CORES, LIMITE_MENSAGEM, LIMITE_NOME, MOSTRAR_CONTADOR_EM, NOME_DA_COR, type CorPostIt } from "@/lib/recados";
+import { PalavraPostIt } from "@/components/mural/PalavraPostIt";
 
 type Props = {
   /** A folha de cima do bloquinho, de onde o post-it sai. */
@@ -75,10 +76,10 @@ export function Escritor({ origem, aoEnviar, aoFechar }: Props) {
         limparAnimacoes(p);
       }
       origem?.classList.remove("bloquinho__folha--solta");
+      // Sem "fill: none": os controles precisam continuar visíveis depois da animação.
       animar(controles.current, [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], {
         duration: 280,
         easing: "ease-out",
-        fill: "none",
       });
       p.querySelector("textarea")?.focus({ preventScroll: true });
     };
@@ -378,7 +379,7 @@ export function Escritor({ origem, aoEnviar, aoFechar }: Props) {
         {fase === "recebido" && (
           <div ref={recebido} className="escritor__recebido" role="status">
             <p className="escritor__recebido-titulo">Recebido!</p>
-            <p>Seu post-it já está com a gente. Assim que a gente ler, ele vai pro quadro.</p>
+            <p>Seu <PalavraPostIt /> já está com a gente. Assim que a gente ler, ele vai pro quadro.</p>
             <button type="button" className="botao botao--claro" onClick={fechar}>
               Voltar pro mural
             </button>

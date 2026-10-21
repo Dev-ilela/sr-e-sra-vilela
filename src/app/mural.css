@@ -345,36 +345,51 @@
   visibility: hidden;
 }
 
-/* ---------- Bloquinho ---------- */
+/* ---------- Bloquinho flutuante (canto inferior esquerdo) ---------- */
+
+@property --orelha {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
 
 .bloquinho {
-  position: relative;
-  display: block;
-  width: 100%;
+  --orelha: 0px;
+  position: fixed;
+  z-index: 40;
+  left: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  width: clamp(104px, 11vw, 132px);
   aspect-ratio: 1;
   padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
-  transform: rotate(-3deg);
+  transform: rotate(-7deg);
   container-type: inline-size;
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    --orelha 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: drop-shadow(0 14px 14px rgba(20, 35, 59, 0.35));
 }
 
 .bloquinho__pilha,
 .bloquinho__folha {
   position: absolute;
   inset: 0;
-  background: linear-gradient(172deg, var(--amarelo-1) 0%, var(--amarelo-1) 55%, var(--amarelo-2) 100%);
+}
+
+.bloquinho__pilha {
+  background: linear-gradient(172deg, var(--amarelo-1) 0%, var(--amarelo-2) 100%);
 }
 
 .bloquinho__pilha:nth-child(1) {
-  transform: translate(7px, 8px);
+  transform: translate(6px, 7px) rotate(2deg);
   background: var(--amarelo-2);
-  box-shadow: 0 14px 18px -10px rgba(20, 35, 59, 0.55);
 }
 
 .bloquinho__pilha:nth-child(2) {
-  transform: translate(3.5px, 4px);
+  transform: translate(3px, 3.5px) rotate(1deg);
   box-shadow: 0 1px 0 rgba(120, 90, 20, 0.25);
 }
 
@@ -382,50 +397,64 @@
   display: grid;
   place-content: center;
   justify-items: center;
-  gap: 0.4rem;
-  padding: 12%;
-  font-family: var(--font-mao);
+  gap: 6cqi;
+  padding: 12cqi;
   color: var(--postit-tinta);
-  transform-origin: top center;
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s;
-  box-shadow: 0 1px 0 rgba(120, 90, 20, 0.2);
+  font-family: var(--font-mao);
 }
 
-.bloquinho__folha::before {
-  content: "";
+/* O papel de cima, com o canto de baixo "dobrado" (recortado) conforme a orelha cresce. */
+.bloquinho__papel {
   position: absolute;
-  inset: 0 0 auto;
-  height: 15%;
-  background: linear-gradient(180deg, rgba(120, 90, 20, 0.08), transparent);
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(120, 90, 20, 0.08), transparent 15%),
+    linear-gradient(172deg, var(--amarelo-1) 0%, var(--amarelo-1) 55%, var(--amarelo-2) 100%);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--orelha)), calc(100% - var(--orelha)) 100%, 0 100%);
+}
+
+/* A orelha: o verso do papel virado sobre ele mesmo. */
+.bloquinho__orelha {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--orelha);
+  height: var(--orelha);
+  background: linear-gradient(135deg, #fff9cf 0%, #f3dc7a 48%, transparent 50%);
+  filter: drop-shadow(-2px -2px 3px rgba(20, 35, 59, 0.22));
+  border-radius: 0 0 0 4px;
+  pointer-events: none;
 }
 
 .bloquinho__convite {
-  font-size: 11cqi;
+  position: relative;
+  font-size: 13cqi;
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1;
   text-align: center;
 }
 
 .bloquinho__mais {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 20cqi;
+  width: 22cqi;
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--marinho);
   color: var(--amarelo-1);
   font-family: var(--font-texto);
-  font-size: 13cqi;
+  font-size: 15cqi;
   font-weight: 300;
   line-height: 1;
-  transition: transform 0.3s;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* No hover, a folha de cima já ameaça descolar. */
-.bloquinho:hover .bloquinho__folha,
-.bloquinho:focus-visible .bloquinho__folha {
-  transform: perspective(700px) rotateX(-14deg);
-  box-shadow: 0 16px 14px -10px rgba(20, 35, 59, 0.35);
+/* No hover, a ponta de baixo vira como a orelha de uma página. */
+.bloquinho:hover,
+.bloquinho:focus-visible {
+  --orelha: 40px;
+  transform: rotate(-4deg) translateY(-4px);
 }
 
 .bloquinho:hover .bloquinho__mais {
@@ -433,12 +462,17 @@
 }
 
 .bloquinho:focus-visible {
-  outline: 3px solid var(--marinho);
-  outline-offset: 8px;
+  outline: 2px dashed var(--rose-escuro);
+  outline-offset: 10px;
 }
 
 .bloquinho__folha--solta {
   visibility: hidden;
+}
+
+/* O rodapé do quadro ganha espaço para o bloquinho não cobrir os últimos post-its. */
+.mural__corpo {
+  padding-bottom: clamp(9rem, 16vw, 11rem);
 }
 
 /* ---------- Diálogos (destaque, escrever, devolutiva) ---------- */
@@ -975,7 +1009,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .postit,
-  .bloquinho__folha,
+  .bloquinho,
   .bloquinho__mais {
     transition: none;
   }

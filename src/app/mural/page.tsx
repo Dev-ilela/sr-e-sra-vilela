@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Quadro } from "@/components/mural/Quadro";
 import { casamento } from "@/config/casamento";
 import { buscarRecados } from "@/lib/recados";
+import { PalavraPostIt } from "@/components/mural/PalavraPostIt";
 
 // Busca o banco de novo a cada minuto; aprovar um post-it também atualiza na hora.
 export const revalidate = 60;
@@ -28,7 +29,9 @@ export default async function Mural() {
           </Link>
 
           <p className="lista__chapeu">Pros noivos</p>
-          <h1 className="lista__titulo">Mural de post-its</h1>
+          <h1 className="lista__titulo">
+            Mural de <PalavraPostIt plural />
+          </h1>
           <div className="mural__intro">
             <p>
               Ei, se você está aqui, provavelmente nos conhece e já faz parte da nossa história. Que tal deixar essa

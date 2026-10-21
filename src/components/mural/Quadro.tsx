@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Destaque, type ItemDestaque } from "@/components/mural/Destaque";
 import { Devolutiva } from "@/components/mural/Devolutiva";
 import { Escritor } from "@/components/mural/Escritor";
+import { PalavraPostIt } from "@/components/mural/PalavraPostIt";
 import { PostIt } from "@/components/mural/PostIt";
 import { animar } from "@/lib/animar";
 import {
@@ -85,6 +86,13 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
     setNovo(meu.id);
   }, []);
 
+  // Aberto com o mouse: ao voltar, o foco não deixa contorno no bloquinho.
+  const porMouse = useRef(false);
+  const fecharEscritor = useCallback(() => {
+    setEscrevendo(false);
+    if (porMouse.current) requestAnimationFrame(() => (document.activeElement as HTMLElement | null)?.blur());
+  }, []);
+
   const fecharDevolutiva = useCallback(() => {
     setDevolutivas((fila) => {
       if (fila[0]) {
@@ -101,7 +109,15 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
     <>
       <div className="quadro__barra">
         <p className="quadro__conta">
-          {total === 0 ? "O quadro está esperando o primeiro post-it" : total === 1 ? "1 post-it colado" : `${total} post-its colados`}
+          {total === 0 ? (
+            <>
+              O quadro está esperando o primeiro <PalavraPostIt />
+            </>
+          ) : (
+            <>
+              {total} <PalavraPostIt plural={total > 1} /> {total > 1 ? "colados" : "colado"}
+            </>
+          )}
         </p>
         <button type="button" className="botao botao--rose" onClick={() => setEscrevendo(true)}>
           Colar um post-it
@@ -110,19 +126,6 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
 
       <div className="quadro">
         <ul className="quadro__grade">
-          <li className="quadro__item quadro__item--bloquinho">
-            <button type="button" className="bloquinho" onClick={() => setEscrevendo(true)} aria-label="Escrever um post-it pros noivos">
-              <span className="bloquinho__pilha" aria-hidden="true" />
-              <span className="bloquinho__pilha" aria-hidden="true" />
-              <span ref={folha} className="bloquinho__folha">
-                <span className="bloquinho__convite">Escreva o seu post-it pros noivos</span>
-                <span className="bloquinho__mais" aria-hidden="true">
-                  +
-                </span>
-              </span>
-            </button>
-          </li>
-
           <ItemDoQuadro
             id={POST_IT_DOS_NOIVOS.id}
             dados={{ ...POST_IT_DOS_NOIVOS, compartilhavel: false }}
@@ -155,8 +158,31 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
         </ul>
       </div>
 
+      {/* Bloquinho flutuante no canto: a folha de cima é de onde sai o post-it novo. */}
+      <button
+        type="button"
+        className="bloquinho"
+        onPointerDown={() => (porMouse.current = true)}
+        onKeyDown={() => (porMouse.current = false)}
+        onClick={() => setEscrevendo(true)}
+        aria-label="Escrever um post-it pros noivos"
+      >
+        <span className="bloquinho__pilha" aria-hidden="true" />
+        <span className="bloquinho__pilha" aria-hidden="true" />
+        <span ref={folha} className="bloquinho__folha">
+          <span className="bloquinho__papel" aria-hidden="true" />
+          <span className="bloquinho__convite">
+            Escreva um <PalavraPostIt />
+          </span>
+          <span className="bloquinho__mais" aria-hidden="true">
+            +
+          </span>
+          <span className="bloquinho__orelha" aria-hidden="true" />
+        </span>
+      </button>
+
       {aberto && <Destaque item={aberto.item} origem={aberto.origem} inclinacao={aberto.incl} aoFechar={() => setAberto(null)} />}
-      {escrevendo && <Escritor origem={folha.current} aoEnviar={aoEnviar} aoFechar={() => setEscrevendo(false)} />}
+      {escrevendo && <Escritor origem={folha.current} aoEnviar={aoEnviar} aoFechar={fecharEscritor} />}
       {!escrevendo && !aberto && devolutivas[0] && <Devolutiva key={devolutivas[0].id} recado={devolutivas[0]} aoFechar={fecharDevolutiva} />}
     </>
   );

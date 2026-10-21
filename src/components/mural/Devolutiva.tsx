@@ -7,6 +7,7 @@ import { ehSticker, Sticker } from "@/components/mural/Stickers";
 import { casamento } from "@/config/casamento";
 import { animar, esperar } from "@/lib/animar";
 import type { Recado } from "@/lib/recados";
+import { PalavraPostIt } from "@/components/mural/PalavraPostIt";
 
 /**
  * Quando o post-it de quem está visitando foi aprovado: aparece o post-it,
@@ -60,7 +61,7 @@ export function Devolutiva({ recado, aoFechar }: { recado: Recado; aoFechar: () 
       <div ref={caixa} className="devolutiva__caixa">
         <p className="devolutiva__chapeu">Chegou resposta!</p>
         <h2 id="devolutiva-titulo" className="devolutiva__titulo">
-          Os noivos leram seu post-it
+          Os noivos leram seu <PalavraPostIt />
         </h2>
 
         <div className="devolutiva__cena">

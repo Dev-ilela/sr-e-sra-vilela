@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PostIt } from "@/components/mural/PostIt";
 import { buscarRecados, corDoAlfinete, POST_IT_DOS_NOIVOS } from "@/lib/recados";
+import { PalavraPostIt } from "@/components/mural/PalavraPostIt";
 
 /** Bloco na home: o post-it dos noivos bem grande e os últimos que chegaram no mural. */
 export async function ChamadaMural() {
@@ -15,10 +16,10 @@ export async function ChamadaMural() {
       <div className="vitrine__texto">
         <p className="vitrine__chapeu">Pros noivos</p>
         <h2 id="vitrine-titulo" className="vitrine__titulo">
-          Mural de post-its
+          Mural de <PalavraPostIt plural />
         </h2>
         <p className="vitrine__convite">
-          Indo ao casamento ou acompanhando de longe, deixa um recadinho pra gente. Cada post-it fica colado no nosso
+          Indo ao casamento ou acompanhando de longe, deixa um recadinho pra gente. Cada <PalavraPostIt /> fica colado no nosso
           mural, à vista de todo mundo.
         </p>
 
