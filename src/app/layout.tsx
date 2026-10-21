@@ -4,6 +4,7 @@ import "@fontsource-variable/bodoni-moda/opsz-italic.css";
 import "@fontsource-variable/jost/index.css";
 import "@fontsource-variable/caveat/index.css";
 import { casamento, dataCurta } from "@/config/casamento";
+import { SaidaSuave } from "@/components/SaidaSuave";
 import "./globals.css";
 import "./mural.css";
 
@@ -36,7 +37,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        {children}
+        <SaidaSuave />
+      </body>
     </html>
   );
 }

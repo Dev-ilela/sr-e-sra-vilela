@@ -19,8 +19,8 @@ export async function ChamadaMural() {
           Mural de <PalavraPostIt plural />
         </h2>
         <p className="vitrine__convite">
-          Indo ao casamento ou acompanhando de longe, deixa um recadinho pra gente. Cada <PalavraPostIt /> fica colado no nosso
-          mural, à vista de todo mundo.
+          Que bom ter você por aqui! Deixa um recadinho pra gente: cada <PalavraPostIt /> fica colado no nosso mural, à vista
+          de todo mundo.
         </p>
 
         {ultimos.length > 0 && (

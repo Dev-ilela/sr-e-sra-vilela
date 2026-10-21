@@ -73,8 +73,7 @@ export default async function Presentes() {
           <Ramo className="lista__ramo" />
           <div className="lista__intro">
             <p className="lista__intro-honra">
-              É uma honra ter você com a gente no começo da família que Deus está formando, seja no grande dia ou
-              acompanhando de longe.
+              É uma honra ter você por aqui, fazendo parte do começo da família que Deus está formando.
             </p>
             <p className="lista__intro-convite">
               Se desejar nos abençoar neste início, preparamos com carinho a nossa lista de presentes.

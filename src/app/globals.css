@@ -1671,3 +1671,33 @@ body {
   background: var(--rose);
   color: var(--marinho);
 }
+
+/* ---------- Transição entre páginas ---------- */
+
+/* Navegação comum (link no site): a página nova entra com fade. */
+.pagina {
+  animation: pagina-entra 0.6s cubic-bezier(0.25, 0.7, 0.25, 1);
+}
+
+@keyframes pagina-entra {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Recarregar ou abrir um link de fora: transição nativa do navegador, quando houver. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pagina {
+    animation: none;
+  }
+}
