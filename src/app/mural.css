@@ -1143,7 +1143,9 @@
     grid-template-columns: 1fr;
     text-align: center;
   }
+  /* No celular o post-it dos noivos vem por último, depois do convite, dos recentes e dos botões. */
   .vitrine__nosso {
+    order: 1;
     width: min(82vw, 330px);
   }
   .vitrine__convite {
