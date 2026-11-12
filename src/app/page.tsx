@@ -1,4 +1,5 @@
 import { Casal } from "@/components/Casal";
+import { AliancaNoiva } from "@/components/aliancas/AliancaNoiva";
 import { ChamadaPresentes } from "@/components/ChamadaPresentes";
 import { Contador } from "@/components/Contador";
 import { ChamadaMural } from "@/components/mural/ChamadaMural";
@@ -31,6 +32,9 @@ export default function Inicio() {
       </section>
 
       <Casal />
+
+      {/* Brincadeira: o solitário dela caiu bem na linha entre as fotos e os presentes. */}
+      <AliancaNoiva />
 
       <ChamadaPresentes />
 

@@ -5,7 +5,9 @@ import "@fontsource-variable/jost/index.css";
 import "@fontsource-variable/caveat/index.css";
 import { casamento, dataCurta } from "@/config/casamento";
 import { SaidaSuave } from "@/components/SaidaSuave";
+import { AliancasGlobal } from "@/components/aliancas/AliancasGlobal";
 import "./globals.css";
+import "./aliancas.css";
 import "./mural.css";
 
 const nomes = `${casamento.noivo} & ${casamento.noiva}`;
@@ -40,6 +42,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         {children}
         <SaidaSuave />
+        <AliancasGlobal />
       </body>
     </html>
   );

@@ -3,6 +3,7 @@ import Link from "next/link";
 import QRCode from "qrcode";
 import type { DadosPix } from "@/components/BotaoPix";
 import { CartaoPix } from "@/components/CartaoPix";
+import { AliancaNoivo } from "@/components/aliancas/AliancaNoivo";
 import { CartaoPresente } from "@/components/CartaoPresente";
 import { Ramo } from "@/components/Ramo";
 import { casamento } from "@/config/casamento";
@@ -130,6 +131,9 @@ export default async function Presentes() {
                 </ul>
               </section>
             )}
+
+            {/* Brincadeira: a aliança dele se perdeu aqui, entre a casa nova e os Pix. */}
+            <AliancaNoivo />
 
             {pixLivre && (
               <section className="lista__bloco" aria-labelledby="momentos">

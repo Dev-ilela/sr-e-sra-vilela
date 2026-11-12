@@ -1,0 +1,591 @@
+/* ==========================================================================
+   Brincadeira "ache as alianças"
+   ========================================================================== */
+
+.aliancas-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- As alianças perdidas pelo site ---------- */
+
+.alianca-perdida {
+  position: relative;
+  height: 0;
+  z-index: 5;
+}
+
+.alianca-perdida__botao {
+  position: absolute;
+  display: block;
+  width: 4.2rem;
+  height: 4.2rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: var(--cursor-mao, pointer);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.35s cubic-bezier(0.3, 1.5, 0.5, 1), filter 0.35s ease;
+  filter: drop-shadow(0 6px 5px rgba(20, 35, 59, 0.28));
+}
+
+.alianca-perdida__anel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* O dela fica caído em cima da linha rose que abre a seção dos presentes. */
+.alianca-perdida--noiva .alianca-perdida__botao {
+  top: 0;
+  left: calc(50% - min(13rem, 31vw));
+  transform: translate(-50%, -78%) rotate(-24deg);
+}
+
+.alianca-perdida--noiva .alianca-perdida__botao:hover,
+.alianca-perdida--noiva .alianca-perdida__botao:focus-visible {
+  transform: translate(-50%, -100%) rotate(-10deg) scale(1.1);
+  filter: drop-shadow(0 16px 10px rgba(20, 35, 59, 0.3));
+}
+
+/* O dele fica no canto direito, entre os presentes da Magalu e os de Pix. */
+.alianca-perdida--noivo .alianca-perdida__botao {
+  top: clamp(0.4rem, 2vw, 1.2rem);
+  right: clamp(0rem, 2vw, 1.5rem);
+  width: 3.8rem;
+  height: 3.8rem;
+  transform: rotate(16deg);
+}
+
+.alianca-perdida--noivo .alianca-perdida__botao:hover,
+.alianca-perdida--noivo .alianca-perdida__botao:focus-visible {
+  transform: translateY(-8px) rotate(4deg) scale(1.1);
+  filter: drop-shadow(0 14px 9px rgba(20, 35, 59, 0.28));
+}
+
+.alianca-perdida__botao:focus-visible {
+  outline: 2px solid var(--rose-escuro);
+  outline-offset: 6px;
+  border-radius: 50%;
+}
+
+/* As duas juntas, depois que a brincadeira termina. */
+.alianca-perdida__botao--par .alianca-perdida__anel--lisa {
+  transform: translate(22%, 14%) rotate(10deg) scale(0.92);
+}
+
+.alianca-perdida__botao--par .alianca-perdida__anel:not(.alianca-perdida__anel--lisa) {
+  transform: translate(-12%, -8%) rotate(-8deg);
+}
+
+/* Um brilho de vez em quando, para quem presta atenção. */
+.anel__brilho {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.alianca-perdida__anel .anel__brilho {
+  animation: anel-pisca 7s ease-in-out infinite;
+}
+
+.alianca-perdida--noivo .alianca-perdida__anel .anel__brilho {
+  animation-delay: 3.5s;
+}
+
+.alianca-perdida__botao:hover .anel__brilho {
+  animation: anel-pisca-rapido 0.9s ease-in-out infinite;
+}
+
+@keyframes anel-pisca {
+  0%,
+  86%,
+  100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+  }
+  92% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+@keyframes anel-pisca-rapido {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.5) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) rotate(45deg);
+  }
+}
+
+/* ---------- "Encontre meu par" ---------- */
+
+.encontro,
+.cerimonia {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(20, 35, 59, 0.5);
+  -webkit-backdrop-filter: blur(22px) saturate(1.1);
+  backdrop-filter: blur(22px) saturate(1.1);
+  color: var(--branco);
+  overflow: hidden;
+}
+
+.encontro::backdrop,
+.cerimonia::backdrop {
+  background: transparent;
+}
+
+.encontro__caixa {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.5rem;
+  height: 100%;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.encontro__anel {
+  filter: drop-shadow(0 20px 18px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 22px rgba(246, 220, 134, 0.35));
+}
+
+.encontro__anel svg {
+  width: 100%;
+  height: 100%;
+}
+
+.encontro__anel .anel__brilho {
+  animation: anel-pisca-rapido 1.6s ease-in-out infinite;
+}
+
+.encontro__texto {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+}
+
+.encontro__titulo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: italic;
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.05;
+}
+
+.encontro__sub {
+  font-family: var(--font-mao);
+  font-weight: 500;
+  font-size: clamp(1.35rem, 3.6vw, 1.7rem);
+  color: var(--rose);
+}
+
+.encontro__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.encontro__depois {
+  padding: 0.4rem 0.6rem;
+  border: 0;
+  background: none;
+  color: var(--nevoa);
+  font: inherit;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  cursor: var(--cursor-mao, pointer);
+}
+
+.encontro__depois--claro {
+  color: #6b7686;
+}
+
+/* Diálogo de quando acham a aliança dele antes do solitário. */
+.encontro-dica {
+  text-align: center;
+}
+
+.encontro-dica__anel {
+  display: block;
+  width: 5.5rem;
+  height: 5.5rem;
+  margin: 0 auto 0.5rem;
+  transform: rotate(14deg);
+  filter: drop-shadow(0 8px 6px rgba(20, 35, 59, 0.25));
+}
+
+/* ---------- O solitário "na mão" enquanto procura ---------- */
+
+.alianca-mao {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 3.4rem;
+  height: 3.4rem;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  filter: drop-shadow(0 8px 6px rgba(20, 35, 59, 0.35));
+  will-change: transform;
+}
+
+.alianca-mao svg {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.alianca-mao--perto svg {
+  transform: scale(1.18);
+  filter: drop-shadow(0 0 10px rgba(246, 220, 134, 0.95));
+}
+
+.alianca-mao--perto .anel__brilho {
+  animation: anel-pisca-rapido 0.7s ease-in-out infinite;
+}
+
+/* Avisinho fixo embaixo: o que fazer e como devolver. */
+.alianca-aviso {
+  position: fixed;
+  left: 50%;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 59;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: max-content;
+  max-width: calc(100% - 2rem);
+  padding: 0.5rem 0.6rem 0.5rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(20, 35, 59, 0.92);
+  color: var(--branco);
+  font-size: 0.88rem;
+  box-shadow: 0 14px 30px -14px rgba(20, 35, 59, 0.7);
+  transform: translateX(-50%);
+  animation: aviso-sobe 0.5s cubic-bezier(0.3, 1.3, 0.5, 1) both;
+}
+
+.alianca-aviso__texto strong {
+  color: var(--rose);
+  font-weight: 500;
+}
+
+.alianca-aviso__soltar {
+  flex: none;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: none;
+  color: var(--nevoa);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: var(--cursor-mao, pointer);
+}
+
+.alianca-aviso__soltar:hover {
+  color: var(--branco);
+  border-color: var(--rose);
+}
+
+@keyframes aviso-sobe {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+}
+
+/* No celular: o solitário fica num bolsinho, pronto para ser arrastado. */
+.alianca-aviso--toque {
+  left: auto;
+  right: 1rem;
+  width: auto;
+  max-width: min(22rem, calc(100% - 2rem));
+  padding-left: 0.5rem;
+  border-radius: 1.6rem;
+  transform: none;
+  animation-name: aviso-sobe-toque;
+}
+
+@keyframes aviso-sobe-toque {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.alianca-bolso {
+  flex: none;
+  width: 3.4rem;
+  height: 3.4rem;
+  padding: 0.35rem;
+  border-radius: 50%;
+  background: var(--branco);
+  box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.5);
+  touch-action: none;
+  cursor: grab;
+  transition: box-shadow 0.25s ease;
+}
+
+.alianca-bolso svg {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.alianca-bolso--perto {
+  box-shadow: 0 0 0 4px rgba(246, 220, 134, 0.7), 0 0 26px rgba(246, 220, 134, 0.9);
+}
+
+/* ---------- A cerimônia ---------- */
+
+.cerimonia {
+  background: rgba(20, 35, 59, 0.62);
+  display: grid;
+  place-items: center;
+}
+
+.cerimonia__pular {
+  position: absolute;
+  top: max(1rem, env(safe-area-inset-top));
+  right: 1rem;
+  z-index: 3;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: none;
+  color: var(--nevoa);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: var(--cursor-mao, pointer);
+}
+
+.cerimonia__palco {
+  position: absolute;
+  inset: 0;
+}
+
+.cerimonia__anel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -56px 0 0 -56px;
+  filter: drop-shadow(0 18px 14px rgba(0, 0, 0, 0.35));
+}
+
+.cerimonia__anel svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cerimonia__clarao {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 420px;
+  height: 420px;
+  margin: -210px 0 0 -210px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 246, 208, 0.95) 0%, rgba(246, 220, 134, 0.55) 25%, rgba(226, 179, 163, 0.2) 50%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cerimonia__faisca,
+.cerimonia__faisca-cena {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  background: #fff6d0;
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cerimonia__cena {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  width: min(94vw, 680px);
+  padding: 1rem;
+}
+
+.cerimonia__maos {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 18px 20px rgba(0, 0, 0, 0.3));
+}
+
+/* Brilhinhos em volta do anelar, depois que a aliança entra. */
+.cerimonia__faisca-cena {
+  top: 50%;
+}
+
+.cerimonia__faisca-cena--ela-0 {
+  left: 40%;
+  top: 34%;
+}
+.cerimonia__faisca-cena--ela-1 {
+  left: 51%;
+  top: 46%;
+  width: 12px;
+  height: 12px;
+}
+.cerimonia__faisca-cena--ela-2 {
+  left: 44%;
+  top: 64%;
+}
+.cerimonia__faisca-cena--ele-0 {
+  left: 60%;
+  top: 34%;
+}
+.cerimonia__faisca-cena--ele-1 {
+  left: 49%;
+  top: 46%;
+  width: 12px;
+  height: 12px;
+}
+.cerimonia__faisca-cena--ele-2 {
+  left: 56%;
+  top: 64%;
+}
+
+.cerimonia__legenda {
+  font-family: var(--font-mao);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 4.4vw, 2.1rem);
+  line-height: 1.1;
+  text-align: center;
+  color: var(--branco);
+  text-wrap: balance;
+}
+
+.cerimonia__fim {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  width: min(100% - 2rem, 30rem);
+  text-align: center;
+  animation: fim-aparece 0.6s cubic-bezier(0.3, 0.8, 0.3, 1) both;
+}
+
+@keyframes fim-aparece {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+}
+
+.cerimonia__par {
+  position: relative;
+  width: 11rem;
+  height: 9rem;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 18px 16px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 26px rgba(246, 220, 134, 0.35));
+}
+
+.cerimonia__par svg {
+  position: absolute;
+  width: 7.5rem;
+  height: 7.5rem;
+}
+
+.cerimonia__par-lisa {
+  right: 0;
+  bottom: 0;
+  transform: rotate(14deg);
+}
+
+.cerimonia__par-solitario {
+  left: 0;
+  top: 0;
+  transform: rotate(-12deg);
+}
+
+.cerimonia__par .anel__brilho {
+  animation: anel-pisca-rapido 1.4s ease-in-out infinite;
+}
+
+.cerimonia__chapeu {
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+.cerimonia__titulo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: italic;
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
+  line-height: 1;
+}
+
+.cerimonia__texto {
+  color: var(--nevoa);
+  line-height: 1.55;
+}
+
+.cerimonia__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.cerimonia__link {
+  color: var(--rose);
+  font-size: 0.95rem;
+  text-underline-offset: 0.25em;
+}
+
+@media (max-width: 640px) {
+  .alianca-perdida__botao {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+  .alianca-perdida--noivo .alianca-perdida__botao {
+    width: 3.1rem;
+    height: 3.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alianca-perdida__botao,
+  .alianca-mao svg {
+    transition: none;
+  }
+  .anel__brilho,
+  .alianca-aviso,
+  .cerimonia__fim {
+    animation: none !important;
+  }
+}
