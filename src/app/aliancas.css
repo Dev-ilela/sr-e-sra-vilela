@@ -176,7 +176,7 @@
   font-weight: 500;
   font-size: clamp(1.45rem, 4vw, 1.9rem);
   line-height: 1.1;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .aliancas-juntas__versiculo {

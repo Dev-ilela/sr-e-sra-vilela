@@ -28,6 +28,19 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
   const [devolutivas, setDevolutivas] = useState<Recado[]>([]);
   const [novo, setNovo] = useState<string | null>(null);
   const folha = useRef<HTMLSpanElement>(null);
+  const quadro = useRef<HTMLDivElement>(null);
+  // No celular o bloquinho só aparece quando o quadro entra na tela, para não cobrir o texto do topo.
+  const [quadroVisivel, setQuadroVisivel] = useState(true);
+
+  useEffect(() => {
+    const el = quadro.current;
+    if (!el || !("IntersectionObserver" in window)) return;
+    const observador = new IntersectionObserver(([e]) => setQuadroVisivel(e.isIntersecting || e.boundingClientRect.top < 0), {
+      rootMargin: "0px 0px -15% 0px",
+    });
+    observador.observe(el);
+    return () => observador.disconnect();
+  }, []);
 
   // Post-its deste aparelho: os que ainda esperam aparecem no quadro; os aprovados trazem a devolutiva.
   useEffect(() => {
@@ -50,7 +63,13 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
       esquecerMeusRecados(aprovadosMeus.filter((r) => devolutivaJaVista(r.id)).map((r) => r.id));
     })();
 
-    if (new URLSearchParams(window.location.search).get("escrever") === "1") {
+    // Veio de "Escrever o meu": abre o bloquinho uma vez e tira o ?escrever=1 do endereço,
+    // senão voltar/avançar no navegador ou recarregar abriria o post-it de novo sozinho.
+    const busca = new URLSearchParams(window.location.search);
+    if (busca.get("escrever") === "1") {
+      busca.delete("escrever");
+      const resto = busca.toString();
+      window.history.replaceState(window.history.state, "", `${window.location.pathname}${resto ? `?${resto}` : ""}${window.location.hash}`);
       setTimeout(() => vivo && setEscrevendo(true), 500);
     }
     return () => {
@@ -122,7 +141,7 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
         </ol>
       </div>
 
-      <div className="quadro">
+      <div className="quadro" ref={quadro}>
         <ul className="quadro__grade">
           <ItemDoQuadro
             id={POST_IT_DOS_NOIVOS.id}
@@ -159,7 +178,7 @@ export function Quadro({ recados: doServidor }: { recados: Recado[] }) {
       {/* Bloquinho flutuante no canto: a folha de cima é de onde sai o post-it novo. */}
       <button
         type="button"
-        className="bloquinho"
+        className={`bloquinho ${quadroVisivel ? "" : "bloquinho--recolhido"}`}
         onPointerDown={() => (porMouse.current = true)}
         onKeyDown={() => (porMouse.current = false)}
         onClick={() => setEscrevendo(true)}

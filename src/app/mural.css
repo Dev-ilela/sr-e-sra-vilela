@@ -497,6 +497,30 @@
   outline-offset: 10px;
 }
 
+/* Celular: enquanto o topo da página (textos e passos) está na tela, o bloquinho fica
+   guardado embaixo, para não cobrir o texto. Ele sobe quando o quadro aparece
+   (e sempre que recebe foco pelo teclado). */
+@media (max-width: 760px) {
+  .bloquinho {
+    transition:
+      transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+      translate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 0.3s ease,
+      --orelha 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .bloquinho--recolhido:not(:focus-visible) {
+    translate: 0 calc(100% + 3rem);
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 760px) and (prefers-reduced-motion: reduce) {
+  .bloquinho {
+    transition: none;
+  }
+}
+
 .bloquinho__folha--solta {
   visibility: hidden;
 }
@@ -589,7 +613,7 @@
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 600;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .destaque__aviso {
@@ -982,7 +1006,7 @@
   font-weight: 500;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .devolutiva__titulo {
@@ -1063,7 +1087,7 @@
   font-weight: 500;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .vitrine__titulo {
@@ -1128,7 +1152,7 @@
   font-family: var(--font-mao);
   font-weight: 700;
   font-size: 1.5rem;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
   text-decoration: underline;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 5px;
@@ -1420,7 +1444,7 @@
   font-weight: 500;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .noivos--fora .noivos__chapeu {
@@ -1469,7 +1493,7 @@
 }
 
 .noivos__reprovar {
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .noivos__abas {
@@ -1693,7 +1717,7 @@
   padding: 0.5rem 0.8rem;
   border-radius: 10px;
   background: rgba(185, 122, 116, 0.15);
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
   font-size: 0.9rem;
 }
 
@@ -1743,7 +1767,7 @@
 .quadro__passos li::before {
   content: counter(passo) ". ";
   font-weight: 700;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 /* ---------- Fundo da página do mural ---------- */
@@ -2005,7 +2029,7 @@
   font-weight: 700;
   font-variation-settings: "opsz" 11;
   font-size: 0.98rem;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .devolutiva__resposta-texto {
@@ -2213,7 +2237,7 @@
   font-family: var(--font-display);
   font-style: italic;
   font-size: 1.6rem;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .painel-presente__sticker {
@@ -2349,5 +2373,17 @@
   .painel-baixa__linha > button {
     grid-column: 1 / -1;
     justify-self: end;
+  }
+}
+
+/* Celular: as abas da área dos noivos cabem sem esconder a última. */
+@media (max-width: 480px) {
+  .noivos__abas {
+    gap: 0;
+  }
+  .noivos__aba {
+    padding: 0.7rem 0.55rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
   }
 }

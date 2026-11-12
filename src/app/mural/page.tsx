@@ -12,6 +12,16 @@ export const metadata: Metadata = {
   title: `Mural de post-its - ${casamento.noivo} & ${casamento.noiva}`,
   description: "Deixe um post-it de carinho pros noivos. O mural é nosso, mas é de todo mundo.",
   alternates: { canonical: "/mural" },
+  openGraph: {
+    title: `Mural de post-its - ${casamento.noivo} & ${casamento.noiva}`,
+    description: "Deixe um post-it de carinho pros noivos. O mural é nosso, mas é de todo mundo.",
+    url: "/mural",
+    siteName: `${casamento.noivo} & ${casamento.noiva}`,
+    locale: "pt_BR",
+    type: "website",
+    // Ao definir o openGraph da página, a foto do site precisa vir junto (senão o link sai sem imagem).
+    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630, alt: `${casamento.noivo} e ${casamento.noiva}` }],
+  },
 };
 
 export default async function Mural() {

@@ -19,6 +19,16 @@ export const metadata: Metadata = {
   title: `Lista de presentes - ${casamento.noivo} & ${casamento.noiva}`,
   description: "Nossa lista para o começo dessa família, com itens para a casa nova e momentos da lua de mel.",
   alternates: { canonical: "/presentes" },
+  openGraph: {
+    title: `Lista de presentes - ${casamento.noivo} & ${casamento.noiva}`,
+    description: "Nossa lista para o começo dessa família, com itens para a casa nova e momentos da lua de mel.",
+    url: "/presentes",
+    siteName: `${casamento.noivo} & ${casamento.noiva}`,
+    locale: "pt_BR",
+    type: "website",
+    // Ao definir o openGraph da página, a foto do site precisa vir junto (senão o link sai sem imagem).
+    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630, alt: `${casamento.noivo} e ${casamento.noiva}` }],
+  },
 };
 
 async function montarPix(recebedor: DadosRecebedor, valor: number | null): Promise<DadosPix> {

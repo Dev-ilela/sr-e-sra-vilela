@@ -5,6 +5,7 @@ import "@fontsource-variable/jost/index.css";
 import "@fontsource-variable/caveat/index.css";
 import { casamento, dataCurta } from "@/config/casamento";
 import { SaidaSuave } from "@/components/SaidaSuave";
+import { VersaoNova } from "@/components/VersaoNova";
 import { AliancasGlobal } from "@/components/aliancas/AliancasGlobal";
 import "./globals.css";
 import "./aliancas.css";
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         {children}
         <SaidaSuave />
+        <VersaoNova />
         <AliancasGlobal />
       </body>
     </html>

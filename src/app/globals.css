@@ -10,6 +10,8 @@
   --ouro: #c2a15f;
   --rose: #e2b3a3;
   --rose-escuro: #b97a74;
+  /* Rose para texto sobre fundo claro (contraste AA também no cinza claro). */
+  --rose-texto: #955852;
   --salvia: #8fac90;
 }
 
@@ -82,6 +84,8 @@ body {
   font-size: clamp(1.5rem, 3.2vw, 2.25rem);
   letter-spacing: 0.01em;
   color: var(--nevoa);
+  /* Halo marinho bem leve: os nomes continuam legíveis sobre o céu claro da foto. */
+  text-shadow: 0 1px 1.2rem rgba(20, 35, 59, 0.55), 0 0 0.25rem rgba(20, 35, 59, 0.25);
 }
 
 .entrada__e {
@@ -257,7 +261,7 @@ body {
   font-weight: 500;
   font-variation-settings: "opsz" 14;
   font-size: clamp(1.15rem, 2.2vw, 1.5rem);
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .casal__historia {
@@ -488,7 +492,7 @@ body {
   transform: translateX(-50%);
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .regua__hoje::after {
@@ -1154,7 +1158,7 @@ body {
 }
 
 .lista__nota a {
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
   font-weight: 600;
   text-decoration: underline;
   text-decoration-color: rgba(185, 122, 116, 0.5);
@@ -1288,7 +1292,7 @@ body {
   font: inherit;
   font-size: 0.95rem;
   font-weight: 450;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
   text-decoration: underline;
   text-decoration-color: rgba(185, 122, 116, 0.45);
   text-underline-offset: 0.25em;
@@ -1359,7 +1363,7 @@ body {
   font-weight: 500;
   font-size: 1.38rem;
   line-height: 1.12;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .presente--livre .presente__descricao {
@@ -1378,7 +1382,7 @@ body {
   font: inherit;
   font-size: 0.8rem;
   white-space: nowrap;
-  color: #7a8596;
+  color: #646f80;
   text-decoration: underline;
   text-decoration-color: rgba(122, 133, 150, 0.4);
   text-underline-offset: 0.25em;
@@ -1508,7 +1512,7 @@ body {
 
 .presente__contagem {
   font-weight: 500;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .presente__obrigado {
@@ -1517,7 +1521,7 @@ body {
   font-weight: 500;
   font-size: 1.15rem;
   line-height: 1.15;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .presente--livre .presente__bilhete {
@@ -1637,7 +1641,7 @@ body {
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .pix__chave {
@@ -1658,7 +1662,7 @@ body {
   border: 0;
   background: none;
   font: inherit;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
   text-decoration: underline;
   cursor: var(--cursor-mao, pointer);
 }
@@ -1680,7 +1684,7 @@ body {
   font-weight: 600;
   font-variant-numeric: lining-nums;
   font-size: 1.15rem;
-  color: var(--rose-escuro);
+  color: var(--rose-texto);
 }
 
 .pix__qr {
@@ -1957,5 +1961,101 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .pagina {
     animation: none;
+  }
+}
+
+/* ---------- Página não encontrada (404) ---------- */
+
+.perdido {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 3rem 1.25rem;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 40%, var(--marinho-claro) 0%, transparent 70%),
+    var(--marinho);
+  text-align: center;
+}
+
+.perdido__conteudo {
+  width: min(100%, 40rem);
+}
+
+.perdido__chapeu {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+.perdido__titulo {
+  margin-top: 0.8rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  line-height: 1.1;
+  color: var(--branco);
+}
+
+.perdido__ramo {
+  display: block;
+  width: 9rem;
+  margin: 1.4rem auto;
+}
+
+.perdido__texto {
+  color: var(--nevoa);
+  line-height: 1.6;
+}
+
+/* Cada frase numa linha; no celular quebra só se não couber. */
+.perdido__frase {
+  display: block;
+}
+
+@media (min-width: 560px) {
+  .perdido__frase {
+    white-space: nowrap;
+  }
+}
+
+.perdido__acoes {
+  margin-top: 2rem;
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+}
+
+.perdido__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 1.75rem;
+}
+
+.perdido__link {
+  color: var(--branco);
+  text-decoration: underline;
+  text-decoration-color: rgba(226, 179, 163, 0.6);
+  text-underline-offset: 0.25em;
+}
+
+.perdido__link:hover {
+  color: var(--rose);
+}
+
+.perdido__link:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Telas bem estreitas (320-380px): o texto do botão cabe numa linha só. */
+@media (max-width: 380px) {
+  .presente__botao {
+    padding-inline: 0.4rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
   }
 }

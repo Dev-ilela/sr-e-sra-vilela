@@ -25,7 +25,7 @@ export async function ChamadaMural() {
 
         {ultimos.length > 0 && (
           <Link href="/mural" className="vitrine__ultimos" aria-label="Ver os últimos post-its no mural">
-            {ultimos.map((r, i) => (
+            {ultimos.slice(0, 3).map((r, i) => (
               <span key={r.id} className="vitrine__mini postit-caixa" style={{ zIndex: 3 - i }}>
                 <PostIt {...r} sticker={null} tamanho="mini" inclinacao={[-6, 3, 8][i]} alfinete={corDoAlfinete(r.id)} />
               </span>
