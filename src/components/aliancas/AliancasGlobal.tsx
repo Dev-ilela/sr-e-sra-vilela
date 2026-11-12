@@ -21,7 +21,7 @@ function aliancaDoNoivoEm(x: number, y: number) {
 }
 
 /**
- * Fica em todas as páginas: mostra o solitário "na mão" enquanto a pessoa procura o par
+ * Fica em todas as páginas: mostra a solitária "na mão" enquanto a pessoa procura o par
  * (seguindo o cursor, ou num bolsinho no canto no celular) e roda a cerimônia quando se encontram.
  */
 export function AliancasGlobal() {
@@ -159,7 +159,7 @@ export function AliancasGlobal() {
       {carregando && (
         <div className={`alianca-aviso ${toque ? "alianca-aviso--toque" : ""}`} role="status">
           {toque && (
-            <div ref={bolso} className="alianca-bolso" onPointerDown={arrastar} aria-label="Solitário da noiva: arraste até a aliança do noivo">
+            <div ref={bolso} className="alianca-bolso" onPointerDown={arrastar} aria-label="Solitária da noiva: arraste até a aliança do noivo">
               <Solitario />
             </div>
           )}
@@ -169,9 +169,9 @@ export function AliancasGlobal() {
                 <strong>Dica:</strong> o noivo foi dar uma olhada na lista de presentes.
               </>
             ) : toque ? (
-              "Arraste até o par dele."
+              "Arraste até o par dela."
             ) : (
-              "Leve o solitário até o par dele."
+              "Leve a solitária até o par dela."
             )}
           </p>
           <button type="button" className="alianca-aviso__soltar" onClick={desistir}>

@@ -78,7 +78,7 @@ export function AliancaNoiva() {
           className="alianca-perdida__botao"
           onClick={abrir}
           style={{ visibility: aberto ? "hidden" : undefined }}
-          aria-label="Um solitário caído por aqui"
+          aria-label="Uma solitária caída por aqui"
         >
           <Solitario className="alianca-perdida__anel" />
         </button>

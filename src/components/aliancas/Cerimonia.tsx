@@ -166,7 +166,7 @@ export function Cerimonia({ noiva, noivo, aoFechar }: { noiva: Ponto; noivo: Pon
             <span key={i} className={`cerimonia__faisca-cena cerimonia__faisca-cena--${fase}-${i}`} />
           ))}
           <p ref={legenda} className="cerimonia__legenda" style={{ opacity: 0 }}>
-            {fase === "ela" ? `${casamento.noivo} coloca o solitário na ${casamento.noiva}...` : `...e a ${casamento.noiva} coloca a aliança no ${casamento.noivo}.`}
+            {fase === "ela" ? `${casamento.noivo} coloca a solitária na ${casamento.noiva}...` : `...e a ${casamento.noiva} coloca a aliança no ${casamento.noivo}.`}
           </p>
         </div>
       )}

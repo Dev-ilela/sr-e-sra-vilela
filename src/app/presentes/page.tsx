@@ -4,6 +4,7 @@ import QRCode from "qrcode";
 import type { DadosPix } from "@/components/BotaoPix";
 import { CartaoPix } from "@/components/CartaoPix";
 import { AliancaNoivo } from "@/components/aliancas/AliancaNoivo";
+import { AliancasJuntas } from "@/components/aliancas/AliancasJuntas";
 import { CartaoPresente } from "@/components/CartaoPresente";
 import { Ramo } from "@/components/Ramo";
 import { casamento } from "@/config/casamento";
@@ -138,6 +139,9 @@ export default async function Presentes() {
                 </ul>
               </section>
             )}
+
+            {/* Quem já juntou as alianças vê as duas num cantinho só delas, aqui. */}
+            <AliancasJuntas />
 
             {pixLivre && (
               <section className="lista__bloco" aria-labelledby="momentos">
