@@ -67,31 +67,39 @@ function MaoRecebe({ quem }: { quem: QuemRecebe }) {
   );
 }
 
+/** Dedo desenhado como um "tubo": traço escuro por baixo e pele por cima (contorno igual ao resto). */
+function Dedo({ d, grossura }: { d: string; grossura: number }) {
+  return (
+    <g fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <path d={d} stroke={T} strokeWidth={grossura + 5} />
+      <path d={d} stroke={PELE} strokeWidth={grossura} />
+    </g>
+  );
+}
+
 /**
- * Mão que dá: vinda da direita, de lado, com os outros dedos fechados e a aliança presa
- * entre o indicador (por cima do anelar) e o polegar (por baixo).
+ * Mão que dá, em 👌: vinda da direita, o indicador faz um gancho por cima do anelar e o
+ * polegar por baixo, e as pontas dos dois seguram a aliança. Os outros três dedos ficam para cima.
  */
 function MaoDa({ quem }: { quem: QuemRecebe }) {
   // Quem dá é o outro.
   const daEla = quem === "ele";
   return (
     <g>
-      {/* polegar */}
-      <path
-        d="M238 126 C216 122 196 117 179 112 Q166 108 165 114.5 Q165 121 177 122.5 C196 127 216 135 238 141 Z"
-        fill={PELE}
-        {...traco}
-      />
-      <path d="M171 113 q3 2.5 0 6" fill="none" stroke={PELE_SOMBRA} strokeWidth={1.6} strokeLinecap="round" />
-      {/* dorso da mão, indicador esticado e os outros dedos dobrados */}
-      <path
-        d="M300 70 C270 67 240 69 216 75 L177 79 Q163 80 163 85.5 Q163 92 177 92 L209 93 C198 97 197 105 204 109 C196 113 196 121 204 125 C198 129 200 137 210 139 C228 146 262 150 300 148 Z"
-        fill={PELE}
-        {...traco}
-      />
-      <path d="M169 81.5 q3 4 0 8" fill="none" stroke={PELE_SOMBRA} strokeWidth={1.6} strokeLinecap="round" />
-      {/* vincos dos dedos dobrados e das juntas */}
-      <path d="M211 101 q5 3 10 2 M211 117 q5 3 10 2 M196 86 v-2" fill="none" stroke={PELE_SOMBRA} strokeWidth={2} strokeLinecap="round" />
+      {/* médio, anelar e mindinho levantados, como no 👌 */}
+      <Dedo d="M236 84 C230 68 224 58 218 46" grossura={15} />
+      <Dedo d="M250 82 C248 66 246 56 243 44" grossura={14} />
+      <Dedo d="M263 84 C265 70 266 62 268 52" grossura={12} />
+      {/* polegar: sai de baixo da palma e sobe em curva até a ponta de baixo da aliança */}
+      <Dedo d="M232 136 C214 150 182 146 170 120" grossura={17} />
+      {/* indicador: arco por cima, descendo até a ponta de cima da aliança */}
+      <Dedo d="M226 88 C210 66 180 64 169 85" grossura={16} />
+      {/* unhas */}
+      <path d="M166 84 q4 -5 9 -3" fill="none" stroke={PELE_SOMBRA} strokeWidth={1.8} strokeLinecap="round" />
+      <path d="M167 121 q5 5 9 2" fill="none" stroke={PELE_SOMBRA} strokeWidth={1.8} strokeLinecap="round" />
+      {/* palma / dorso */}
+      <path d="M300 72 C270 70 240 74 224 84 C212 94 210 122 222 138 C238 150 268 152 300 150 Z" fill={PELE} {...traco} />
+      <path d="M226 96 q-4 8 0 16 M232 132 q8 2 14 0" fill="none" stroke={PELE_SOMBRA} strokeWidth={2} strokeLinecap="round" />
       <g transform="translate(560 0) scale(-1 1)">
         <Manga x={190} larg={110} cor={daEla ? VESTIDO : MARINHO} renda={daEla} />
       </g>

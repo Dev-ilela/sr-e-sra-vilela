@@ -29,7 +29,7 @@ export function AliancaNoivo() {
   };
 
   return (
-    <div className="alianca-perdida alianca-perdida--noivo">
+    <div className={`alianca-perdida alianca-perdida--noivo ${estado === "unidas" ? "alianca-perdida--juntas" : ""}`}>
       <button
         ref={botao}
         type="button"
