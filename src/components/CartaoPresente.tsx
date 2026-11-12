@@ -10,10 +10,12 @@ type Props = {
   pix: DadosPix | null;
   /** Doações confirmadas: com pelo menos uma, o item aparece como presenteado. */
   doacoes: Doacao[];
+  /** Algo escondido embaixo do card, aparecendo só a pontinha (a aliança do noivo, no último). */
+  escondido?: React.ReactNode;
 };
 
 /** Presente da lista da Magalu: o botão abre a lista deles, onde o pagamento acontece. */
-export function CartaoPresente({ presente, pix, doacoes }: Props) {
+export function CartaoPresente({ presente, pix, doacoes, escondido }: Props) {
   const doado = doacoes.length > 0;
 
   return (
@@ -64,6 +66,7 @@ export function CartaoPresente({ presente, pix, doacoes }: Props) {
           <BotaoAvisar presenteId={presente.id} titulo={presente.nome} />
         </>
       )}
+      {escondido && <div className="presente__debaixo">{escondido}</div>}
     </li>
   );
 }

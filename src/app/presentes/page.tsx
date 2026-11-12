@@ -125,15 +125,19 @@ export default async function Presentes() {
                   )}
                 </div>
                 <ul className="lista__grade">
-                  {magaluComPix.map(({ presente, pix }) => (
-                    <CartaoPresente key={presente.id} presente={presente} pix={pix} doacoes={doacoesDe(presente.id)} />
+                  {magaluComPix.map(({ presente, pix }, i) => (
+                    <CartaoPresente
+                      key={presente.id}
+                      presente={presente}
+                      pix={pix}
+                      doacoes={doacoesDe(presente.id)}
+                      // Brincadeira: a aliança dele se perdeu embaixo do último presente da casa nova.
+                      escondido={i === magaluComPix.length - 1 ? <AliancaNoivo /> : undefined}
+                    />
                   ))}
                 </ul>
               </section>
             )}
-
-            {/* Brincadeira: a aliança dele se perdeu aqui, entre a casa nova e os Pix. */}
-            <AliancaNoivo />
 
             {pixLivre && (
               <section className="lista__bloco" aria-labelledby="momentos">

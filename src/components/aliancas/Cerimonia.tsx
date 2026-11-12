@@ -179,8 +179,9 @@ export function Cerimonia({ noiva, noivo, aoFechar }: { noiva: Ponto; noivo: Pon
           </div>
           <p className="cerimonia__chapeu">Achou!</p>
           <h2 id="cerimonia-titulo" className="cerimonia__titulo">
-            Juntas de novo
+            O amor é o elo perfeito
           </h2>
+          <p className="cerimonia__versiculo">Colossenses 3:14</p>
           <p className="cerimonia__texto">
             Obrigado por ajudar a gente a se encontrar. Agora é só esperar o grande dia: {dataCurta.replaceAll("/", ".")}.
           </p>

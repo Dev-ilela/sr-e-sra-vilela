@@ -40,11 +40,12 @@ function Manga({ x, larg, cor, renda }: { x: number; larg: number; cor: string; 
 
 /** Mão que recebe: vinda da esquerda, palma para baixo, dedos para a direita. */
 function MaoRecebe({ quem }: { quem: QuemRecebe }) {
+  // Palma para baixo e polegar embaixo: de cima para baixo vêm mindinho, ANELAR, médio e indicador.
   const dedos = [
-    { y: 74, h: 18, fim: 228 },
-    { y: 94, h: 18, fim: 242 },
-    { y: 114, h: 17, fim: 234 },
-    { y: 133, h: 15, fim: 214 },
+    { y: 76, h: 15, fim: 212 },
+    { y: 93, h: 17, fim: 236 },
+    { y: 112, h: 18, fim: 246 },
+    { y: 132, h: 17, fim: 230 },
   ];
   return (
     <g>
@@ -60,29 +61,37 @@ function MaoRecebe({ quem }: { quem: QuemRecebe }) {
       ))}
       <rect x={62} y={70} width={92} height={82} rx={24} fill={PELE} {...traco} />
       {/* juntas dos dedos */}
-      <path d="M150 83 v2 M152 103 v2 M152 122 v2 M150 140 v2" stroke={PELE_SOMBRA} strokeWidth={2} strokeLinecap="round" />
+      <path d="M150 82 v2 M152 100 v2 M152 120 v2 M150 139 v2" stroke={PELE_SOMBRA} strokeWidth={2} strokeLinecap="round" />
       <Manga x={-30} larg={96} cor={quem === "ela" ? VESTIDO : MARINHO} renda={quem === "ela"} />
     </g>
   );
 }
 
-/** Mão que dá: vinda da direita, segurando a aliança em pinça. */
+/**
+ * Mão que dá: vinda da direita, de lado, com os outros dedos fechados e a aliança presa
+ * entre o indicador (por cima do anelar) e o polegar (por baixo).
+ */
 function MaoDa({ quem }: { quem: QuemRecebe }) {
   // Quem dá é o outro.
   const daEla = quem === "ele";
   return (
     <g>
-      {/* polegar por baixo do anelar, inclinado até a aliança */}
-      <g transform="rotate(12 224 148)">
-        <rect x={170} y={141} width={56} height={14} rx={7} fill={PELE} {...traco} />
-      </g>
-      {/* dedos fechados (punho) */}
-      <rect x={194} y={110} width={40} height={42} rx={16} fill={PELE} {...traco} />
-      <path d="M200 124 h10 M200 137 h10" stroke={PELE_SOMBRA} strokeWidth={2} strokeLinecap="round" />
-      {/* indicador por cima do anelar: segura a aliança junto com o polegar */}
-      <rect x={168} y={96} width={66} height={14} rx={7} fill={PELE} {...traco} />
-      <rect x={212} y={86} width={66} height={70} rx={24} fill={PELE} {...traco} />
-      <path d="M220 104 v2" stroke={PELE_SOMBRA} strokeWidth={2} strokeLinecap="round" />
+      {/* polegar */}
+      <path
+        d="M238 126 C216 122 196 117 179 112 Q166 108 165 114.5 Q165 121 177 122.5 C196 127 216 135 238 141 Z"
+        fill={PELE}
+        {...traco}
+      />
+      <path d="M171 113 q3 2.5 0 6" fill="none" stroke={PELE_SOMBRA} strokeWidth={1.6} strokeLinecap="round" />
+      {/* dorso da mão, indicador esticado e os outros dedos dobrados */}
+      <path
+        d="M300 70 C270 67 240 69 216 75 L177 79 Q163 80 163 85.5 Q163 92 177 92 L209 93 C198 97 197 105 204 109 C196 113 196 121 204 125 C198 129 200 137 210 139 C228 146 262 150 300 148 Z"
+        fill={PELE}
+        {...traco}
+      />
+      <path d="M169 81.5 q3 4 0 8" fill="none" stroke={PELE_SOMBRA} strokeWidth={1.6} strokeLinecap="round" />
+      {/* vincos dos dedos dobrados e das juntas */}
+      <path d="M211 101 q5 3 10 2 M211 117 q5 3 10 2 M196 86 v-2" fill="none" stroke={PELE_SOMBRA} strokeWidth={2} strokeLinecap="round" />
       <g transform="translate(560 0) scale(-1 1)">
         <Manga x={190} larg={110} cor={daEla ? VESTIDO : MARINHO} renda={daEla} />
       </g>
@@ -102,16 +111,16 @@ function AnelNoDedo({ solitario }: { solitario: boolean }) {
           <stop offset="1" stopColor="#b18624" />
         </linearGradient>
       </defs>
-      <rect x={solitario ? 162 : 160} y={110} width={solitario ? 7 : 10} height={25} rx={3} fill={`url(#${id}-o)`} stroke={T} strokeWidth={1.6} />
+      <rect x={solitario ? 162 : 160} y={89} width={solitario ? 7 : 10} height={25} rx={3} fill={`url(#${id}-o)`} stroke={T} strokeWidth={1.6} />
       {solitario && (
         <g>
-          <circle cx={165.5} cy={122.5} r={5.6} fill="#e9f1fb" stroke="#7d93ad" strokeWidth={1.2} />
-          <path d="M163 120.5 l2 -1" stroke="#fff" strokeWidth={1.4} strokeLinecap="round" />
+          <circle cx={165.5} cy={101.5} r={5.6} fill="#e9f1fb" stroke="#7d93ad" strokeWidth={1.2} />
+          <path d="M163 99.5 l2 -1" stroke="#fff" strokeWidth={1.4} strokeLinecap="round" />
           {[
-            [160.5, 118],
-            [170.5, 118],
-            [160.5, 127],
-            [170.5, 127],
+            [160.5, 97],
+            [170.5, 97],
+            [160.5, 106],
+            [170.5, 106],
           ].map(([x, y]) => (
             <circle key={`${x}${y}`} cx={x} cy={y} r={1.3} fill="#d9b54c" />
           ))}

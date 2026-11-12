@@ -22,8 +22,8 @@
 .alianca-perdida__botao {
   position: absolute;
   display: block;
-  width: 4.2rem;
-  height: 4.2rem;
+  width: 5rem;
+  height: 5rem;
   padding: 0;
   border: 0;
   background: none;
@@ -40,32 +40,46 @@
   height: 100%;
 }
 
-/* O dela fica caído em cima da linha rose que abre a seção dos presentes. */
+/* O dela fica caído no cantinho, na divisa entre as fotos e os presentes. */
 .alianca-perdida--noiva .alianca-perdida__botao {
   top: 0;
-  left: calc(50% - min(13rem, 31vw));
-  transform: translate(-50%, -78%) rotate(-24deg);
+  left: max(1rem, 5vw);
+  transform: translateY(-74%) rotate(-24deg);
 }
 
 .alianca-perdida--noiva .alianca-perdida__botao:hover,
 .alianca-perdida--noiva .alianca-perdida__botao:focus-visible {
-  transform: translate(-50%, -100%) rotate(-10deg) scale(1.1);
+  transform: translateY(-96%) rotate(-10deg) scale(1.1);
   filter: drop-shadow(0 16px 10px rgba(20, 35, 59, 0.3));
 }
 
-/* O dele fica no canto direito, entre os presentes da Magalu e os de Pix. */
-.alianca-perdida--noivo .alianca-perdida__botao {
-  top: clamp(0.4rem, 2vw, 1.2rem);
-  right: clamp(0rem, 2vw, 1.5rem);
-  width: 3.8rem;
-  height: 3.8rem;
-  transform: rotate(16deg);
+/* O dele fica escondido embaixo do último card da Magalu: só a pontinha aparece. */
+.presente__debaixo {
+  position: absolute;
+  top: 100%;
+  right: 12%;
+  width: 5.6rem;
+  height: 2.9rem;
+  overflow: hidden;
 }
 
+.presente__debaixo .alianca-perdida {
+  position: static;
+}
+
+.alianca-perdida--noivo .alianca-perdida__botao {
+  top: -2.1rem;
+  right: 0.3rem;
+  width: 4.8rem;
+  height: 4.8rem;
+  transform: rotate(14deg);
+}
+
+/* Ao passar o mouse, ela escorrega um pouquinho para fora do card. */
 .alianca-perdida--noivo .alianca-perdida__botao:hover,
 .alianca-perdida--noivo .alianca-perdida__botao:focus-visible {
-  transform: translateY(-8px) rotate(4deg) scale(1.1);
-  filter: drop-shadow(0 14px 9px rgba(20, 35, 59, 0.28));
+  transform: translateY(0.75rem) rotate(4deg) scale(1.05);
+  filter: drop-shadow(0 10px 7px rgba(20, 35, 59, 0.28));
 }
 
 .alianca-perdida__botao:focus-visible {
@@ -490,7 +504,7 @@
   display: grid;
   justify-items: center;
   gap: 0.6rem;
-  width: min(100% - 2rem, 30rem);
+  width: min(100% - 2rem, 40rem);
   text-align: center;
   animation: fim-aparece 0.6s cubic-bezier(0.3, 0.8, 0.3, 1) both;
 }
@@ -543,11 +557,20 @@
   font-family: var(--font-display);
   font-weight: 600;
   font-style: italic;
-  font-size: clamp(2.2rem, 7vw, 3.2rem);
-  line-height: 1;
+  font-size: clamp(2rem, 6.5vw, 3rem);
+  line-height: 1.05;
+}
+
+.cerimonia__versiculo {
+  margin-top: -0.2rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--rose);
 }
 
 .cerimonia__texto {
+  max-width: 30rem;
+  margin-top: 0.5rem;
   color: var(--nevoa);
   line-height: 1.55;
 }
@@ -569,12 +592,17 @@
 
 @media (max-width: 640px) {
   .alianca-perdida__botao {
-    width: 3.4rem;
-    height: 3.4rem;
+    width: 4rem;
+    height: 4rem;
+  }
+  .presente__debaixo {
+    width: 4.6rem;
+    height: 2.4rem;
   }
   .alianca-perdida--noivo .alianca-perdida__botao {
-    width: 3.1rem;
-    height: 3.1rem;
+    top: -1.7rem;
+    width: 4rem;
+    height: 4rem;
   }
 }
 
