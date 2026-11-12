@@ -2148,3 +2148,196 @@
 .casal__texto {
   font-weight: 560;
 }
+
+/* ---------- Área dos noivos: troca entre mural e presentes ---------- */
+
+.noivos__areas {
+  display: inline-flex;
+  margin-top: 1.25rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: rgba(20, 35, 59, 0.08);
+}
+
+.noivos__area {
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  color: var(--marinho);
+  font-size: 0.92rem;
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.noivos__area[aria-current="page"] {
+  background: var(--branco);
+  box-shadow: 0 4px 12px -6px rgba(20, 35, 59, 0.4);
+  font-weight: 500;
+  opacity: 1;
+}
+
+/* ---------- Área dos noivos: presentes ---------- */
+
+.painel-presente {
+  grid-template-columns: minmax(0, 160px) minmax(0, 1fr);
+}
+
+.painel-presente__foto {
+  position: relative;
+  align-self: start;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  padding: 10%;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(226, 179, 163, 0.5);
+}
+
+.painel-presente__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.painel-presente__pix {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--rose-escuro);
+}
+
+.painel-presente__sticker {
+  position: absolute;
+  right: -0.6rem;
+  bottom: -0.6rem;
+  width: 48%;
+  transform: rotate(9deg);
+}
+
+.painel-presente__sticker svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.painel-presente__item {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.25;
+}
+
+.painel-presente__item span {
+  font-family: var(--font-texto);
+  font-weight: 400;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.painel-presente__etiqueta {
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(143, 172, 144, 0.25);
+  font-size: 0.75rem;
+}
+
+.painel-presente__anonimo {
+  color: var(--marinho);
+}
+
+.painel-baixa__busca {
+  max-width: 24rem;
+  margin-bottom: 1.25rem;
+}
+
+.painel-baixa__lista {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.painel-baixa__item {
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  background: var(--branco);
+  box-shadow: 0 10px 24px -20px rgba(20, 35, 59, 0.45);
+}
+
+.painel-baixa__item--dado {
+  background: #fdf6ec;
+}
+
+.painel-baixa__linha {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.painel-baixa__linha .painel-presente__foto {
+  padding: 8%;
+  border-radius: 10px;
+}
+
+.painel-baixa__linha .painel-presente__pix {
+  font-size: 1rem;
+}
+
+.painel-baixa__linha .painel-presente__item {
+  font-size: 0.98rem;
+}
+
+.painel-baixa__linha .botao {
+  min-height: 2.4rem;
+  padding: 0.45rem 1rem;
+  font-size: 0.88rem;
+}
+
+.painel-baixa__form {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(185, 122, 116, 0.5);
+}
+
+.painel-baixa__form[aria-busy="true"] {
+  opacity: 0.7;
+}
+
+.painel-baixa__forma {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.painel-baixa__forma legend {
+  width: 100%;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+}
+
+.painel-baixa__form .pix__marcar,
+.painel-presente .pix__marcar {
+  color: var(--marinho);
+}
+
+@media (max-width: 640px) {
+  .painel-presente .painel-presente__foto {
+    width: min(50vw, 180px);
+    justify-self: center;
+  }
+  .painel-baixa__linha {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+  }
+  .painel-baixa__linha > button {
+    grid-column: 1 / -1;
+    justify-self: end;
+  }
+}

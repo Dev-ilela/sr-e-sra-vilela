@@ -1353,6 +1353,225 @@ body {
   background: linear-gradient(90deg, var(--rose), transparent);
 }
 
+/* Frase de cada presente: escrita à mão, no tom de bilhetinho. */
+.presente__descricao {
+  font-family: var(--font-mao);
+  font-size: 1.12rem;
+  line-height: 1.15;
+  color: var(--rose-escuro);
+}
+
+.presente--livre .presente__descricao {
+  font-family: var(--font-texto);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+/* "Já comprou? Avise a gente" */
+.presente__avisar {
+  margin-top: 0.15rem;
+  align-self: center;
+  padding: 0.2rem 0.5rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.8rem;
+  color: #7a8596;
+  text-decoration: underline;
+  text-decoration-color: rgba(122, 133, 150, 0.4);
+  text-underline-offset: 0.25em;
+  cursor: var(--cursor-mao, pointer);
+}
+
+.presente__avisar:hover {
+  color: var(--marinho);
+}
+
+.presente__avisar:focus-visible {
+  outline: 2px solid var(--rose-escuro);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Presente já dado ---------- */
+
+.presente__foto {
+  position: relative;
+}
+
+.presente--doado {
+  border-color: rgba(194, 161, 95, 0.55);
+  background: linear-gradient(170deg, #fff 0%, #fff 55%, #fdf6ec 100%);
+}
+
+.presente--doado:hover {
+  border-color: var(--ouro);
+}
+
+.presente--doado .presente__foto img {
+  filter: grayscale(0.6) opacity(0.6);
+}
+
+.presente__fita {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem 0.25rem 0.3rem;
+  border-radius: 999px;
+  background: var(--marinho);
+  color: var(--branco);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 14px -8px rgba(20, 35, 59, 0.6);
+}
+
+.presente__check {
+  display: inline-grid;
+  place-items: center;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f3d2c4 0%, var(--rose) 50%, var(--rose-escuro) 100%);
+  color: var(--marinho);
+}
+
+/* Sticker colado meio torto no canto da foto. */
+.presente__sticker {
+  position: absolute;
+  right: -0.4rem;
+  bottom: -0.6rem;
+  width: 46%;
+  max-width: 7.5rem;
+  transform: rotate(9deg);
+  pointer-events: none;
+  animation: colar 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+.presente__sticker svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.presente__sticker--pix {
+  top: 0.6rem;
+  right: 0.6rem;
+  bottom: auto;
+  width: 4.2rem;
+  transform: rotate(10deg);
+}
+
+.presente--com-doacao .presente__nome--pix {
+  padding-right: 4rem;
+}
+
+@keyframes colar {
+  from {
+    opacity: 0;
+    transform: rotate(-8deg) scale(1.35);
+  }
+}
+
+/* Bilhetinho com quem deu e o obrigado dos noivos. */
+.presente__bilhete {
+  margin-top: auto;
+  padding: 0.7rem 0.8rem;
+  border: 1px dashed rgba(185, 122, 116, 0.55);
+  border-radius: 10px;
+  background: rgba(251, 241, 237, 0.75);
+}
+
+.presente--doado .presente__bilhete {
+  margin-top: 1rem;
+}
+
+.presente__bilhete--pix {
+  margin: 0.9rem 0 0;
+}
+
+.presente__por {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #4f5b6d;
+}
+
+.presente__por strong {
+  font-weight: 500;
+  color: var(--marinho);
+}
+
+.presente__contagem {
+  font-weight: 500;
+  color: var(--rose-escuro);
+}
+
+.presente__obrigado {
+  margin-top: 0.3rem;
+  font-family: var(--font-mao);
+  font-size: 1.15rem;
+  line-height: 1.15;
+  color: var(--rose-escuro);
+}
+
+.presente--livre .presente__bilhete {
+  border-color: rgba(226, 179, 163, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.presente--livre .presente__por,
+.presente--livre .presente__por strong {
+  color: var(--nevoa);
+}
+
+.presente--livre .presente__obrigado,
+.presente--livre .presente__contagem {
+  color: var(--rose);
+}
+
+/* Quantos itens da casa já foram presenteados. */
+.lista__progresso {
+  margin-top: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  color: #4f5b6d;
+}
+
+.lista__progresso-barra {
+  width: 8rem;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--cinza);
+  overflow: hidden;
+}
+
+.lista__progresso-barra span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--rose-escuro), var(--rose));
+}
+
+/* Caixinha "não mostrar meu nome". */
+.pix__marcar {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  color: #4f5b6d;
+}
+
+.pix__marcar input {
+  width: 1.05rem;
+  height: 1.05rem;
+  accent-color: var(--rose-escuro);
+}
+
 /* ---------- Diálogo do Pix ---------- */
 
 .pix {
@@ -1560,6 +1779,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .presente__sticker {
+    animation: none;
+  }
   .presente,
   .botao {
     transition: none;
@@ -1587,6 +1809,34 @@ body {
   }
   .presente__valor {
     font-size: 1.15rem;
+  }
+  .presente__descricao {
+    font-size: 1.02rem;
+  }
+  .presente__fita {
+    top: 0.35rem;
+    left: 0.35rem;
+    padding: 0.2rem 0.5rem 0.2rem 0.22rem;
+    font-size: 0.68rem;
+  }
+  .presente__check {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+  .presente__bilhete {
+    padding: 0.55rem 0.6rem;
+  }
+  .presente__por {
+    font-size: 0.78rem;
+  }
+  .presente__obrigado {
+    font-size: 1.02rem;
+  }
+  .presente__sticker--pix {
+    width: 3.2rem;
+  }
+  .presente--com-doacao .presente__nome--pix {
+    padding-right: 2.8rem;
   }
   .presente__botao {
     min-height: 2.5rem;
@@ -1620,6 +1870,7 @@ body {
   .casal__chip,
   .pilha__mesa,
   .presente__pix,
+  .presente__avisar,
   .pix__fechar,
   .pix__chave-copiar,
   .foto-aberta__fechar,

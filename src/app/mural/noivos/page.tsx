@@ -3,6 +3,7 @@ import Link from "next/link";
 import { listarRecados, sair, type Status } from "./acoes";
 import { Avisos } from "@/components/Avisos";
 import { CartaoModeracao, FormularioEntrar } from "./Moderacao";
+import { TrocaArea } from "./TrocaArea";
 
 export const dynamic = "force-dynamic";
 
@@ -54,6 +55,8 @@ export default async function AreaDosNoivos({ searchParams }: { searchParams: Pr
           </form>
         </div>
       </header>
+
+      <TrocaArea atual="mural" />
 
       <nav className="noivos__abas" aria-label="Filtrar post-its">
         {ABAS.map((a) => (

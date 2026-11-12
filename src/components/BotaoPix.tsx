@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { emReais } from "@/lib/formato";
+import { FormularioAviso } from "@/components/presentes/FormularioAviso";
 
 export type DadosPix = {
   /** Pix copia e cola (com o valor do presente, ou sem valor na contribuição livre). */
@@ -22,17 +23,14 @@ type Props = {
   variante: "rose" | "texto";
 };
 
-type Envio = "parado" | "enviando" | "enviado" | "erro";
-
 /**
  * Botão que abre a telinha do Pix: QR Code, copia e cola, a chave e um campo opcional
- * para o convidado deixar nome e recado. O recado só registra a intenção; o site não
- * tem como confirmar o pagamento.
+ * para o convidado avisar que mandou. O aviso só aparece na lista depois que os noivos
+ * conferem o Pix e confirmam.
  */
 export function BotaoPix({ titulo, valor, presenteId, pix, rotulo, variante }: Props) {
   const dialogo = useRef<HTMLDialogElement>(null);
   const [copiado, setCopiado] = useState<"codigo" | "chave" | null>(null);
-  const [envio, setEnvio] = useState<Envio>("parado");
 
   const abrir = () => dialogo.current?.showModal();
   const fechar = () => dialogo.current?.close();
@@ -45,39 +43,6 @@ export function BotaoPix({ titulo, valor, presenteId, pix, rotulo, variante }: P
     } catch {
       // Sem permissão de área de transferência: seleciona o código para copiar na mão.
       dialogo.current?.querySelector<HTMLTextAreaElement>(".pix__codigo")?.select();
-    }
-  };
-
-  const avisar = async (evento: React.FormEvent<HTMLFormElement>) => {
-    evento.preventDefault();
-    const dados = new FormData(evento.currentTarget);
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const chave = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-    if (!url || !chave) {
-      setEnvio("erro");
-      return;
-    }
-
-    setEnvio("enviando");
-    try {
-      const resposta = await fetch(`${url}/rest/v1/contribuicoes_pix`, {
-        method: "POST",
-        headers: {
-          apikey: chave,
-          "Content-Type": "application/json",
-          // O convidado não pode ler a tabela, então não pedimos a linha de volta.
-          Prefer: "return=minimal",
-        },
-        body: JSON.stringify({
-          presente_id: presenteId,
-          nome_convidado: String(dados.get("nome") ?? "").trim(),
-          mensagem: String(dados.get("mensagem") ?? "").trim() || null,
-          valor,
-        }),
-      });
-      setEnvio(resposta.ok ? "enviado" : "erro");
-    } catch {
-      setEnvio("erro");
     }
   };
 
@@ -130,29 +95,12 @@ export function BotaoPix({ titulo, valor, presenteId, pix, rotulo, variante }: P
             </button>
           </p>
 
-          {envio === "enviado" ? (
-            <p className="pix__obrigado">Recebemos seu recado. Obrigado por nos abençoar!</p>
-          ) : (
-            <form className="pix__form" onSubmit={avisar}>
-              <p className="pix__form-titulo">Conta pra gente quem enviou?</p>
-              <label className="pix__campo">
-                <span>Seu nome</span>
-                <input name="nome" required minLength={2} maxLength={120} autoComplete="name" />
-              </label>
-              <label className="pix__campo">
-                <span>Recado para os noivos (opcional)</span>
-                <textarea name="mensagem" rows={3} maxLength={1000} />
-              </label>
-              <button type="submit" className="botao botao--contorno" disabled={envio === "enviando"}>
-                {envio === "enviando" ? "Enviando..." : "Avisar os noivos"}
-              </button>
-              {envio === "erro" && (
-                <p className="pix__erro" role="alert">
-                  Não deu para enviar agora. O Pix funciona do mesmo jeito; se puder, tente de novo mais tarde.
-                </p>
-              )}
-            </form>
-          )}
+          <FormularioAviso
+            presenteId={presenteId}
+            forma="pix"
+            titulo="Já mandou? Conta pra gente quem foi"
+            textoBotao="Avisar os noivos"
+          />
         </div>
       </dialog>
     </>

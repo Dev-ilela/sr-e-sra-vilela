@@ -6,7 +6,7 @@ import { CartaoPix } from "@/components/CartaoPix";
 import { CartaoPresente } from "@/components/CartaoPresente";
 import { Ramo } from "@/components/Ramo";
 import { casamento } from "@/config/casamento";
-import { buscarPresentes } from "@/lib/presentes";
+import { buscarDoacoes, buscarPresentes } from "@/lib/presentes";
 import { gerarPixCopiaECola, recebedorDoAmbiente, type DadosRecebedor } from "@/lib/pix";
 
 // A lista é estática, mas busca o banco de novo a cada 5 minutos
@@ -31,10 +31,15 @@ async function montarPix(recebedor: DadosRecebedor, valor: number | null): Promi
 }
 
 export default async function Presentes() {
-  const presentes = await buscarPresentes();
+  const [presentes, doacoes] = await Promise.all([buscarPresentes(), buscarDoacoes()]);
+  const doacoesDe = (id: string) => doacoes.get(id) ?? [];
   const recebedor = recebedorDoAmbiente();
 
-  const daMagalu = presentes?.filter((p) => p.tipo === "magalu") ?? [];
+  // Os já presenteados vão para o fim, para quem chega ver primeiro o que ainda falta.
+  const daMagalu = (presentes?.filter((p) => p.tipo === "magalu") ?? []).sort(
+    (a, b) => Number(doacoesDe(a.id).length > 0) - Number(doacoesDe(b.id).length > 0),
+  );
+  const jaPresenteados = daMagalu.filter((p) => doacoesDe(p.id).length > 0).length;
   const soPix = presentes?.filter((p) => p.tipo === "pix") ?? [];
 
   if (!recebedor && soPix.length) {
@@ -111,10 +116,18 @@ export default async function Presentes() {
                       Você pode presentear por lá ou, se preferir, enviar o valor via Pix.
                     </span>
                   </p>
+                  {jaPresenteados > 0 && (
+                    <p className="lista__progresso">
+                      <span className="lista__progresso-barra" aria-hidden="true">
+                        <span style={{ width: `${(jaPresenteados / daMagalu.length) * 100}%` }} />
+                      </span>
+                      {jaPresenteados} de {daMagalu.length} já presenteados
+                    </p>
+                  )}
                 </div>
                 <ul className="lista__grade">
                   {magaluComPix.map(({ presente, pix }) => (
-                    <CartaoPresente key={presente.id} presente={presente} pix={pix} />
+                    <CartaoPresente key={presente.id} presente={presente} pix={pix} doacoes={doacoesDe(presente.id)} />
                   ))}
                 </ul>
               </section>
@@ -136,7 +149,9 @@ export default async function Presentes() {
                       descricao={presente.descricao}
                       valor={presente.valor}
                       presenteId={presente.id}
+                      sticker={presente.sticker}
                       pix={pix}
+                      doacoes={doacoesDe(presente.id)}
                     />
                   ))}
                   <CartaoPix
@@ -144,7 +159,9 @@ export default async function Presentes() {
                     descricao="Prefere escolher o valor? O Pix vai sem valor definido e você digita quanto quiser no app do banco."
                     valor={null}
                     presenteId={null}
+                    sticker="presente"
                     pix={pixLivre}
+                    doacoes={doacoes.get("livre") ?? []}
                   />
                 </ul>
               </section>

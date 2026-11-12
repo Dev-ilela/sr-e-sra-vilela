@@ -6,22 +6,22 @@ import type { ReactNode } from "react";
  * Os noivos escolhem um ao aprovar cada post-it.
  */
 
-const T = "#14233b"; // traço
-const ROSE = "#e2b3a3";
-const ROSE_ESCURO = "#b97a74";
-const OURO = "#e7c46f";
-const OURO_ESCURO = "#c2a15f";
-const SALVIA = "#8fac90";
-const SALVIA_ESCURA = "#6e8f71";
-const CREME = "#fff7e8";
-const BRANCO = "#ffffff";
-const PELE = "#f6d3bb";
-const PELE_SOMBRA = "#e6b394";
+export const T = "#14233b"; // traço
+export const ROSE = "#e2b3a3";
+export const ROSE_ESCURO = "#b97a74";
+export const OURO = "#e7c46f";
+export const OURO_ESCURO = "#c2a15f";
+export const SALVIA = "#8fac90";
+export const SALVIA_ESCURA = "#6e8f71";
+export const CREME = "#fff7e8";
+export const BRANCO = "#ffffff";
+export const PELE = "#f6d3bb";
+export const PELE_SOMBRA = "#e6b394";
 
-const traco = { stroke: T, strokeWidth: 3.2, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
+export const traco = { stroke: T, strokeWidth: 3.2, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
 
 /** Faixinha de tatuagem com texto. */
-function Faixa({
+export function Faixa({
   cx,
   cy,
   largura,
@@ -63,7 +63,7 @@ function Faixa({
   );
 }
 
-function Brilho({ x, y, r = 6 }: { x: number; y: number; r?: number }) {
+export function Brilho({ x, y, r = 6 }: { x: number; y: number; r?: number }) {
   const q = r * 0.28;
   return (
     <path
@@ -76,7 +76,7 @@ function Brilho({ x, y, r = 6 }: { x: number; y: number; r?: number }) {
   );
 }
 
-function coracao(cx: number, cy: number, s: number) {
+export function coracao(cx: number, cy: number, s: number) {
   // Coração de tatuagem com ponta em (cx, cy + s).
   return `M${cx} ${cy + s} C${cx - s * 1.05} ${cy + s * 0.35}, ${cx - s * 1.25} ${cy - s * 0.35}, ${cx - s * 0.95} ${cy - s * 0.75}
     C${cx - s * 0.65} ${cy - s * 1.15}, ${cx - s * 0.15} ${cy - s * 1.05}, ${cx} ${cy - s * 0.6}
@@ -111,7 +111,7 @@ function Flor({ cx, cy, r, cor, miolo }: { cx: number; cy: number; r: number; co
   );
 }
 
-function Folha({ x, y, ang, tam = 9 }: { x: number; y: number; ang: number; tam?: number }) {
+export function Folha({ x, y, ang, tam = 9 }: { x: number; y: number; ang: number; tam?: number }) {
   return (
     <path
       d={`M0 0 Q${tam * 0.6} ${-tam * 0.55} ${tam * 1.6} 0 Q${tam * 0.6} ${tam * 0.55} 0 0 Z`}
@@ -157,7 +157,7 @@ function Soquinho() {
   );
 }
 
-const desenhos: Record<string, ReactNode> = {
+export const desenhos: Record<string, ReactNode> = {
   aliancas: (
     <g>
       {/* aliança de trás */}
