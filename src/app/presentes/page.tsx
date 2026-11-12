@@ -35,10 +35,8 @@ export default async function Presentes() {
   const doacoesDe = (id: string) => doacoes.get(id) ?? [];
   const recebedor = recebedorDoAmbiente();
 
-  // Os já presenteados vão para o fim, para quem chega ver primeiro o que ainda falta.
-  const daMagalu = (presentes?.filter((p) => p.tipo === "magalu") ?? []).sort(
-    (a, b) => Number(doacoesDe(a.id).length > 0) - Number(doacoesDe(b.id).length > 0),
-  );
+  // Os presenteados ficam no mesmo lugar da lista; só mudam de cara.
+  const daMagalu = presentes?.filter((p) => p.tipo === "magalu") ?? [];
   const jaPresenteados = daMagalu.filter((p) => doacoesDe(p.id).length > 0).length;
   const soPix = presentes?.filter((p) => p.tipo === "pix") ?? [];
 

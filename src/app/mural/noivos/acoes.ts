@@ -42,7 +42,9 @@ export async function entrar(_estado: string | null, dados: FormData): Promise<s
     path: "/mural/noivos",
     maxAge: 60 * 60 * 24 * 30,
   });
-  redirect("/mural/noivos");
+  // Volta para a tela de onde veio (mural ou presentes), sempre dentro da área dos noivos.
+  const voltar = String(dados.get("voltar") ?? "");
+  redirect(voltar === "/mural/noivos/presentes" ? voltar : "/mural/noivos");
 }
 
 export async function sair() {

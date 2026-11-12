@@ -37,7 +37,7 @@ export default async function PainelPresentes({ searchParams }: { searchParams: 
   if (lista === null) {
     return (
       <main className="noivos noivos--fora">
-        <FormularioEntrar />
+        <FormularioEntrar titulo="Lista de presentes" voltar="/mural/noivos/presentes" />
       </main>
     );
   }

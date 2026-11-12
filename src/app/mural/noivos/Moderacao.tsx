@@ -11,12 +11,13 @@ import { avisar } from "@/components/Avisos";
 import { entrar, moderar, type Status } from "./acoes";
 import { amassarEJogar, recolher, virarAviao } from "./animacoes";
 
-export function FormularioEntrar() {
+export function FormularioEntrar({ titulo = "Mural de post-its", voltar = "/mural/noivos" }: { titulo?: string; voltar?: string }) {
   const [erro, acao] = useActionState(entrar, null);
   return (
     <form action={acao} className="noivos__entrar">
+      <input type="hidden" name="voltar" value={voltar} />
       <p className="noivos__chapeu">Área dos noivos</p>
-      <h1 className="noivos__titulo">Mural de post-its</h1>
+      <h1 className="noivos__titulo">{titulo}</h1>
       <label className="noivos__campo">
         <span>Senha</span>
         <input type="password" name="senha" autoComplete="current-password" required autoFocus />

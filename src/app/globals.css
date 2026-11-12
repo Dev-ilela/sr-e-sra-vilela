@@ -1357,8 +1357,8 @@ body {
 .presente__descricao {
   font-family: var(--font-mao);
   font-weight: 500;
-  font-size: 1.2rem;
-  line-height: 1.15;
+  font-size: 1.38rem;
+  line-height: 1.12;
   color: var(--rose-escuro);
 }
 
@@ -1814,7 +1814,7 @@ body {
     font-size: 1.15rem;
   }
   .presente__descricao {
-    font-size: 1.08rem;
+    font-size: 1.22rem;
   }
   .presente__avisar {
     font-size: 0.72rem;
