@@ -2199,6 +2199,16 @@
   object-fit: contain;
 }
 
+.painel-presente__foto--pix {
+  padding: 14%;
+  background: linear-gradient(160deg, #fff 0%, #fbefea 100%);
+}
+
+.painel-presente__foto--pix svg {
+  width: 100%;
+  height: 100%;
+}
+
 .painel-presente__pix {
   font-family: var(--font-display);
   font-style: italic;

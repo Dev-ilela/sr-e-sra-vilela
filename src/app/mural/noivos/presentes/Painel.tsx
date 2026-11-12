@@ -54,16 +54,19 @@ function Carregando({ texto }: { texto: string }) {
   );
 }
 
-/** Foto (ou sticker, no Pix) do presente, com o sticker colado por cima. */
+/** Foto do item com o sticker colado; no Pix, que não tem foto, o próprio sticker aparece grande. */
 function Miniatura({ imagem, sticker, nome }: { imagem: string | null; sticker: string | null; nome: string }) {
+  if (!imagem) {
+    return (
+      <div className="painel-presente__foto painel-presente__foto--pix">
+        {sticker ? <StickerPresente id={sticker} titulo={nome} /> : <span className="painel-presente__pix">Pix</span>}
+      </div>
+    );
+  }
   return (
     <div className="painel-presente__foto">
-      {imagem ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={imagem} alt="" loading="lazy" />
-      ) : (
-        <span className="painel-presente__pix">Pix</span>
-      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={imagem} alt="" loading="lazy" />
       {sticker && (
         <span className="painel-presente__sticker">
           <StickerPresente id={sticker} titulo={nome} />

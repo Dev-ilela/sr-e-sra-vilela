@@ -1356,7 +1356,8 @@ body {
 /* Frase de cada presente: escrita à mão, no tom de bilhetinho. */
 .presente__descricao {
   font-family: var(--font-mao);
-  font-size: 1.12rem;
+  font-weight: 500;
+  font-size: 1.2rem;
   line-height: 1.15;
   color: var(--rose-escuro);
 }
@@ -1376,6 +1377,7 @@ body {
   background: none;
   font: inherit;
   font-size: 0.8rem;
+  white-space: nowrap;
   color: #7a8596;
   text-decoration: underline;
   text-decoration-color: rgba(122, 133, 150, 0.4);
@@ -1512,6 +1514,7 @@ body {
 .presente__obrigado {
   margin-top: 0.3rem;
   font-family: var(--font-mao);
+  font-weight: 500;
   font-size: 1.15rem;
   line-height: 1.15;
   color: var(--rose-escuro);
@@ -1811,7 +1814,11 @@ body {
     font-size: 1.15rem;
   }
   .presente__descricao {
-    font-size: 1.02rem;
+    font-size: 1.08rem;
+  }
+  .presente__avisar {
+    font-size: 0.72rem;
+    padding: 0.2rem 0;
   }
   .presente__fita {
     top: 0.35rem;
