@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import "@fontsource-variable/bodoni-moda/opsz.css";
 import "@fontsource-variable/bodoni-moda/opsz-italic.css";
 import "@fontsource-variable/jost/index.css";
@@ -44,6 +45,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {children}
         <SaidaSuave />
         <VersaoNova />
+        {/* Visitas (Vercel Web Analytics): sem cookies, só contagem de acessos e páginas. */}
+        <Analytics />
         <AliancasGlobal />
       </body>
     </html>
