@@ -1978,7 +1978,7 @@ body {
 }
 
 .perdido__conteudo {
-  width: min(100%, 40rem);
+  width: min(100%, 48rem);
 }
 
 .perdido__chapeu {
@@ -2103,7 +2103,7 @@ body {
 .zoe__frase {
   min-height: 1.6em;
   font-family: var(--font-mao);
-  font-size: clamp(1.35rem, 3.6vw, 1.6rem);
+  font-size: clamp(1.7rem, 5vw, 2rem);
   line-height: 1.2;
   color: var(--rose);
   text-wrap: balance;
