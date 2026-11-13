@@ -3,17 +3,19 @@ import Link from "next/link";
 import { Ramo } from "@/components/Ramo";
 import { PalavraPostIt } from "@/components/mural/PalavraPostIt";
 import { casamento } from "@/config/casamento";
+import { ZoePerdida } from "@/components/ZoePerdida";
 
 export const metadata: Metadata = {
   title: `Página não encontrada - ${casamento.noivo} & ${casamento.noiva}`,
   robots: { index: false },
 };
 
-/** 404 no estilo do site: quem cair num link quebrado acha o caminho de volta. */
+/** 404 no estilo do site: a Zoe aparece procurando a página e mostra o caminho de volta. */
 export default function NaoEncontrada() {
   return (
     <main className="perdido">
       <div className="perdido__conteudo">
+        <ZoePerdida />
         <p className="perdido__chapeu">Página não encontrada</p>
         <h1 className="perdido__titulo">Esse caminho não existe</h1>
         <Ramo className="perdido__ramo" />

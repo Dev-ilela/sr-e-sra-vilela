@@ -2059,3 +2059,65 @@ body {
     white-space: nowrap;
   }
 }
+
+/* A Zoe na página não encontrada: uma foto sorteada, redonda com aro rose ou recortada. */
+.zoe {
+  margin: 0 auto 1.6rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+}
+
+.zoe__palco {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 22rem);
+  height: clamp(11rem, 42vw, 15rem);
+}
+
+.zoe__foto {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  animation: zoe-chega 0.7s cubic-bezier(0.2, 0.8, 0.2, 1.2) both;
+}
+
+.zoe__foto--redondo {
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(var(--marinho), var(--marinho)) padding-box,
+    linear-gradient(135deg, #f3d2c4, var(--rose) 45%, var(--rose-escuro)) border-box;
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.6);
+}
+
+.zoe__foto--recorte {
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.45));
+}
+
+.zoe__frase {
+  min-height: 1.6em;
+  font-family: var(--font-mao);
+  font-size: clamp(1.35rem, 3.6vw, 1.6rem);
+  line-height: 1.2;
+  color: var(--rose);
+  text-wrap: balance;
+}
+
+@keyframes zoe-chega {
+  from {
+    opacity: 0;
+    transform: translateY(14px) rotate(-4deg) scale(0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zoe__foto {
+    animation: none;
+  }
+}
