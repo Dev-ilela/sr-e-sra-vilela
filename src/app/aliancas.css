@@ -53,6 +53,78 @@
   filter: drop-shadow(0 16px 10px rgba(20, 35, 59, 0.3));
 }
 
+/* Bilhetinho escrito à mão ao lado do solitário, com uma setinha apontando para ele. */
+.alianca-dica {
+  position: absolute;
+  top: -4.6rem;
+  left: calc(max(1rem, 5vw) + 6.2rem);
+  display: flex;
+  align-items: flex-end;
+  gap: 0.15rem;
+  margin: 0;
+  color: var(--rose-texto);
+  font-family: var(--font-mao);
+  font-size: clamp(1.15rem, 3.6vw, 1.45rem);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: var(--cursor-mao, pointer);
+  transform: rotate(-4deg);
+  transform-origin: left bottom;
+  animation: dica-chega 0.6s 0.8s cubic-bezier(0.3, 1.3, 0.5, 1) both;
+}
+
+.alianca-dica__seta {
+  flex: none;
+  width: 2.6rem;
+  height: auto;
+  margin-bottom: -1.1rem;
+  animation: dica-aponta 2.4s 1.4s ease-in-out infinite;
+}
+
+@keyframes dica-chega {
+  from {
+    opacity: 0;
+    transform: translateY(8px) rotate(-4deg);
+  }
+}
+
+@keyframes dica-aponta {
+  0%, 60%, 100% {
+    transform: none;
+  }
+  30% {
+    transform: translate(-4px, 3px);
+  }
+}
+
+/* O solitário dá uma "piscadinha" de tempos em tempos, pedindo para ser pego. */
+.alianca-perdida--noiva .alianca-perdida__botao::before {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border: 2px solid var(--rose);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  animation: anel-chama 3.2s 1.6s ease-out infinite;
+}
+
+.alianca-perdida--noiva .alianca-perdida__botao:hover::before,
+.alianca-perdida--noiva .alianca-perdida__botao:focus-visible::before {
+  animation: none;
+}
+
+@keyframes anel-chama {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.6);
+  }
+  45%, 100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
 /* O dele fica escondido embaixo do último card da Magalu: só a pontinha aparece.
    O recorte é só em cima (na borda do card), para a sombra ter espaço dos outros lados. */
 .presente__debaixo {
@@ -695,6 +767,10 @@
     width: 5.2rem;
     height: 2.8rem;
   }
+  .alianca-dica {
+    top: -3.9rem;
+    left: calc(max(1rem, 5vw) + 4.9rem);
+  }
   .alianca-perdida--noivo .alianca-perdida__botao {
     top: -2rem;
     width: 4.6rem;
@@ -709,6 +785,9 @@
   }
   .anel__brilho,
   .alianca-aviso,
+  .alianca-dica,
+  .alianca-dica__seta,
+  .alianca-perdida--noiva .alianca-perdida__botao::before,
   .cerimonia__fim {
     animation: none !important;
   }

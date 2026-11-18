@@ -84,6 +84,17 @@ export function AliancaNoiva() {
         </button>
       )}
 
+      {/* Bilhetinho para chamar atenção: muita gente não percebia que dava para clicar no anel. */}
+      {estado === "perdidas" && !aberto && (
+        <p className="alianca-dica" aria-hidden="true" onClick={abrir}>
+          <svg className="alianca-dica__seta" viewBox="0 0 60 40" fill="none">
+            <path d="M56 8C40 4 22 8 10 26" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+            <path d="M6 16l3.5 11.5L21 25" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span>Psiu! Caiu uma aliança aqui</span>
+        </p>
+      )}
+
       {estado === "unidas" && (
         <button ref={botao} type="button" className="alianca-perdida__botao alianca-perdida__botao--par" onClick={rever} aria-label="As alianças juntas: ver de novo">
           <AliancaLisa className="alianca-perdida__anel alianca-perdida__anel--lisa" />
